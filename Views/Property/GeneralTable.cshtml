@@ -1,0 +1,6 @@
+﻿@model PropertyListViewModel
+
+<h1>List of our eiendoms (@Model.CurrentViewName)</h1>
+<a class="btn btn-outline-danger" asp-action="GeneralGrid"> Grid view</a>
+
+<partial name="_TableLayout" model="Model.properties" />

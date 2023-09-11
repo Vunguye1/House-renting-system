@@ -1,0 +1,7 @@
+﻿@model PropertyListViewModel
+
+<h1>List of our houses (@Model.CurrentViewName)</h1>
+<a class="btn btn-outline-danger" asp-action="HouseGrid"> Grid view</a>
+
+
+<partial name="_TableLayout" model="Model.properties" />

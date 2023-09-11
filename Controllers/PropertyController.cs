@@ -56,5 +56,13 @@ namespace Project1.Controllers
             var listmodel = new PropertyListViewModel(propertylist, "HouseTable");
             return View(listmodel);
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var item = await _propertyDbContext.Properties.FirstOrDefaultAsync(i => i.PropertyId == id);
+            if (item == null)
+                return NotFound();
+            return View(item);
+        }
     }
 }
