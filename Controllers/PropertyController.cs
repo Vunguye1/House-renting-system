@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Project1.Models;
 using Project1.ViewModels;
 
@@ -14,44 +15,44 @@ namespace Project1.Controllers
             _propertyDbContext = propertyDbContext;
         }
 
-        public IActionResult GeneralGrid() // this view will return both leilighet and hus
+        public async Task<IActionResult> GeneralGrid() // this view will return both leilighet and hus
         {
-            List<Property> propertylist = _propertyDbContext.Properties.ToList();
+            List<Property> propertylist = await _propertyDbContext.Properties.ToListAsync();
             var listmodel = new PropertyListViewModel(propertylist, "GeneralGrid");
             return View(listmodel);
         }
 
-        public IActionResult GeneralTable() // general table view
+        public async Task<IActionResult> GeneralTable() // general table view
         {
-            List<Property> propertylist = _propertyDbContext.Properties.ToList();
+            List<Property> propertylist = await _propertyDbContext.Properties.ToListAsync();
             var listmodel = new PropertyListViewModel(propertylist, "GeneralTable");
             return View(listmodel);
         }
 
-        public IActionResult ApartmentGrid() // only apartments, grid layout
+        public async Task<IActionResult> ApartmentGrid() // only apartments, grid layout
         {
-            List<Property> propertylist = _propertyDbContext.Properties.ToList();
+            List<Property> propertylist = await _propertyDbContext.Properties.Where(p => p.Type == "Apartment").ToListAsync();
             var listmodel = new PropertyListViewModel(propertylist, "ApartmentGrid");
             return View(listmodel);
         }
 
-        public IActionResult ApartmentTable() // only apartments, table layout
+        public async Task<IActionResult> ApartmentTable() // only apartments, table layout
         {
-            List<Property> propertylist = _propertyDbContext.Properties.ToList();
+            List<Property> propertylist = await _propertyDbContext.Properties.Where(p => p.Type == "Apartment").ToListAsync();
             var listmodel = new PropertyListViewModel(propertylist, "ApartmentTable");
             return View(listmodel);
         }
 
-        public IActionResult HouseGrid() // only houses, grid layout
+        public async Task<IActionResult> HouseGrid() // only houses, grid layout
         {
-            List<Property> propertylist = _propertyDbContext.Properties.ToList();
+            List<Property> propertylist = await _propertyDbContext.Properties.Where(p => p.Type == "House").ToListAsync();
             var listmodel = new PropertyListViewModel(propertylist, "HouseGrid");
             return View(listmodel);
         }
 
-        public IActionResult HouseTable() // only houses, table layout
+        public async Task<IActionResult> HouseTable() // only houses, table layout
         {
-            List<Property> propertylist = _propertyDbContext.Properties.ToList();
+            List<Property> propertylist = await _propertyDbContext.Properties.Where(p => p.Type == "House").ToListAsync();
             var listmodel = new PropertyListViewModel(propertylist, "HouseTable");
             return View(listmodel);
         }

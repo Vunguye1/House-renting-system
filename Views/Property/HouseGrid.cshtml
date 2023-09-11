@@ -5,5 +5,16 @@
 <a asp-controller="Property" asp-action="ApartmentGrid" class="btn btn-primary">Apartment</a>
 <a asp-controller="Property" asp-action="HouseGrid" class="btn btn-primary">House</a>
 
-<p class="btn btn-danger">Grid layout</p>
-<p class="btn btn-danger">Table layout</p>
+
+<div>
+    <p class="btn btn-outline-warning">Grid layout</p>
+    <p class="btn btn-outline-warning">Table layout</p>
+</div>
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var property in Model.properties)
+    {
+        <partial name="_Gridlayout" model="property" />
+    }
+</div>
