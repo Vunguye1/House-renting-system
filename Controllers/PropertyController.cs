@@ -9,12 +9,12 @@ namespace Project1.Controllers
             return View();
         }
 
-        public IActionResult Apartment()
+        public IActionResult Apartment() // only apartments
         {
             return View();
         }
 
-        public IActionResult House()
+        public IActionResult House() // only houses
         {
             return View();
         }
