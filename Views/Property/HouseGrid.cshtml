@@ -1,5 +1,9 @@
 ﻿@model PropertyListViewModel
 
 <h1>This is all houses we have (@Model.CurrentViewName)</h1>
+
+<a asp-controller="Property" asp-action="ApartmentGrid" class="btn btn-primary">Apartment</a>
+<a asp-controller="Property" asp-action="HouseGrid" class="btn btn-primary">House</a>
+
 <p class="btn btn-danger">Grid layout</p>
 <p class="btn btn-danger">Table layout</p>
