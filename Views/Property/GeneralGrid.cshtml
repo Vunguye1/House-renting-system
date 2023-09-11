@@ -1,7 +1,10 @@
-﻿<h2>Find a place to live! We have multiple options here, both houses and apartments</h2>
+﻿@model PropertyListViewModel
 
-<a asp-controller="Property" asp-action="Apartment" class="btn btn-primary">Apartment</a>
-<a asp-controller="Property" asp-action="House" class="btn btn-primary">House</a>
+
+<h2>Find a place to live! We have multiple options here, both houses and apartments (@Model.CurrentViewName)</h2>
+
+<a asp-controller="Property" asp-action="ApartmentGrid" class="btn btn-primary">Apartment</a>
+<a asp-controller="Property" asp-action="HouseGrid" class="btn btn-primary">House</a>
 
 <p class="btn btn-light">Grid layout</p>
 <p class="btn btn-light">Table layout</p>
