@@ -64,5 +64,25 @@ namespace Project1.Controllers
                 return NotFound();
             return View(item);
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Property property)
+        {
+            if (ModelState.IsValid)
+            {
+                _propertyDbContext.Properties.Add(property);
+                await _propertyDbContext.SaveChangesAsync();
+                return RedirectToAction(nameof(GeneralGrid));
+            }
+            return View(property);
+        }
+
+
     }
 }
