@@ -1,39 +1,39 @@
 ﻿@model IEnumerable<Property>
+<div class="container-fluid">
 
-<div class="container">
-    <table class='table table-striped'>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>Actions</th>
-        </tr>
-        @foreach (var property in Model)
-        {
-            <tr>
-                <td>@property.PropertyId</td>
-                <td>
+
+    @foreach (var property in Model)
+    {
+        <div class="row g-5 m-lg-auto">
+            <div class="col-4">
+                <img src="@property.imageurl" alt="@property.Description" style="max-width: 280px; max-height: 280px;">
+            </div>
+            <div class="col-8">
+                <h5 class="card-title">
                     <a asp-controller="Property"
                        asp-action="Details"
-                       asp-route-id="@property.PropertyId">@property.Name</a>
-                </td>
-                <td>@property.Price.ToString("0.00 NOK")</td>
-                <td>@property.Description</td>
-                <td>
-                    <img src="@property.imageurl" alt="Item Image" style="max-width: 80px; max-height: 80px;" />
-                </td>
-                <td>
+                       asp-route-id="@property.PropertyId"
+                       class="text-decoration-none">@property.Name</a>
+                </h5>
+                <p>
+                    @property.Description
+                </p>
+                <h5 class="d-flex justify-content-end">
+                    @property.Price.ToString("0.00 NOK")
+                </h5>
+                <div class="d-flex justify-content-end">
                     <a asp-action="Update" asp-route-id="@property.PropertyId">Update</a>
                     <a asp-action="Delete" asp-route-id="@property.PropertyId">Delete</a>
-                </td>
-            </tr>
-        }
-    </table>
-    <p>
+                </div>
+            </div>
+        </div>
+
+    }
+    <div>
         <a class="btn btn-secondary"
            asp-controller="Property"
            asp-action="Create">Create New Item</a>
-    </p>
+    </div>
+
 </div>
+
