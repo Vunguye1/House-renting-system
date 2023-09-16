@@ -15,7 +15,7 @@
             <tr>
                 <td>@property.PropertyId</td>
                 <td>
-                    <a asp-controller="Item"
+                    <a asp-controller="Property"
                        asp-action="Details"
                        asp-route-id="@property.PropertyId">@property.Name</a>
                 </td>
@@ -33,7 +33,7 @@
     </table>
     <p>
         <a class="btn btn-secondary"
-           asp-controller="Item"
+           asp-controller="Property"
            asp-action="Create">Create New Item</a>
     </p>
 </div>

@@ -1,21 +1,22 @@
 ﻿@model Property
 
-<div class="col">
-    <div>
-        <img src="@Model.imageurl" class="card-img-top" alt="@Model.Name">
-        <div>
-            <div class="d-flex justify-content-between mt-2">
-                <h5 class="text-start">
-                    <a asp-controller="Item"
+<div>
+    <div class="card">
+        <img src="@Model.imageurl" class="card-img-top" alt="@Model.Name" height="280">
+        <div class="card-body">
+            <div>
+                <div class="d-flex flex-column">
+                    <h5 class="card-title">
+                        @Model.Name
+                    </h5>
+                    <a asp-controller="Property"
                        asp-action="Details"
-                       asp-route-id="@Model.PropertyId">@Model.Name</a>
-                </h5>
-                <h5 class="text-nowrap">
-                    @Model.Price.ToString("0.00 NOK")
-                </h5>
-                <h5>
-                    @Model.Type
-                </h5>
+                       asp-route-id="@Model.PropertyId" class="stretched-link"></a>
+                    <p class="card-text">@Model.Location</p>
+                    <h5 class="d-flex justify-content-end">
+                        @Model.Price.ToString("0.00 NOK")
+                    </h5>
+                </div>
             </div>
         </div>
     </div>
