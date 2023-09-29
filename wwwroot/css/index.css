@@ -1,0 +1,44 @@
+﻿body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: sans-serif;
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("../img/main_index.jpg");
+    background-size: cover;
+}
+
+.mainbg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    position: absolute;
+    top: 35%;
+    left: 30%;
+}
+
+p {
+    font-size: 2.8rem;
+    max-width: 560px;
+}
+
+.mybutton {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 0.1rem;
+    background-color: #FBF6EC;
+    padding: 0.6rem;
+    min-width: 100px;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,
+        border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+    .mybutton:hover {
+        background-color: #FDBB31;
+        color: black;
+    }
