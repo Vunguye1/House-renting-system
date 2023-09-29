@@ -1,8 +1,10 @@
 ﻿@model RealestateListViewModel
 
-<h1>List of our apartments (@Model.CurrentViewName)</h1>
-<div>
-    <a class="btn btn-outline-danger" asp-action="GeneralGrid"> Grid view</a>
-</div>
+<div class="container">
+    <h1>List of our apartments (@Model.CurrentViewName)</h1>
+    <div>
+        <a class="btn btn-outline-danger" asp-action="GeneralGrid"> Grid view</a>
+    </div>
 
-<partial name="_TableLayout" model="Model.realestates" />
+    <partial name="_TableLayout" model="Model.realestates" />
+</div>

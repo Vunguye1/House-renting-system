@@ -1,21 +1,24 @@
 ﻿@model RealestateListViewModel
 
-<div>
-    <h2>Find a place to live! We have multiple options here, both houses and apartments (@Model.CurrentViewName)</h2>
-    <a asp-controller="Realestate" asp-action="ApartmentGrid" class="btn btn-primary">Apartment</a>
-    <a asp-controller="Realestate" asp-action="HouseGrid" class="btn btn-primary">House</a>
-</div>
+<div class="container">
+    <div>
+        <h2>Find a place to live! We have multiple options here, both houses and apartments (@Model.CurrentViewName)</h2>
+        <a asp-controller="Realestate" asp-action="ApartmentGrid" class="btn btn-primary">Apartment</a>
+        <a asp-controller="Realestate" asp-action="HouseGrid" class="btn btn-primary">House</a>
+    </div>
 
-<div>
-    <a class="btn btn-danger" asp-action="GeneralGrid">Grid layout</a>
-    <a class="btn btn-danger" asp-action="GeneralTable">Table layout</a>
-</div>
+    <div>
+        <a class="btn btn-danger" asp-action="GeneralGrid">Grid layout</a>
+        <a class="btn btn-danger" asp-action="GeneralTable">Table layout</a>
+    </div>
 
-<div class="row row-cols-1 row-cols-md-3 g-5 m-lg-auto">
+    <div class="row row-cols-1 row-cols-md-3 g-5 m-lg-auto">
 
-    <!--Create a grid layout, on small screen 1 column, on medium 3 columns. change g-5 to modify spacing between each card -->
-    @foreach (var realestate in Model.realestates)
-    {
-        <partial name="_Gridlayout" model="realestate" />
-    }
+        <!--Create a grid layout, on small screen 1 column, on medium 3 columns. change g-5 to modify spacing between each card -->
+        @foreach (var realestate in Model.realestates)
+        {
+            <partial name="_Gridlayout" model="realestate" />
+        }
+    </div>
+
 </div>
