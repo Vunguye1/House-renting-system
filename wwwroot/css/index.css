@@ -1,0 +1,53 @@
+﻿@font-face {
+    font-family: Montserrat-regular;
+    src: url(fonts/Montserrat-Regular.ttf);
+}
+
+@font-face {
+    font-family: Montserrat-semibold;
+    src: url(fonts/Montserrat-SemiBold.ttf);
+}
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: 'Montserrat-regular', sans-serif;
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80");
+}
+
+.mainbg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    position: absolute;
+    top: 35%;
+    left: 30%;
+}
+
+p {
+    font-size: 2.8rem;
+    max-width: 560px;
+}
+
+.mybutton {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 0.1rem;
+    background-color: #FBF6EC;
+    padding: 0.6rem;
+    min-width: 100px;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,
+        border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+    .mybutton:hover {
+        background-color: #FDBB31;
+        color: black;
+    }
