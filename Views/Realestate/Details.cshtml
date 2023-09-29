@@ -5,9 +5,11 @@
 </h3>
 
 <div class="row gx-5">
-    <img alt="@Model.Description" src="@Model.imageurl" class="img-fluid col-5"/>
+    <img alt="@Model.Description" src="@Model.imageurl" class="img-fluid col-5" />
     <div class="col-7"></div>
-        <h5>@Model.Description</h5>
-        <h3 class="pull-right">@Model.Price.ToString("0.00 NOK")</h3>
-        <p><a href="/Property/GeneralGrid">Back to general grid</a></p>
+    <h3 class="pull-right">@Model.Price.ToString("0 000 NOK pr/week")</h3>
+    <p>@Model.Description</p>
+    <p>Persons: @Model.Persons</p>
+    <p>Bathrooms: @Model.Bathrooms</p>
+    <p><a href="/Property/GeneralGrid">Back to general grid</a></p>
 </div>

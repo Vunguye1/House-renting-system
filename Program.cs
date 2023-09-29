@@ -12,9 +12,15 @@ builder.Services.AddDbContext<RealestateDbContext>(options => {
 
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
+/*if (!app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+}
+*/
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    DBInit.Seed(app);
 }
 
 app.UseStaticFiles();
