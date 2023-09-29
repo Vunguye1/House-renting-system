@@ -9,6 +9,8 @@
         public string Location { get; set; } = string.Empty;
         public string? Description { get; set; }
         public string? imageurl { get; set; }
+        //navigation property
+        public virtual List<Rent>? Rents { get; set; }
         
     }
 }
