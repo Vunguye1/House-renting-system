@@ -10,7 +10,7 @@
         public string? Description { get; set; }
         public string? imageurl { get; set; }
         //navigation property
-        public List<Rent>? Rents { get; set; }
+        public virtual List<Rent>? Rents { get; set; }
         
     }
 }

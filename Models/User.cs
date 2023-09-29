@@ -7,7 +7,7 @@ namespace Project1.Models
 		public string Name { get; set; } = string.Empty;
 		public string Adress { get; set; } = string.Empty;
 		//navigation property
-		public List<Realestate>? Realestate { get; set; }
+		public virtual List<Realestate>? Realestate { get; set; }
 	}
 }
 
