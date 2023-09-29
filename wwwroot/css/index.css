@@ -1,20 +1,11 @@
-﻿@font-face {
-    font-family: Montserrat-regular;
-    src: url(fonts/Montserrat-Regular.ttf);
-}
-
-@font-face {
-    font-family: Montserrat-semibold;
-    src: url(fonts/Montserrat-SemiBold.ttf);
-}
-
-body {
+﻿body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     color: white;
-    font-family: 'Montserrat-regular', sans-serif;
-    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80");
+    font-family: sans-serif;
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("../img/main_index.jpg");
+    background-size: cover;
 }
 
 .mainbg {
