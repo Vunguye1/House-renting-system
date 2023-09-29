@@ -1,29 +1,29 @@
-﻿@model IEnumerable<Property>
+﻿@model IEnumerable<Realestate>
 <div class="container-fluid">
 
 
-    @foreach (var property in Model)
+    @foreach (var realestate in Model)
     {
         <div class="row g-5 m-lg-auto">
             <div class="col-4">
-                <img src="@property.imageurl" alt="@property.Description" style="max-width: 280px; max-height: 280px;">
+                <img src="@realestate.imageurl" alt="@realestate.Description" style="max-width: 280px; max-height: 280px;">
             </div>
             <div class="col-8">
                 <h5 class="card-title">
                     <a asp-controller="Property"
                        asp-action="Details"
-                       asp-route-id="@property.PropertyId"
-                       class="text-decoration-none">@property.Name</a>
+                       asp-route-id="@realestate."
+                       class="text-decoration-none">@realestate.Name</a>
                 </h5>
                 <p>
-                    @property.Description
+                    @realestate.Description
                 </p>
                 <h5 class="d-flex justify-content-end">
-                    @property.Price.ToString("0.00 NOK")
+                    @realestate.Price.ToString("0.00 NOK")
                 </h5>
                 <div class="d-flex justify-content-end">
-                    <a asp-action="Update" asp-route-id="@property.PropertyId">Update</a>
-                    <a asp-action="Delete" asp-route-id="@property.PropertyId">Delete</a>
+                    <a asp-action="Update" asp-route-id="@realestate.RealestateId">Update</a>
+                    <a asp-action="Delete" asp-route-id="@realestate.RealestateId">Delete</a>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
     }
     <div>
         <a class="btn btn-secondary"
-           asp-controller="Property"
+           asp-controller="Realestate"
            asp-action="Create">Create New Item</a>
     </div>
 

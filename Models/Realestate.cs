@@ -1,8 +1,8 @@
 ﻿namespace Project1.Models
 {
-    public class Property
+    public class Realestate
     {
-        public int PropertyId { get; set; }
+        public int RealestateId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Type { get; set; } = string.Empty;
         public int Price { get; set; }

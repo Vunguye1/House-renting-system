@@ -5,9 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<PropertyDbContext>(options => {
+builder.Services.AddDbContext<RealestateDbContext>(options => {
     options.UseSqlite(
-        builder.Configuration["ConnectionStrings:PropertyDbContextConnection"]);
+        builder.Configuration["ConnectionStrings:RealestateDbContextConnection"]);
 });
 
 var app = builder.Build();

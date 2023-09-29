@@ -1,4 +1,4 @@
-﻿@model Property
+﻿@model Realestate
 
 <div>
     <div class="card">
@@ -9,9 +9,9 @@
                     <h5 class="card-title">
                         @Model.Name
                     </h5>
-                    <a asp-controller="Property"
+                    <a asp-controller="Realestate"
                        asp-action="Details"
-                       asp-route-id="@Model.PropertyId" class="stretched-link"></a>
+                       asp-route-id="@Model.RealestateId" class="stretched-link"></a>
                     <p class="card-text">@Model.Location</p>
                     <h5 class="d-flex justify-content-end">
                         @Model.Price.ToString("0.00 NOK")

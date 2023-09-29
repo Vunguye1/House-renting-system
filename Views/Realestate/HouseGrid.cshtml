@@ -1,0 +1,20 @@
+﻿@model RealestateListViewModel
+
+<h1>This is all houses we have (@Model.CurrentViewName)</h1>
+
+<a asp-controller="Realestate" asp-action="ApartmentGrid" class="btn btn-primary">Apartment</a>
+<a asp-controller="Realestate" asp-action="HouseGrid" class="btn btn-primary">House</a>
+
+
+<div>
+    <a class="btn btn-danger" asp-action="HouseGrid">Grid layout</a>
+    <a class="btn btn-danger" asp-action="HouseTable">Table layout</a>
+</div>
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var realestate in Model.realestates)
+    {
+        <partial name="_Gridlayout" model="realestate" />
+    }
+</div>
