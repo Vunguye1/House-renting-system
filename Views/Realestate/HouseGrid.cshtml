@@ -3,16 +3,40 @@
 <div class="container">
     <h1>This is all houses we have (@Model.CurrentViewName)</h1>
 
-    <a asp-controller="Realestate" asp-action="ApartmentGrid" class="btn btn-primary">Apartment</a>
-    <a asp-controller="Realestate" asp-action="HouseGrid" class="btn btn-primary">House</a>
+    <div class="d-flex flex-row justify-content-end">
 
+        <div class="dropdown me-2">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Filter type
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-controller="Realestate" asp-action="GeneralGrid">General</a></li>
+                <li>
+                    <a class="dropdown-item" asp-controller="Realestate" asp-action="ApartmentGrid">Apartment</a>
+                </li>
+                <li>
+                    <a class="dropdown-item active" asp-controller="Realestate" asp-action="HouseGrid" aria-current="true">House</a>
+                </li>
+            </ul>
+        </div>
 
-    <div>
-        <a class="btn btn-danger" asp-action="HouseGrid">Grid layout</a>
-        <a class="btn btn-danger" asp-action="HouseTable">Table layout</a>
+        <div class="dropdown">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                View as
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item active" asp-action="HouseGrid" aria-current="true">Grid</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-action="HouseTable">List</a>
+                </li>
+
+            </ul>
+        </div>
+
     </div>
-
-
+    
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @foreach (var realestate in Model.realestates)
         {
