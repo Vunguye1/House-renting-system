@@ -2,8 +2,38 @@
 
 <div class="container">
     <h1>List of our houses (@Model.CurrentViewName)</h1>
-    <div>
-        <a class="btn btn-outline-danger" asp-action="GeneralGrid"> Grid view</a>
+    <div class="d-flex flex-row justify-content-end">
+
+        <div class="dropdown me-2">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Filter type
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-controller="Realestate" asp-action="GeneralGrid">General</a></li>
+                <li>
+                    <a class="dropdown-item" asp-controller="Realestate" asp-action="ApartmentGrid">Apartment</a>
+                </li>
+                <li>
+                    <a class="dropdown-item active" asp-controller="Realestate" asp-action="HouseGrid" aria-current="true">House</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="dropdown">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                View as
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item" asp-action="HouseGrid">Grid</a>
+                </li>
+                <li>
+                    <a class="dropdown-item active" asp-action="HouseTable" aria-current="true">List</a>
+                </li>
+
+            </ul>
+        </div>
+
     </div>
 
     <partial name="_TableLayout" model="Model.realestates" />
