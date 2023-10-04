@@ -32,6 +32,18 @@
         </div>
 
         <div class="form-group">
+            <label asp-for="Persons"></label>
+            <input asp-for="Persons" class="form-control" />
+            <span asp-validation-for="Persons" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Bathrooms"></label>
+            <input asp-for="Bathrooms" class="form-control" />
+            <span asp-validation-for="Bathrooms" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
             <label asp-for="Description"></label>
             <input asp-for="Description" class="form-control" />
             <span asp-validation-for="Description" class="text-danger"></span>
