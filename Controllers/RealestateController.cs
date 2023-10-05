@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Project1.Models;
 using Project1.ViewModels;
 
@@ -81,6 +82,30 @@ namespace Project1.Controllers
                 return RedirectToAction(nameof(GeneralGrid));
             }
             return View(property);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var item = await _realestateDbContext.Realestates.FindAsync(id);
+
+            if (item == null)
+            {
+                return BadRequest("item not found");
+            }
+            return View(item);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Realestate realestate)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _realestateDbContext.Realestates.Update(realestate);
+                await _realestateDbContext.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(GeneralGrid));
         }
 
 

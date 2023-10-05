@@ -1,9 +1,10 @@
 ﻿using Castle.Core.Resource;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Project1.Models
 {
-    public class RealestateDbContext: DbContext
+    public class RealestateDbContext: IdentityDbContext
     {
         public RealestateDbContext(DbContextOptions<RealestateDbContext> options) : base(options) { 
             //Database.EnsureCreated();
