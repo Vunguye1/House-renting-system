@@ -9,7 +9,7 @@ namespace Project1.Models
         {
             using var serviceScope = app.ApplicationServices.CreateScope();
             RealestateDbContext context = serviceScope.ServiceProvider.GetRequiredService<RealestateDbContext>();
-            //context.Database.EnsureDeleted(); //Always deletes the database, can comment out.
+            // context.Database.EnsureDeleted(); //Always deletes the database, can comment out.
             context.Database.EnsureCreated();
 
             if (!context.Realestates.Any())
