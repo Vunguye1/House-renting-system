@@ -56,21 +56,34 @@ namespace Project1.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            [Display(Name = "Profile Picture")]
+            public byte[] ProfilePicture { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var firstname = user.FirstName;
+            var lastname = user.LastName;
+            var profilePicture = user.ProfilePicture;
 
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = firstname,
+                LastName = lastname,
+                ProfilePicture = profilePicture
             };
         }
 
@@ -88,6 +101,7 @@ namespace Project1.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync()
         {
+
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -98,6 +112,35 @@ namespace Project1.Areas.Identity.Pages.Account.Manage
             {
                 await LoadAsync(user);
                 return Page();
+            }
+
+            // get firstname and lastname from user
+            var firstName = user.FirstName;
+            var lastName = user.LastName;
+            
+            if (Input.FirstName != firstName) // if newly created firstname is different from previous one --> user is trying to change their first name
+            {
+                user.FirstName = Input.FirstName; // update the new firstname
+                await _userManager.UpdateAsync(user);
+
+            }
+
+            if (Input.LastName != lastName) // same as first name
+            {
+                user.LastName = Input.LastName;
+                await _userManager.UpdateAsync(user);
+
+            }
+
+            if (Request.Form.Files.Count > 0) {  // handling image file
+                
+                IFormFile file = Request.Form.Files.FirstOrDefault();
+
+                using (var dataStream = new MemoryStream()) {  // use memory streams to convert the image file to a memory object/byte array
+                    await file.CopyToAsync(dataStream); // save this array to database
+                    user.ProfilePicture = dataStream.ToArray();
+                }
+                await _userManager.UpdateAsync(user);
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);

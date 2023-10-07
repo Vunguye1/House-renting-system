@@ -77,6 +77,8 @@ namespace Project1.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             /// 
+
+            // add first name and last name to Register.
             [Required]
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
@@ -123,11 +125,9 @@ namespace Project1.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                MailAddress address = new MailAddress(Input.Email);
-                string username = address.User;
                 
+                // Create user with email, firstname and lastname
                 var user = new ApplicationUser { 
-                    UserName = username, 
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName
