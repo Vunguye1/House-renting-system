@@ -6,9 +6,10 @@ namespace Project1.Models
 		public int RentID { get; set; }
 		public string RentDateFrom { get; set; } = string.Empty;
 		public string RentDateTo { get; set; } = string.Empty;
-		public int UserId { get; set; }
+
+		// remove userid here because it will duplicate in table
         //navigation property
-        public virtual User User { get; set; } = default!;
+        public virtual ApplicationUser User { get; set; } = default!;
         public int RealestateId { get; set; }
 		//navigation property
 		public virtual Realestate Realestate { get; set; } = default!;

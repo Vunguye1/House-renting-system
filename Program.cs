@@ -22,11 +22,16 @@ builder.Services.AddDbContext<RealestateDbContext>(options =>
         builder.Configuration["ConnectionStrings:RealestateDbContextConnection"]);
 });
 
-builder.Services.AddDefaultIdentity<IdentityUser>()
-    .AddEntityFrameworkStores<RealestateDbContext>();
+//builder.Services.AddDefaultIdentity<ApplicationUser>()
+//    .AddEntityFrameworkStores<RealestateDbContext>();
 
+// testing
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<RealestateDbContext>()
+    .AddDefaultUI()
+    .AddDefaultTokenProviders();
 
-//builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+//builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 //{
 //    // Password settings
 //    options.Password.RequireDigit = true;
