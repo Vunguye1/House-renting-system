@@ -11,8 +11,8 @@ using Project1.Models;
 namespace Project1.Migrations
 {
     [DbContext(typeof(RealestateDbContext))]
-    [Migration("20231007141140_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20231008130631_kobiknua")]
+    partial class kobiknua
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -237,13 +237,13 @@ namespace Project1.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("TEXT");
-
                     b.Property<int?>("Bathrooms")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Location")
@@ -264,6 +264,9 @@ namespace Project1.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("imagefile")
                         .HasColumnType("TEXT");
 
@@ -272,16 +275,15 @@ namespace Project1.Migrations
 
                     b.HasKey("RealestateId");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Realestates");
                 });
 
             modelBuilder.Entity("Project1.Models.Rent", b =>
                 {
-                    b.Property<int>("RentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("RealestateId")
                         .HasColumnType("INTEGER");
@@ -294,13 +296,16 @@ namespace Project1.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("RentID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("RentID");
+                    b.HasKey("Id");
 
                     b.HasIndex("RealestateId");
 
@@ -362,9 +367,11 @@ namespace Project1.Migrations
 
             modelBuilder.Entity("Project1.Models.Realestate", b =>
                 {
-                    b.HasOne("Project1.Models.ApplicationUser", null)
+                    b.HasOne("Project1.Models.ApplicationUser", "User")
                         .WithMany("Realestate")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Project1.Models.Rent", b =>

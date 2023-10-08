@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ApplicationUser>
+
+<div class="container">
+    <table class='table table-striped'>
+        <tr>
+            <th>UserID</th>
+            <th>Firstname</th>
+            <th>LastName</th>
+            <th>Address</th>
+            <th>Username</th>
+            
+        </tr>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.Id</td>
+                <td>@customer.FirstName</td>
+                <td>@customer.LastName</td>
+                <td>@customer.Adress</td>
+                <td>@customer.UserName</td>
+                <td></td>
+            </tr>
+        }
+    </table>
+</div>
