@@ -18,6 +18,8 @@ namespace Project1.Models
         public int? Persons { get; set; }
         public int? Bathrooms { get; set; }
 
+        public string? UserId { get; set; }
+
         //navigation property
         public virtual ApplicationUser? User { get; set; }
 

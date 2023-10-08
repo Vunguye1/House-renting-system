@@ -7,11 +7,11 @@ namespace Project1.Models
 		public string RentDateFrom { get; set; } = string.Empty;
 		public string RentDateTo { get; set; } = string.Empty;
 
-        public string Id { get; set; } = string.Empty;
+        public string UserId { get; set; } = string.Empty;
         //navigation property
         public virtual ApplicationUser User { get; set; } = default!;
 
-        //public int reId { get; set; }
+        public int RealestateId { get; set; }
         //navigation property
         public virtual Realestate Realestate { get; set; } = default!;
 

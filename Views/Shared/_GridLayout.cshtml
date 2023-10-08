@@ -16,6 +16,11 @@
                     <h5 class="d-flex justify-content-end">
                         @Model.Price.ToString("0 000 NOK pr/week")
                     </h5>
+
+                    @if (@Model.User != null) // if there is owner --> display it
+                    {
+                        <p>Owner: @Model.User.FirstName</p>
+                    }
                 </div>
             </div>
         </div>
