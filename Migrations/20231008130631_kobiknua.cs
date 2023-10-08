@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Project1.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class kobiknua : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -175,14 +175,15 @@ namespace Project1.Migrations
                     imagefile = table.Column<string>(type: "TEXT", nullable: true),
                     Persons = table.Column<int>(type: "INTEGER", nullable: true),
                     Bathrooms = table.Column<int>(type: "INTEGER", nullable: true),
-                    ApplicationUserId = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<string>(type: "TEXT", nullable: true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Realestates", x => x.RealestateId);
                     table.ForeignKey(
-                        name: "FK_Realestates_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        name: "FK_Realestates_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
@@ -191,8 +192,8 @@ namespace Project1.Migrations
                 name: "Rent",
                 columns: table => new
                 {
-                    RentID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    RentID = table.Column<int>(type: "INTEGER", nullable: false),
                     RentDateFrom = table.Column<string>(type: "TEXT", nullable: false),
                     RentDateTo = table.Column<string>(type: "TEXT", nullable: false),
                     UserId = table.Column<string>(type: "TEXT", nullable: true),
@@ -201,7 +202,7 @@ namespace Project1.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rent", x => x.RentID);
+                    table.PrimaryKey("PK_Rent", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Rent_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -253,9 +254,9 @@ namespace Project1.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Realestates_ApplicationUserId",
+                name: "IX_Realestates_UserId",
                 table: "Realestates",
-                column: "ApplicationUserId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rent_RealestateId",
