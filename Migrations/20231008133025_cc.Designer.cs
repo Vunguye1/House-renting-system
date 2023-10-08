@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project1.Models;
 
@@ -10,9 +11,11 @@ using Project1.Models;
 namespace Project1.Migrations
 {
     [DbContext(typeof(RealestateDbContext))]
-    partial class RealestateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231008133025_cc")]
+    partial class cc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,9 +279,8 @@ namespace Project1.Migrations
 
             modelBuilder.Entity("Project1.Models.Rent", b =>
                 {
-                    b.Property<int>("RentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("RealestateId")
                         .HasColumnType("INTEGER");
@@ -291,14 +293,16 @@ namespace Project1.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("RentID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("RentID");
+                    b.HasKey("Id");
 
                     b.HasIndex("RealestateId");
 
@@ -377,9 +381,7 @@ namespace Project1.Migrations
 
                     b.HasOne("Project1.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Realestate");
 

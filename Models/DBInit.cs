@@ -9,7 +9,7 @@ namespace Project1.Models
         {
             using var serviceScope = app.ApplicationServices.CreateScope();
             RealestateDbContext context = serviceScope.ServiceProvider.GetRequiredService<RealestateDbContext>();
-            // context.Database.EnsureDeleted(); //Always deletes the database, can comment out.
+            //context.Database.EnsureDeleted(); //Always deletes the database, can comment out.
             context.Database.EnsureCreated();
 
             if (!context.Realestates.Any())
@@ -27,13 +27,8 @@ namespace Project1.Models
                     Description = "Beautiful StudioApartment at Marjorstuen. Close to public transport and all the hottest stores.",
                     imageurl = "/img/StudioApartment/mainroom.jpg",
                     imagefile="/img/StudioApartment",
-                    Persons=2,
+                    Persons=4,
                     Bathrooms=1,
-                    User = new ApplicationUser
-                    {
-                        Id = "f81eada8-7d96-4db5-b298-5f73c697281d"
-                    }
-
                 },
                  new Realestate
                 {
