@@ -5,7 +5,7 @@ using Project1.Models;
 
 namespace Project1.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")] // this controller contains functions that are only for admin
     public class AdminController : Controller
     {
         private readonly RealestateDbContext _realestateDbContext;
