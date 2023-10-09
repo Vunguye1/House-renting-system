@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Project1.Models;
 using Microsoft.AspNetCore.Identity;
 using Serilog;
+using Microsoft.Extensions.DependencyInjection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,14 +24,24 @@ builder.Services.AddDbContext<RealestateDbContext>(options =>
         builder.Configuration["ConnectionStrings:RealestateDbContextConnection"]);
 });
 
-//builder.Services.AddDefaultIdentity<ApplicationUser>()
-//    .AddEntityFrameworkStores<RealestateDbContext>();
 
-// testing
+
+// Add Identity Services
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<RealestateDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
+
+
+
+
+
+
+
+
+
+
+
 
 //builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 //{
@@ -79,6 +91,24 @@ builder.Logging.AddSerilog(logger);
 
 // build our app
 var app = builder.Build();
+
+// seed roles to DB
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<RealestateDbContext>();
+    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    await AuthorizedHandling.SeedRolesAsync(userManager, roleManager);
+
+    // add admin accoutn when application starts
+    
+    await AuthorizedHandling.CreateAdmin(userManager, roleManager);
+
+}
+
+
 
 if (app.Environment.IsDevelopment())
 {
