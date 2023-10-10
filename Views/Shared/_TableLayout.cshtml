@@ -32,8 +32,8 @@
                     @if (SignInManager.IsSignedIn(User)) // If user is logged in, then we will display these two buttons
                     { 
                         <div>
-                            <a asp-action="Update" asp-route-id="@realestate.RealestateId" class="btn btn-primary">Update</a>
-                            <a asp-action="Delete" asp-route-id="@realestate.RealestateId" class="btn btn-danger ms-2">Delete</a>
+                            <a asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-primary">Update</a>
+                            <a asp-action="DeleteRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-danger ms-2">Delete</a>
                         </div>
                     }
                     
