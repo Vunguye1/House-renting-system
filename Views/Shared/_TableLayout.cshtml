@@ -4,8 +4,8 @@
 
     @foreach (var realestate in Model)
     {
-        <div class="row g-5 m-lg-auto">
-            <div class="col-4">
+        <div class="row g-5 border border-4 rounded mt-4">
+            <div class="col-4 pb-5">
                 <img src="@realestate.imageurl" alt="@realestate.Description" style="max-width: 280px; max-height: 280px;">
             </div>
             <div class="col-8">
@@ -18,13 +18,16 @@
                 <p>
                     @realestate.Description
                 </p>
-                <h5 class="d-flex justify-content-end">
-                    @realestate.Price.ToString("0 000 NOK pr/week")
-                </h5>
-                <div class="d-flex justify-content-end">
-                    <a asp-action="Update" asp-route-id="@realestate.RealestateId">Update</a>
-                    <a asp-action="Delete" asp-route-id="@realestate.RealestateId">Delete</a>
+                <div class="d-flex flex-md-column align-items-end">
+                    <h5>
+                        @realestate.Price.ToString("0 000 NOK pr/week")
+                    </h5>
+                    <div>
+                        <a asp-action="Update" asp-route-id="@realestate.RealestateId" class="btn btn-primary">Update</a>
+                        <a asp-action="Delete" asp-route-id="@realestate.RealestateId" class="btn btn-danger ms-2">Delete</a>
+                    </div>
                 </div>
+                
             </div>
         </div>
 
