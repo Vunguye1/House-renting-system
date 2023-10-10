@@ -6,8 +6,8 @@
             <th>UserID</th>
             <th>Firstname</th>
             <th>LastName</th>
-            <th>Address</th>
             <th>Username</th>
+            <th>Manage</th>
             
         </tr>
         @foreach (var customer in Model)
@@ -16,9 +16,11 @@
                 <td>@customer.Id</td>
                 <td>@customer.FirstName</td>
                 <td>@customer.LastName</td>
-                <td>@customer.Adress</td>
                 <td>@customer.UserName</td>
-                <td></td>
+                <td>
+                    <a class="btn btn-primary">Update</a>
+                    <a class="btn btn-danger">Delete</a>
+                </td>
             </tr>
         }
     </table>

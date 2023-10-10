@@ -37,7 +37,7 @@ namespace Project1.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> UpdateRealEstate(int id)
         {
             var item = await _realestateDbContext.Realestates.FindAsync(id);
 
@@ -49,7 +49,7 @@ namespace Project1.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(Realestate realestate)
+        public async Task<IActionResult> UpdateRealEstate(Realestate realestate)
         {
 
             if (ModelState.IsValid)
@@ -61,7 +61,7 @@ namespace Project1.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteRealEstate(int id)
         {
             var realestate = await _realestateDbContext.Realestates.FindAsync(id);
             if (realestate == null)
