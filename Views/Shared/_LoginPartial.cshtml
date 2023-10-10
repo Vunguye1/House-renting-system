@@ -8,8 +8,9 @@
     {
         <li class="nav-item">
 
-            @{ // get our user from the database
+            @{ // get the logged on user from the database
                 var user = await UserManager.GetUserAsync(User);
+                bool isUseradmin = await UserManager.IsInRoleAsync(user, "Admin"); // check if this user is admin or just default user
             }
 
             @if ( user.ProfilePicture != null) // if profilePicture is updated --> display it
@@ -18,18 +19,30 @@
 
             }
         </li>
+
         <li class="nav-item">
             <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @user.FirstName!</a>
         </li>
+
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
             </form>
         </li>
-
-        <li class="nav-item">
-            <a asp-controller="ApplicationUser" asp-action="ListRealestateByOwner" asp-route-ownerId="@user.Id" class="nav-link text-dark">Your real estates</a>
-        </li>
+        // if this user is admin user
+        @if (isUseradmin)
+        {                           // we will add a button here for admin management
+            <li class="nav-item"> 
+                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin management</a>
+            </li>
+        }
+        else // if this user is a default user
+        {                           // we will add a button here to display all real estates this user has
+            <li class="nav-item">
+                <a asp-controller="ApplicationUser" asp-action="ListRealestateByOwner" asp-route-ownerId="@user.Id" class="nav-link text-dark">Your real estates</a>
+            </li>
+        }
+        
     }
     else
     {

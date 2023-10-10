@@ -29,6 +29,7 @@ namespace Project1.Models
                     imagefile="/img/StudioApartment",
                     Persons=4,
                     Bathrooms=1,
+                    UserId = "5cf487a2-08c6-4874-870e-14244e989247"
                 },
                  new Realestate
                 {
