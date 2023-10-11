@@ -22,7 +22,7 @@
                 <td>@user.UserName</td>
 
                 <td>
-                    <a class="btn btn-primary">Update</a>
+                    <a class="btn btn-primary" asp-controller="Admin" asp-action="UpdateUser" asp-route-userid="@user.Id">Update</a>
 
                     <!-- Create delete user button -->
                     <!-- Button trigger modal with a unique user id. This modal is used from Bootstrap library -->
