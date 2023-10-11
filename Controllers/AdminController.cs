@@ -36,7 +36,7 @@ namespace Project1.Controllers
             return View(listmodel);
         }
 
-        // Real estates management by admin
+        // ------------------------ Real estates management by admin ------------------------
         [HttpGet]
         public async Task<IActionResult> UpdateRealEstate(int id)
         {
