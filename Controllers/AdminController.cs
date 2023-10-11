@@ -36,6 +36,7 @@ namespace Project1.Controllers
             return View(listmodel);
         }
 
+        // Real estates management by admin
         [HttpGet]
         public async Task<IActionResult> UpdateRealEstate(int id)
         {
@@ -85,5 +86,25 @@ namespace Project1.Controllers
 
             return RedirectToAction(nameof(ListAllRealestates));
         }
+
+        // Done real estates management by admin
+
+
+        // Users management
+        [HttpPost]
+        public async Task<IActionResult> DeleteUserConfirmed(string userid)
+        {
+            var user = _realestateDbContext.User.Find(userid);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            _realestateDbContext.User.Remove(user);
+            await _realestateDbContext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(ListAllUsers));
+        }
+
+
     }
 }

@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<ApplicationUser>
 
-<div class="container">
+<div class="container"> 
     <table class='table table-striped'>
-        <tr>
+        <tr> <!--Display all existing users in db-->
             <th>UserID</th>
             <th>Firstname</th>
             <th>LastName</th>
@@ -10,17 +10,48 @@
             <th>Manage</th>
             
         </tr>
-        @foreach (var customer in Model)
+        @foreach (var user in Model)
         {
             <tr>
-                <td>@customer.Id</td>
-                <td>@customer.FirstName</td>
-                <td>@customer.LastName</td>
-                <td>@customer.UserName</td>
+                <td>@user.Id</td>
+
+                <td>@user.FirstName</td>
+
+                <td>@user.LastName</td>
+
+                <td>@user.UserName</td>
+
                 <td>
                     <a class="btn btn-primary">Update</a>
-                    <a class="btn btn-danger">Delete</a>
+
+                    <!-- Create delete user button -->
+                    <!-- Button trigger modal with a unique user id. This modal is used from Bootstrap library -->
+                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@user.Id">
+                                                Delete
+                    </a>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="DeleteModal-@user.Id" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="DeleteModalLabel">DELETE</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Do you really want to remove user @user.FirstName from the system?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <form asp-action="DeleteUserConfirmed" asp-route-userid="@user.Id" method="post">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
+
             </tr>
         }
     </table>
