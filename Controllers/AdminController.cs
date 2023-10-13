@@ -87,10 +87,65 @@ namespace Project1.Controllers
             return RedirectToAction(nameof(ListAllRealestates));
         }
 
-        // Done real estates management by admin
+        // ------------------------ Done real estates management by admin ------------------------
 
 
-        // Users management
+        // ------------------------ Users management ------------------------
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateUser(string userid)
+        {
+            var user = await _realestateDbContext.User.FindAsync(userid);
+
+            if (user == null)
+            {
+                return BadRequest("User not found");
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateUser(ApplicationUser user)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingUser = _realestateDbContext.User.FirstOrDefault(u => u.Id == user.Id);
+
+                if (existingUser != null)
+                {
+                    // Update user properties
+                    existingUser.FirstName = user.FirstName; // Replace with actual property names
+                    existingUser.LastName = user.LastName; // Replace with actual property names
+                    existingUser.PhoneNumber = user.PhoneNumber; // Replace with actual property names
+
+
+
+                    _realestateDbContext.Entry(existingUser).State = EntityState.Modified;
+
+                    try
+                    {
+                        await _realestateDbContext.SaveChangesAsync();
+                        return RedirectToAction(nameof(ListAllUsers));
+                    }
+                    catch (DbUpdateConcurrencyException ex)
+                    {
+                        // Handle the concurrency exception, if needed.
+                        BadRequest(ex);
+                    }
+                }
+                else
+                {
+                    // Handle the case where the user is not found in the database.
+                    NotFound("User not found");
+                }
+            }
+
+            // If ModelState is not valid, return to the edit view to display validation errors.
+            return RedirectToAction(nameof(ListAllUsers));
+        }
+
+
+
         [HttpPost]
         public async Task<IActionResult> DeleteUserConfirmed(string userid)
         {
