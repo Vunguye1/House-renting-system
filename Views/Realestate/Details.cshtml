@@ -1,17 +1,20 @@
 ﻿@model Realestate
 
 <div class="container">
-    <h3 class="my-5">
+    <h3 class="m-5">
         @Model.Name
     </h3>
 
     <div class="row gx-5">
-        <img alt="@Model.Description" src="@Model.imageurl" class="img-fluid col-5" />
-        <div class="col-7"></div>
-        <h3 class="pull-right">@Model.Price.ToString("0 000 NOK pr/week")</h3>
-        <p>@Model.Description</p>
-        <p>Persons: @Model.Persons</p>
-        <p>Bathrooms: @Model.Bathrooms</p>
-        <p><a href="/Property/GeneralGrid">Back to general grid</a></p>
+        <img alt="@Model.Description" src="@Model.imageurl" class="img-fluid"/>
+
+        <div class="m-5">
+            <p>@Model.Description</p>
+            <p>Persons: @Model.Persons</p>
+            <p>Bathrooms: @Model.Bathrooms</p>
+            <h3 class="d-flex justify-content-end">@Model.Price.ToString("0 000 NOK pr/week")</h3>
+        </div>
+        
+
     </div>
 </div>
