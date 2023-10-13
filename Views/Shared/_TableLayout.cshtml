@@ -29,13 +29,33 @@
                         @realestate.Price.ToString("0 000 NOK pr/week")
                     </h5>
 
-                    @if (SignInManager.IsSignedIn(User)) // If user is logged in, then we will display these two buttons
-                    { 
-                        <div>
-                            <a asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-primary">Update</a>
-                            <a asp-action="DeleteRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-danger ms-2">Delete</a>
-                        </div>
+                    @{
+                        var currentLoggedinUser = await UserManager.GetUserAsync(User); // get currently logged in user
                     }
+                    @if (SignInManager.IsSignedIn(User)) // If user is logged in
+                    { 
+
+                        @if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Admin")) // if this is admin, display the two buttons
+                        {
+                            <div>
+                                <a asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-primary">Update</a>
+                                <a asp-action="DeleteRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-danger ms-2">Delete</a>
+                            </div>
+                        }
+
+                        else if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Default") && realestate.UserId == currentLoggedinUser.Id)
+                        { // if this is a default user, only display buttons on real estates this user owns
+                            <div>
+                                <a asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-primary">Update</a>
+                                <a asp-action="DeleteRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-danger ms-2">Delete</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div> hihi </div>
+                        }
+
+                }
                     
                 </div>
                 

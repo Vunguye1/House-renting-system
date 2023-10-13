@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -10,11 +11,16 @@ namespace Project1.Controllers
     public class RealestateController : Controller
     {
 
+        private readonly UserManager<ApplicationUser> _userManager; // call usermanager
+        private readonly SignInManager<ApplicationUser> _signInManager; // call signIn manager
         private readonly RealestateDbContext _realestateDbContext;
 
-        public RealestateController(RealestateDbContext realestateDbContext)
+        public RealestateController(RealestateDbContext realestateDbContext, UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             _realestateDbContext = realestateDbContext;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<IActionResult> GeneralGrid() // this view will return both leilighet and hus
@@ -78,17 +84,26 @@ namespace Project1.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Realestate property)
         {
-            if (ModelState.IsValid)
+            var user = await _userManager.GetUserAsync(User); // get currently logged in user
+            property.UserId = user.Id; // bind newly registered house to the currently logged user
+
+            if (user == null) // if no one is logged in
             {
-                _realestateDbContext.Realestates.Add(property);
-                await _realestateDbContext.SaveChangesAsync();
-                return RedirectToAction(nameof(GeneralGrid));
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-            return View(property);
+
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    _realestateDbContext.Realestates.Add(property); // add to db
+                    await _realestateDbContext.SaveChangesAsync(); 
+                    return RedirectToAction(nameof(GeneralGrid));
+                }
+                return View(property);
+            }
+
         }
-
-        
-
 
     }
 }
