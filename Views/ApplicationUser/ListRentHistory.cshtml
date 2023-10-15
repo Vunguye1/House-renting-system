@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Rent>
+
+<div class="container"> 
+    <table class='table table-striped'>
+        <tr> <!--Display all existing users in db-->
+            <th>RentID</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Username</th>
+            <th>Real estate (ID, Name)</th>
+            <th>Total price</th>
+            
+        </tr>
+        @foreach (var rent in Model)
+        {
+            <tr>
+                <td>@rent.RentID</td>
+
+                <td>@rent.RentDateFrom</td>
+
+                <td>@rent.RentDateTo</td>
+
+                <td>@rent.User.UserName</td>
+
+                <td>ID: @rent.Realestate.RealestateId, Name: @rent.Realestate.Name </td>
+
+                <td> @rent.TotalPrice </td>
+
+            </tr>
+        }
+    </table>
+</div>

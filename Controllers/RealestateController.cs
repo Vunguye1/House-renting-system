@@ -23,45 +23,61 @@ namespace Project1.Controllers
             _signInManager = signInManager;
         }
 
+        // this method is to to exclude deleted Realestate records. A real estate is marked as deleted after a customer rent it
+        public IQueryable<Realestate> GetActiveRealestates()
+        {
+            return _realestateDbContext.Realestates.Where(r => !r.IsDeleted);
+        }
+
         public async Task<IActionResult> GeneralGrid() // this view will return both leilighet and hus
         {
-            List<Realestate> propertylist = await _realestateDbContext.Realestates.ToListAsync();
+
+            List<Realestate> propertylist = await GetActiveRealestates().ToListAsync();
             var listmodel = new RealestateListViewModel(propertylist, "GeneralGrid");
             return View(listmodel);
         }
 
         public async Task<IActionResult> GeneralTable() // general table view
         {
-            List<Realestate> propertylist = await _realestateDbContext.Realestates.ToListAsync();
+            List<Realestate> propertylist = await GetActiveRealestates().ToListAsync();
             var listmodel = new RealestateListViewModel(propertylist, "GeneralTable");
             return View(listmodel);
         }
 
         public async Task<IActionResult> ApartmentGrid() // only apartments, grid layout
         {
-            List<Realestate> propertylist = await _realestateDbContext.Realestates.Where(p => p.Type == "Apartment").ToListAsync();
-            var listmodel = new RealestateListViewModel(propertylist, "ApartmentGrid");
+            List<Realestate> apartmentonly = await GetActiveRealestates()
+                                        .Where(p => p.Type == "Apartment")
+                                            .ToListAsync();
+
+            var listmodel = new RealestateListViewModel(apartmentonly, "ApartmentGrid");
             return View(listmodel);
         }
 
         public async Task<IActionResult> ApartmentTable() // only apartments, table layout
         {
-            List<Realestate> propertylist = await _realestateDbContext.Realestates.Where(p => p.Type == "Apartment").ToListAsync();
-            var listmodel = new RealestateListViewModel(propertylist, "ApartmentTable");
+            List<Realestate> apartmentonly = await GetActiveRealestates()
+                                        .Where(p => p.Type == "Apartment")
+                                            .ToListAsync();
+            var listmodel = new RealestateListViewModel(apartmentonly, "ApartmentTable");
             return View(listmodel);
         }
 
         public async Task<IActionResult> HouseGrid() // only houses, grid layout
         {
-            List<Realestate> propertylist = await _realestateDbContext.Realestates.Where(p => p.Type == "House").ToListAsync();
-            var listmodel = new RealestateListViewModel(propertylist, "HouseGrid");
+            List<Realestate> houseonly = await GetActiveRealestates()
+                                        .Where(p => p.Type == "House")
+                                            .ToListAsync();
+            var listmodel = new RealestateListViewModel(houseonly, "HouseGrid");
             return View(listmodel);
         }
 
         public async Task<IActionResult> HouseTable() // only houses, table layout
         {
-            List<Realestate> propertylist = await _realestateDbContext.Realestates.Where(p => p.Type == "House").ToListAsync();
-            var listmodel = new RealestateListViewModel(propertylist, "HouseTable");
+            List<Realestate> houseonly = await GetActiveRealestates()
+                                        .Where(p => p.Type == "House")
+                                            .ToListAsync();
+            var listmodel = new RealestateListViewModel(houseonly, "HouseTable");
             return View(listmodel);
         }
 
@@ -97,13 +113,70 @@ namespace Project1.Controllers
                 if (ModelState.IsValid)
                 {
                     _realestateDbContext.Realestates.Add(property); // add to db
-                    await _realestateDbContext.SaveChangesAsync(); 
+                    await _realestateDbContext.SaveChangesAsync();
                     return RedirectToAction(nameof(GeneralGrid));
                 }
                 return View(property);
             }
-
         }
 
+        [Authorize(Roles = "Default")] // Authorized only to default user
+        [HttpGet]
+        public async Task<IActionResult> Rent(int realestateId)
+        {
+            var realestate = await _realestateDbContext.Realestates.FirstOrDefaultAsync(i => i.RealestateId == realestateId);
+            if (realestate == null)
+            {
+                return BadRequest("Real estate not found.");
+            }
+
+            var viewModel = new RentViewModel
+            {
+                Realestate = realestate,
+                Rent = new Rent() // display the targeted real estate to user
+            };
+
+
+            return View(viewModel);
+        }
+
+
+        [Authorize(Roles = "Default")] // Authorized only to default user
+        [HttpPost]
+        public async Task<IActionResult> Rent(RentViewModel rentmodel) 
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User); // get current user
+                var realestate = _realestateDbContext.Realestates.Find(rentmodel.Rent.RealestateId); // get the chosen real estate
+
+                if (user == null || realestate == null)
+                {
+                    return BadRequest("User or Real estate not found.");
+                }
+
+                var newRent = new Rent // create a new rent
+                {
+                    RentDateFrom = rentmodel.Rent.RentDateFrom,
+                    RentDateTo = rentmodel.Rent.RentDateTo,
+                    UserId = user.Id,
+                    User = user,
+                    RealestateId = realestate.RealestateId,
+                    Realestate = realestate,
+                    TotalPrice = realestate.Price
+                };
+
+                realestate.IsDeleted = true; // Mark the Realestate as deleted
+
+                _realestateDbContext.Rent.Add(newRent); // add new rent to history
+                _realestateDbContext.SaveChanges(); // Save changes, which marks the Realestate as deleted
+
+                return RedirectToAction(nameof(GeneralGrid));
+            }
+            catch
+            {
+                return BadRequest("Create rent fail");
+            }
+        }
     }
 }
