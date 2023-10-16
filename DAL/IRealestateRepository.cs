@@ -7,7 +7,7 @@ namespace Project1.DAL;
 
 	public interface IRealestateRepository
 	{
-        //public IQueryable<Realestate> GetActiveRealestates() SAMME SOM GETALL()????
+        //public IQueryable<Realestate> GetActiveRealestates() 
         IQueryable<Realestate> GetActiveRealestates();
         // public async Task<IActionResult> Create(Realestate property)
         Task Create(Realestate property);
