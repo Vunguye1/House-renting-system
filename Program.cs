@@ -82,9 +82,10 @@ var loggerConfiguration = new LoggerConfiguration()
     .MinimumLevel.Information()
     .WriteTo.File($"Logs/app_{DateTime.Now:yyyyMMdd_HHmmss}.log");
 
+//Filters out the logging of information level
 loggerConfiguration.Filter.ByExcluding(e => e.Properties.TryGetValue("SourceContext", out var value) &&
-                                                e.Level == Serilog.Events.LogEventLevel.Information &&
-                                                e.MessageTemplate.Text.Contains("Execute DbCommand"));
+                            e.Level == Serilog.Events.LogEventLevel.Information &&
+                            e.MessageTemplate.Text.Contains("Executed DbCommand"));
 
 var logger = loggerConfiguration.CreateLogger();
 builder.Logging.AddSerilog(logger);
