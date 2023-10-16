@@ -11,9 +11,12 @@ namespace Project1.DAL;
 		//Kan hende du kan dropåpe den under også bruke den fra realestatertepository
 		Task<IEnumerable<Realestate>> ListAllRealestates();
 		Task UpdateRealestate(Realestate realestate);
-		Task<bool> Delete(int id);
+		Task<bool> DeleteRealestate(int id);
 		Task UpdateUser(ApplicationUser user);
 		Task<bool> DeleteUser(String userid);
+		Task<Realestate?> GetRealestateById(int id);
+
+		Task<ApplicationUser> GetUserById(String userId);
 
 
 

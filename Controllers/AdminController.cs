@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project1.Models;
 using Project1.ViewModels;
+using Project1.DAL;
 
 namespace Project1.Controllers
 {
@@ -10,10 +11,12 @@ namespace Project1.Controllers
     public class AdminController : Controller
     {
         private readonly RealestateDbContext _realestateDbContext;
+        private readonly IAdminRepository _adminRepository;
 
-        public AdminController(RealestateDbContext realestateDbContext)
+        public AdminController(RealestateDbContext realestateDbContext, IAdminRepository adminRepository)
         {
             _realestateDbContext = realestateDbContext;
+            _adminRepository = adminRepository;
         }
 
         public IActionResult Index()
@@ -21,23 +24,26 @@ namespace Project1.Controllers
             return View();
         }
 
-        // this method is to to exclude deleted Realestate records. A real estate is marked as deleted after a customer rent it
-        public IQueryable<Realestate> GetActiveRealestates()
-        {
-            return _realestateDbContext.Realestates.Where(r => !r.IsDeleted);
-        }
+        //// this method is to to exclude deleted Realestate records. A real estate is marked as deleted after a customer rent it
+        //public IQueryable<Realestate> GetActiveRealestates()
+        //{
+        //    return _realestateDbContext.Realestates.Where(r => !r.IsDeleted);
+        //}
 
         public async Task<IActionResult> ListAllUsers() // List all users registered in database. Testing purpose
         {
-            List<ApplicationUser> users = await _realestateDbContext.User.ToListAsync();
-            return View(users);
+            var usersList = await _adminRepository.ListAllUsers();
+            return View(usersList);
         }
 
 
+        
 
-        public async Task<IActionResult> ListAllRealestates() // List all existing real estates
+
+    public async Task<IActionResult> ListAllRealestates() // List all existing real estates
         {
-            List<Realestate> propertylist = await GetActiveRealestates().ToListAsync();
+            //List<Realestate> propertylist = await GetActiveRealestates().ToListAsync();
+            var propertylist = await _adminRepository.ListAllRealestates();
             var listmodel = new RealestateListViewModel(propertylist, "GeneralTable");
             return View(listmodel);
         }
@@ -46,11 +52,12 @@ namespace Project1.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateRealEstate(int id)
         {
-            var item = await _realestateDbContext.Realestates.FindAsync(id);
+            //var item = await _realestateDbContext.Realestates.FindAsync(id);
+            var item = await _adminRepository.GetRealestateById(id);
 
             if (item == null)
             {
-                return BadRequest("item not found");
+                return NotFound();
             }
             return View(item);
         }
@@ -61,8 +68,7 @@ namespace Project1.Controllers
 
             if (ModelState.IsValid)
             {
-                _realestateDbContext.Realestates.Update(realestate);
-                await _realestateDbContext.SaveChangesAsync();
+                await _adminRepository.UpdateRealestate(realestate);
             }
             return RedirectToAction(nameof(ListAllRealestates));
         }
@@ -72,14 +78,7 @@ namespace Project1.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var realestate = _realestateDbContext.Realestates.Find(id);
-            if (realestate == null)
-            {
-                return NotFound();
-            }
-            _realestateDbContext.Realestates.Remove(realestate);
-            await _realestateDbContext.SaveChangesAsync();
-
+            await _adminRepository.DeleteRealestate(id);
             return RedirectToAction(nameof(ListAllRealestates));
         }
 
@@ -91,7 +90,8 @@ namespace Project1.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateUser(string userid)
         {
-            var user = await _realestateDbContext.User.FindAsync(userid);
+            //var user = await _realestateDbContext.User.FindAsync(userid);
+            var user = await _adminRepository.GetUserById(userid);
 
             if (user == null)
             {
@@ -105,6 +105,7 @@ namespace Project1.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 var existingUser = _realestateDbContext.User.FirstOrDefault(u => u.Id == user.Id);
 
                 if (existingUser != null)
@@ -145,14 +146,7 @@ namespace Project1.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUserConfirmed(string userid)
         {
-            var user = _realestateDbContext.User.Find(userid);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            _realestateDbContext.User.Remove(user);
-            await _realestateDbContext.SaveChangesAsync();
-
+            await _adminRepository.DeleteUser(userid);
             return RedirectToAction(nameof(ListAllUsers));
         }
 
