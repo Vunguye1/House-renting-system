@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Project1.Models;
 using Microsoft.AspNetCore.Identity;
 using Serilog;
+using Project1.DAL;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -89,6 +90,8 @@ loggerConfiguration.Filter.ByExcluding(e => e.Properties.TryGetValue("SourceCont
 
 var logger = loggerConfiguration.CreateLogger();
 builder.Logging.AddSerilog(logger);
+
+builder.Services.AddScoped<IRealestateRepository, RealestateRepository>(); //use realestate repository
 
 // build our app
 var app = builder.Build();

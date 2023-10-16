@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Project1.DAL;
 using Project1.Models;
 using Project1.ViewModels;
 
@@ -14,19 +15,23 @@ namespace Project1.Controllers
         private readonly UserManager<ApplicationUser> _userManager; // call usermanager
         private readonly SignInManager<ApplicationUser> _signInManager; // call signIn manager
         private readonly RealestateDbContext _realestateDbContext;
+        private readonly IRealestateRepository _realestateRepository;
 
         public RealestateController(RealestateDbContext realestateDbContext, UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager, IRealestateRepository realestateRepository)
         {
             _realestateDbContext = realestateDbContext;
             _userManager = userManager;
             _signInManager = signInManager;
+            _realestateRepository = realestateRepository;
         }
+
+        
 
         // this method is to to exclude deleted Realestate records. A real estate is marked as deleted after a customer rent it
         public IQueryable<Realestate> GetActiveRealestates()
         {
-            return _realestateDbContext.Realestates.Where(r => !r.IsDeleted);
+            return _realestateRepository.GetActiveRealestates();
         }
 
         public async Task<IActionResult> GeneralGrid() // this view will return both leilighet and hus
@@ -112,9 +117,12 @@ namespace Project1.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _realestateDbContext.Realestates.Add(property); // add to db
-                    await _realestateDbContext.SaveChangesAsync();
+                    await _realestateRepository.Create(property);
                     return RedirectToAction(nameof(GeneralGrid));
+
+                    //_realestateDbContext.Realestates.Add(property); // add to db
+                    //await _realestateDbContext.SaveChangesAsync();
+                    
                 }
                 return View(property);
             }
