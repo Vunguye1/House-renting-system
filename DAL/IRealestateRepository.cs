@@ -5,16 +5,25 @@ using Project1.ViewModels;
 
 namespace Project1.DAL;
 
-	public interface IRealestateRepository
-	{
-        //public IQueryable<Realestate> GetActiveRealestates() 
-        IQueryable<Realestate> GetActiveRealestates();
-        // public async Task<IActionResult> Create(Realestate property)
-        Task Create(Realestate property);
-        //public async Task<IActionResult> Rent(RentViewModel rentmodel)
-        Task<bool> Rent(RentViewModel rentmodel);
+public interface IRealestateRepository
+{
 
-    }
+    IQueryable<Realestate> GetActiveRealestates();
+
+    Task<IEnumerable<Realestate>?> GetAll();
+
+    Task<IEnumerable<Realestate>?> GetOnlyHouse();
+
+    Task<IEnumerable<Realestate>?> GetOnlyApartment();
+
+    Task<Realestate?> GetRealestateById(int id);
+
+    Task<bool> Create(Realestate property);
+
+    //public async Task<IActionResult> Rent(RentViewModel rentmodel)
+    Task<bool> Rent(Rent nyrent);
+
+}
 
 
 
