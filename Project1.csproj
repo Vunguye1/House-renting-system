@@ -25,6 +25,12 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Logs\" />
+    <Folder Include="DAL\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Logs\" />
+    <None Remove="DAL\" />
+  </ItemGroup>
 </Project>
