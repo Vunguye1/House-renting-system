@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Project1.Migrations
 {
     /// <inheritdoc />
-    public partial class kobiknua : Migration
+    public partial class pls : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -171,11 +171,11 @@ namespace Project1.Migrations
                     Price = table.Column<int>(type: "INTEGER", nullable: false),
                     Location = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     imageurl = table.Column<string>(type: "TEXT", nullable: true),
                     imagefile = table.Column<string>(type: "TEXT", nullable: true),
                     Persons = table.Column<int>(type: "INTEGER", nullable: true),
                     Bathrooms = table.Column<int>(type: "INTEGER", nullable: true),
-                    Id = table.Column<string>(type: "TEXT", nullable: true),
                     UserId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -192,22 +192,23 @@ namespace Project1.Migrations
                 name: "Rent",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    RentID = table.Column<int>(type: "INTEGER", nullable: false),
+                    RentID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     RentDateFrom = table.Column<string>(type: "TEXT", nullable: false),
                     RentDateTo = table.Column<string>(type: "TEXT", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
                     RealestateId = table.Column<int>(type: "INTEGER", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rent", x => x.Id);
+                    table.PrimaryKey("PK_Rent", x => x.RentID);
                     table.ForeignKey(
                         name: "FK_Rent_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Rent_Realestates_RealestateId",
                         column: x => x.RealestateId,

@@ -13,6 +13,7 @@ namespace Project1.Models
         public int Price { get; set; }
         public string Location { get; set; } = string.Empty;
         public string? Description { get; set; }
+        public bool IsDeleted { get; set; }
         public string? imageurl { get; set; }
         public string? imagefile { get; set; }
         public int? Persons { get; set; }

@@ -1,0 +1,32 @@
+﻿@model RentViewModel
+
+<div class="container">
+    <h2>Create your booking here</h2>
+
+    <form asp-action="Rent">
+        <div class="form-group">
+            <label asp-for="@Model.Realestate.Name"></label>
+            <textarea id="RealestateName" class="form-control" readonly>@Model.Realestate.Name</textarea>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.Rent.RentDateFrom"></label><span class="text-danger">*</span>
+            <input asp-for="@Model.Rent.RentDateFrom" class="form-control" />
+            <span asp-validation-for="@Model.Rent.RentDateFrom" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.Rent.RentDateTo"></label><span class="text-danger">*</span>
+            <input asp-for="@Model.Rent.RentDateTo" class="form-control" />
+            <span asp-validation-for="@Model.Rent.RentDateTo" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group"> <!--Display the targeted real estate-->
+            <input type="hidden" asp-for="@Model.Rent.RealestateId" value="@Model.Realestate.RealestateId" />
+        </div>
+
+        <button type="submit" class="btn btn-primary" method="post">Confirm your booking</button>
+    </form>
+</div>
+

@@ -13,14 +13,28 @@ namespace Project1.Controllers
         {
             _realestateDbContext = realestateDbContext;
         }
-        
+
+        // this method is to to exclude deleted Realestate records. A real estate is marked as deleted after a customer rent it
+        public IQueryable<Realestate> GetActiveRealestates()
+        {
+            return _realestateDbContext.Realestates.Where(r => !r.IsDeleted);
+        }
 
         public async Task<IActionResult> ListRealestateByOwner(string ownerId) // List all properties the user register on the system
         {
-            List<Realestate> realestates = await _realestateDbContext.Realestates.Where(p => p.UserId == ownerId).ToListAsync();
+            List<Realestate> realestates = await GetActiveRealestates()
+                .Where(p => p.UserId == ownerId).ToListAsync();
+
             var listmodel = new RealestateListViewModel(realestates, "Your registered real estate");
 
             return View(listmodel);
+        }
+
+        public async Task<IActionResult> ListRentHistory(string userId) // List all properties the user register on the system
+        {
+            List<Rent> renthistory = await _realestateDbContext.Rent.Where(p => p.UserId == userId).ToListAsync();
+
+            return View(renthistory);
         }
 
         [HttpGet]
@@ -47,18 +61,6 @@ namespace Project1.Controllers
             return RedirectToAction(nameof(ListRealestateByOwner));
         }
 
-
-
-        [HttpGet]
-        public async Task<IActionResult> DeleteRealEstate(int id)
-        {
-            var realestate = await _realestateDbContext.Realestates.FindAsync(id);
-            if (realestate == null)
-            {
-                return NotFound();
-            }
-            return View(realestate);
-        }
 
 
         [HttpPost]

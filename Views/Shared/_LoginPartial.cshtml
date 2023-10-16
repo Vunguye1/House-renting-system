@@ -10,7 +10,7 @@
 
             @{ // get the logged on user from the database
                 var user = await UserManager.GetUserAsync(User);
-                bool isUseradmin = await UserManager.IsInRoleAsync(user, "Admin"); // check if this user is admin or just default user
+                
             }
 
             @if ( user.ProfilePicture != null) // if profilePicture is updated --> display it
@@ -29,8 +29,10 @@
                 <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
             </form>
         </li>
+
         // if this user is admin user
-        @if (isUseradmin)
+        @if (await UserManager.IsInRoleAsync(user, "Admin"))  // Check if this user is an admin or just a default user
+
         {                           // we will add a button here for admin management
             <li class="nav-item"> 
                 <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin management</a>
@@ -40,6 +42,10 @@
         {                           // we will add a button here to display all real estates this user has
             <li class="nav-item">
                 <a asp-controller="ApplicationUser" asp-action="ListRealestateByOwner" asp-route-ownerId="@user.Id" class="nav-link text-dark">Your real estates</a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-controller="ApplicationUser" asp-action="ListRentHistory" asp-route-userId="@user.Id" class="nav-link text-dark">Your rent history</a>
             </li>
         }
         

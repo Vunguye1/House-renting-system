@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Project1.Models
 {
-	public class DBInit
-	{
+    public class DBInit
+    {
         public static void Seed(IApplicationBuilder app)
         {
             using var serviceScope = app.ApplicationServices.CreateScope();
@@ -14,8 +14,34 @@ namespace Project1.Models
 
             if (!context.Realestates.Any())
             {
+
+                var users = new List<ApplicationUser> {
+
+                    new ApplicationUser
+                    {
+                        UserName = "peertrust@gmail.com",
+                        Email = "peertrust@gmail.com",
+                        FirstName = "peer",
+                        LastName = "trust",
+                        PasswordHash = "Dontknowyet123*",
+                        EmailConfirmed = true,
+                    },
+
+                    new ApplicationUser
+                    {
+                        UserName = "randaoili@gmail.com",
+                        Email = "randaoili@gmail.com",
+                        FirstName = "rand",
+                        LastName = "aoili",
+                        PasswordHash = "Dontknowyet123*",
+                        EmailConfirmed = true,
+                    },
+                };
+
+
+
                 var items = new List<Realestate>
-                
+
             {
 
                 new Realestate
@@ -24,12 +50,13 @@ namespace Project1.Models
                     Type="Apartment",
                     Price = 3000,
                     Location="Majorstuen, Oslo",
-                    Description = "Beautiful StudioApartment at Marjorstuen. Close to public transport and all the hottest stores.",
+                    Description = "Beautiful studio apartment at Marjorstuen. Close to public transport and all the hottest stores.",
                     imageurl = "/img/StudioApartment/mainroom.jpg",
                     imagefile="/img/StudioApartment",
                     Persons=4,
                     Bathrooms=1,
-                    UserId = "5cf487a2-08c6-4874-870e-14244e989247"
+                    UserId = users[0].Id,
+                    User = users[0]
                 },
                  new Realestate
                 {
@@ -41,7 +68,9 @@ namespace Project1.Models
                     imageurl = "/img/Villa/pool1.jpg",
                     imagefile = "/img/Villa",
                     Persons= 8,
-                    Bathrooms=2
+                    Bathrooms=2,
+                    UserId = users[0].Id,
+                    User = users[0]
                 },
                   new Realestate
                 {
@@ -50,151 +79,103 @@ namespace Project1.Models
                     Price = 8000,
                     Location="Grefsen, Oslo",
                     Description = "Big house on the top of Grefsen with amazing views. Just a small trip with the tram down to the city center. Very beautiful and " +
-                    "scandinavian inspired with lots of wood used as interior..\nPersons: 6\nBathroom:2",
+                    "scandinavian inspired with lots of wood used as interior..",
                     imageurl = "/img/house2/outside.jpg",
                     imagefile = "/img/house2",
                     Persons=6,
-                    Bathrooms=2
-                }
+                    Bathrooms=2,
+                    UserId = users[1].Id,
+                    User = users[1]
+                },
 
-               
+
+
+                  // change picture and image file
+                  new Realestate
+                {
+                    Name = "Modern Oasis in the Hills",
+                    Type = "House",
+                    Price = 2000,
+                    Location="Sagene, Oslo",
+                    Description = "Discover this contemporary gem nestled in the hills, offering a tranquil escape from the city bustle. Embrace clean lines and stylish architecture.",
+                    imageurl = "/img/house3/outside.jpg",
+                    imagefile = "/img/house3",
+                    Persons=4,
+                    Bathrooms=3,
+                    UserId = users[0].Id,
+                    User = users[0]
+                }
+                  ,
+                  new Realestate
+                {
+                    Name = "Riverside Retreat",
+                    Type="Apartment",
+                    Price = 3000,
+                    Location="Storo, Oslo",
+                    Description = "This charming riverside house is the perfect sanctuary for nature lovers. Enjoy the soothing sound of the river as you relax on the deck.",
+                    imageurl = "/img/hus1/outside.jpg",
+                    imagefile = "/img/hus1",
+                    Persons=5,
+                    Bathrooms=2,
+                    UserId = users[1].Id,
+                    User = users[1]
+                }
+                  ,
+                  new Realestate
+                {
+                    Name = "Artistic Loft in the Warehouse District",
+                    Type="Apartment",
+                    Price = 4000,
+                    Location="Nydalen, Oslo",
+                    Description = "Live in an artist's haven within the trendy warehouse district. This spacious loft is a canvas for creativity, boasting industrial aesthetics and ample space.",
+                    imageurl = "/img/Funkyhome/hall.jpg",
+                    imagefile = "/img/Funkyhome",
+                    Persons=2,
+                    Bathrooms=1,
+                    UserId = users[1].Id,
+                    User = users[1]
+                }
+                  ,
+                  new Realestate
+                {
+                    Name = "Mediterranean Villa with Pool",
+                    Type= "Apartment",
+                    Price = 8000,
+                    Location="Grefsen, Oslo",
+                    Description = "Experience Mediterranean living in this stunning villa. Enjoy the pool, " +
+                    "lush gardens, and spacious interiors in this sunny paradise",
+                    imageurl = "/img/apartment2/living.jpg",
+                    imagefile = "/img/apartment2",
+                    Persons=8,
+                    Bathrooms=4,
+                    UserId = users[1].Id,
+                    User = users[1]
+                }
+                  ,
+                  new Realestate
+                {
+                    Name = "Seaside Cottage Escape",
+                    Type="House",
+                    Price = 8000,
+                    Location="Bjorvika, Oslo",
+                    Description = "Unwind in this charming seaside cottage, just steps from the shore. " +
+                    "Coastal living at its finest, with a cozy ambiance and ocean views",
+                    imageurl = "/img/apartment1/livingroom.jpg",
+                    imagefile = "/img/apartment1",
+                    Persons=4,
+                    Bathrooms=1,
+                    UserId = users[0].Id,
+                    User = users[0]
+                },
             };
+                context.AddRange(users);
                 context.AddRange(items);
                 context.SaveChanges();
             }
 
-           
+
             context.SaveChanges();
         }
     }
 }
 
-
-/*
- * using Microsoft.EntityFrameworkCore;
-
-namespace MyShop.Models;
-
-public static class DBInit
-{
-    public static void Seed(IApplicationBuilder app)
-    {
-        using var serviceScope = app.ApplicationServices.CreateScope();
-        ItemDbContext context = serviceScope.ServiceProvider.GetRequiredService<ItemDbContext>();
-        context.Database.EnsureDeleted(); //Always deletes the database, can comment out.
-        context.Database.EnsureCreated();
-
-        if (!context.Items.Any())
-        {
-            var items = new List<Item>
-            {
-                new Item
-                {
-                    Name = "Pizza",
-                    Price = 150,
-                    Description = "Delicious Italian dish with a thin crust topped with tomato sauce, cheese, and various toppings.",
-                    ImageUrl = "/images/pizza.jpg"
-                },
-                new Item
-                {
-                    Name = "Fried Chicken Leg",
-                    Price = 20,
-                    Description = "Crispy and succulent chicken leg that is deep-fried to perfection, often served as a popular fast food item.",
-                    ImageUrl = "/images/chickenleg.jpg"
-                },
-                new Item
-                {
-                    Name = "French Fries",
-                    Price = 50,
-                    Description = "Crispy, golden-brown potato slices seasoned with salt and often served as a popular side dish or snack.",
-                    ImageUrl = "/images/frenchfries.jpg"
-                },
-                new Item
-                {
-                    Name = "Grilled Ribs",
-                    Price = 250,
-                    Description = "Tender and flavorful ribs grilled to perfection, usually served with barbecue sauce.",
-                    ImageUrl = "/images/ribs.jpg"
-                },
-                new Item
-                {
-                    Name = "Tacos",
-                    Price = 150,
-                    Description = "Tortillas filled with various ingredients such as seasoned meat, vegetables, and salsa, folded into a delicious handheld meal.",
-                    ImageUrl = "/images/tacos.jpg"
-                },
-                new Item
-                {
-                    Name = "Fish and Chips",
-                    Price = 180,
-                    Description = "Classic British dish featuring battered and deep-fried fish served with thick-cut fried potatoes.",
-                    ImageUrl = "/images/fishandchips.jpg"
-                },
-                new Item
-                {
-                    Name = "Cider",
-                    Price = 50,
-                    Description = "Refreshing alcoholic beverage made from fermented apple juice, available in various flavors.",
-                    ImageUrl = "/images/cider.jpg"
-                },
-                new Item
-                {
-                    Name = "Coke",
-                    Price = 30,
-                    Description = "Popular carbonated soft drink known for its sweet and refreshing taste.",
-                    ImageUrl = "/images/coke.jpg"
-                },
-            };
-            context.AddRange(items);
-            context.SaveChanges();
-        }
-
-        if (!context.Customers.Any())
-        {
-            var customers = new List<Customer>
-            {
-                new Customer { Name = "Alice Hansen", Address = "Osloveien 1"},
-                new Customer { Name = "Bob Johansen", Address = "Oslomet gata 2"},
-                new Customer { Name = "Serina Erzengin", Address = "Pilestredet 35"},
-            };
-            context.AddRange(customers);
-            context.SaveChanges();
-        }
-
-        if (!context.Orders.Any())
-        {
-            var orders = new List<Order>
-            {
-                new Order {OrderDate = DateTime.Today.ToString(), CustomerId = 1,},
-                new Order {OrderDate = DateTime.Today.ToString(), CustomerId = 2,},
-            };
-            context.AddRange(orders);
-            context.SaveChanges();
-        }
-
-        if (!context.OrderItems.Any())
-        {
-            var orderItems = new List<OrderItem>
-            {
-                new OrderItem { ItemId = 1, Quantity = 2, OrderId = 1},
-                new OrderItem { ItemId = 2, Quantity = 1, OrderId = 1},
-                new OrderItem { ItemId = 3, Quantity = 4, OrderId = 2},
-            };
-            foreach (var orderItem in orderItems)
-            {
-                var item = context.Items.Find(orderItem.ItemId);
-                orderItem.OrderItemPrice = orderItem.Quantity * item?.Price ?? 0;
-            }
-            context.AddRange(orderItems);
-            context.SaveChanges();
-        }
-
-        var ordersToUpdate = context.Orders.Include(o => o.OrderItems); //Eager loading, OrderItems will be loaded aswell
-        foreach (var order in ordersToUpdate)
-        {
-            order.TotalPrice = order.OrderItems?.Sum(oi => oi.OrderItemPrice) ?? 0;
-        }
-        context.SaveChanges();
-    }
-}
- */
