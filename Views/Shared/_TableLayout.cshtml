@@ -10,21 +10,27 @@
 
     @foreach (var realestate in Model)
     {
-        <div class="row g-5 border border-4 rounded mt-4">
-            <div class="col-4 pb-5">
+        <div class="d-flex flex-wrap border border-3 g-5 mt-4 justify-content-between">
+            <div class="p-4">
                 <img src="@realestate.imageurl" alt="@realestate.Description" style="max-width: 280px; max-height: 280px;">
             </div>
-            <div class="col-8">
-                <h5 class="card-title">
-                    <a asp-controller="Realestate"
-                       asp-action="Details"
-                       asp-route-id="@realestate.RealestateId"
-                       class="text-decoration-none">@realestate.Name</a>
-                </h5>
-                <p>
-                    @realestate.Description
-                </p>
-                <div class="d-flex flex-md-column align-items-end">
+
+
+            <div class="d-flex flex-column justify-content-between p-4">
+
+                <div>
+                    <h5 class="card-title">
+                        <a asp-controller="Realestate"
+                           asp-action="Details"
+                           asp-route-id="@realestate.RealestateId"
+                           class="text-decoration-none">@realestate.Name</a>
+                    </h5>
+                    <p style="max-width: 700px">
+                        @realestate.Description
+                    </p>
+                </div>
+
+                <div class="d-flex flex-column align-items-end">
                     <h5>
                         @realestate.Price.ToString("0 000 NOK pr/week")
                     </h5>
@@ -33,7 +39,7 @@
                         var currentLoggedinUser = await UserManager.GetUserAsync(User); // get currently logged in user
                     }
                     @if (SignInManager.IsSignedIn(User)) // If user is logged in
-                    { 
+                    {
 
                         @if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Admin")) // if this is admin, display the two buttons
                         {
@@ -106,10 +112,10 @@
                             </div>
                         }
 
-                }
-                    
+                    }
+
                 </div>
-                
+
             </div>
         </div>
 

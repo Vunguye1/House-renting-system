@@ -42,3 +42,37 @@ p {
         background-color: #FDBB31;
         color: black;
     }
+
+
+
+.box {
+    box-shadow: -8px -10px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
+}
+
+    .box:hover {
+        transform: translateY(-10px);
+        box-shadow: -8px -8px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
+    }
+
+
+.realestatetypes {
+    background-image: url(/img/man.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4rem;
+}
+
+    .realestatetypes img {
+        max-height: 600px;
+        max-width: 600px;
+    }
+
+    .realestatetypes > div p {
+        font-size: 18px;
+        line-height: 2;
+    }
