@@ -10,20 +10,161 @@
 </head>
 <body>
     <div class="mainContainer">
-        <div class="mainbg">
-            <div>
-                <p>Finn husly i hele Oslo hos en av våre utleiere</p>
+
+        <section>
+            <div class="mainbg">
+                <div>
+                    <p>Finn husly i hele Oslo hos en av våre utleiere</p>
+                </div>
+
+                <div>
+                    <a class="mybutton" asp-controller="Realestate" asp-action="GeneralGrid">Book</a>
+                </div>
             </div>
-            <div>
-                <a class="mybutton" asp-controller="Realestate" asp-action="GeneralGrid">Book</a>
+        </section>
+
+        <section class="realestatetypes d-flex flex-wrap">
+            <div class="myimage">
+                <img src="./img/mainpig.jpg" />
             </div>
-        </div>
 
 
-        <div>
-            <h1>this is the other sections</h1>
-        </div>
+            <div>
+                <h1>Our booking service</h1>
+                <hr />
+                <p>
+                    Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
+                    tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
+                    Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.
+                    Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.
+                    Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus,
+                    tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat.
+                    Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
+                </p>
+            </div>
+        </section>
+
+
+
+        <section>
+            <div class="d-flex justify-content-center">
+
+                <div class="card border-0 me-5" style="max-height: 200px; max-width: 200px">
+                    <img src="./img/house.svg" class="card-img-top" style="height: 100%">
+                    <div class="card-body">
+                        <div>
+                            <div class="d-flex flex-column">
+                                <a asp-controller="Realestate"
+                                   asp-action="HouseGrid"
+                                   class="stretched-link"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="card border-0 ms-5" style="max-height: 200px; max-width: 200px">
+                    <img src="~/img/apartment.svg" class="card-img-top" style="height: 100%">
+                    <div class="card-body">
+                        <div>
+                            <div class="d-flex flex-column">                            
+                                <a asp-controller="Realestate"
+                                   asp-action="ApartmentGrid"
+                                   class="stretched-link"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </section>
+
     </div>
+    <footer class="text-center text-white mt-4" style="background-color: #caced1;">
+        <!-- Grid container -->
+        <div class="container p-4">
+            <!-- Section: Images -->
+            <section class="">
+                <div class="row">
+                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                             data-ripple-color="light">
+                            <img src="https://mdbcdn.b-cdn.net/img/new/fluid/city/113.webp"
+                                 class="w-100" />
+                            <a href="#!">
+                                <div class="mask"
+                                     style="background-color: rgba(251, 251, 251, 0.2);"></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                             data-ripple-color="light">
+                            <img src="https://mdbcdn.b-cdn.net/img/new/fluid/city/111.webp"
+                                 class="w-100" />
+                            <a href="#!">
+                                <div class="mask"
+                                     style="background-color: rgba(251, 251, 251, 0.2);"></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                             data-ripple-color="light">
+                            <img src="https://mdbcdn.b-cdn.net/img/new/fluid/city/112.webp"
+                                 class="w-100" />
+                            <a href="#!">
+                                <div class="mask"
+                                     style="background-color: rgba(251, 251, 251, 0.2);"></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                             data-ripple-color="light">
+                            <img src="https://mdbcdn.b-cdn.net/img/new/fluid/city/114.webp"
+                                 class="w-100" />
+                            <a href="#!">
+                                <div class="mask"
+                                     style="background-color: rgba(251, 251, 251, 0.2);"></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                             data-ripple-color="light">
+                            <img src="https://mdbcdn.b-cdn.net/img/new/fluid/city/115.webp"
+                                 class="w-100" />
+                            <a href="#!">
+                                <div class="mask"
+                                     style="background-color: rgba(251, 251, 251, 0.2);"></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                             data-ripple-color="light">
+                            <img src="https://mdbcdn.b-cdn.net/img/new/fluid/city/116.webp"
+                                 class="w-100" />
+                            <a href="#!">
+                                <div class="mask"
+                                     style="background-color: rgba(251, 251, 251, 0.2);"></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Section: Images -->
+        </div>
+        <!-- Grid container -->
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 </body>
 </html>
 
