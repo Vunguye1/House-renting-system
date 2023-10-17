@@ -4,9 +4,15 @@
     box-shadow: -8px -10px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
 }
 
-    .box:hover {
-        transform: translateY(-10px);
-        box-shadow: -8px -8px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
-    }
+.gridbox:hover {
+    transform: translateY(-10px);
+    box-shadow: -8px -8px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
+}
 
+.listbox{
+    border:3px solid #ffffff
+}
+.listbox:hover {
+    border: 3px solid #D3D3D3;
+}
 
