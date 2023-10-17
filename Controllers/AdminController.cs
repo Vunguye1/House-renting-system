@@ -92,7 +92,6 @@ namespace Project1.Controllers;
         [HttpGet]
         public async Task<IActionResult> UpdateUser(string userid)
         {
-            //var user = await _realestateDbContext.User.FindAsync(userid);
             var user = await _adminRepository.GetUserById(userid);
 
             if (user == null)
@@ -156,7 +155,7 @@ namespace Project1.Controllers;
             RedirectToAction(nameof(ListAllUsers));
         }
 
-        return BadRequest("Deletion failed");
+        return RedirectToAction(nameof(ListAllUsers));
     }
         
 
