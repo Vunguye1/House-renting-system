@@ -23,9 +23,6 @@ namespace Project1.Models
 
         //navigation property
         public virtual ApplicationUser? User { get; set; }
-
-        //navigation property
-        public virtual List<Rent>? Rents { get; set; }
         
     }
 }

@@ -13,5 +13,8 @@ namespace Project1.Models
 
         //navigation property
         public virtual List<Realestate>? Realestate { get; set; }
+
+        //navigation property
+        public virtual List<Rent>? Rents { get; set; }
     }
 }
