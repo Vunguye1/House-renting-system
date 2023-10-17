@@ -2,40 +2,59 @@
 
 <div class="container">
     <h2>Find a place to live! We have multiple options here, both houses and apartments (@Model.CurrentViewName)</h2>
+        
+        
+            <div class="d-flex">
+                <div class="p-2">
 
-    <div class="d-flex flex-row justify-content-end">
+                    <div class="d-grid gap-2 d-md-block">
+                        <button class="btn btn-secondary btn-sm" type="button">
+                            <a class="grid" asp-controller="Realestate" asp-action="ApartmentGrid">Apartments</a>
+                        </button>
+                        <button class="btn btn-secondary btn-sm" type="button">
+                            <a class="grid" asp-controller="Realestate" asp-action="HouseGrid">Houses</a>
+                        </button>
 
-        <div class="dropdown me-2">
-            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Filter type
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item active" asp-controller="Realestate" asp-action="GeneralGrid" aria-current="true">General</a></li>
-                <li>
-                    <a class="dropdown-item" asp-controller="Realestate" asp-action="ApartmentGrid">Apartment</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" asp-controller="Realestate" asp-action="HouseGrid">House</a>
-                </li>
-            </ul>
+
+                    </div>
+
+                </div>
+
+                <div class="ms-auto p-2">
+
+                    @* <div class="dropdown me-2">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Filter type
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item active" asp-controller="Realestate" asp-action="GeneralGrid" aria-current="true">General</a></li>
+                            <li>
+                                <a class="dropdown-item" asp-controller="Realestate" asp-action="ApartmentGrid">Apartment</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-controller="Realestate" asp-action="HouseGrid">House</a>
+                            </li>
+                        </ul>
+                    </div>*@
+
+                    <div class="dropdown">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            View as
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item active" asp-action="GeneralGrid" aria-current="true">Grid</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-action="GeneralTable">List</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            
         </div>
-
-        <div class="dropdown">
-            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                View as
-            </button>
-            <ul class="dropdown-menu">
-                <li>
-                    <a class="dropdown-item active" asp-action="GeneralGrid" aria-current="true">Grid</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" asp-action="GeneralTable">List</a>
-                </li>
-            </ul>
-        </div>
-
-    </div>
-
+    
     <div class="row row-cols-1 row-cols-md-3 g-5 m-lg-auto">
 
         <!--Create a grid layout, on small screen 1 column, on medium 3 columns. change g-5 to modify spacing between each card -->
