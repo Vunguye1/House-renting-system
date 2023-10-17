@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Project1.Models;
 
-namespace Project1.DAL
-{
+namespace Project1.DAL;
+
     public class AdminRepository : IAdminRepository
     {
         private readonly RealestateDbContext _db;
@@ -77,37 +77,43 @@ namespace Project1.DAL
         //Task UpdateUser(ApplicationUser user);
         public async Task UpdateUser(ApplicationUser user)
         {
-            _db.User.Update(user);
             await _db.SaveChangesAsync();
         }
 
 
         //Task<bool> DeleteUser(String userid);
-        public async Task<bool> DeleteUser(String userId)
+        public async Task<bool> DeleteUser(string userid)
         {
-            var user = await _db.User.FindAsync(userId);
-            if (user == null)
-            {
-                return false;
-            }
+
+        var user = await _db.User.FindAsync(userid);
+        if (user == null)
+        {
+            return false;
+        }
+            
             _db.User.Remove(user);
             await _db.SaveChangesAsync();
             return true;
+            
         }
 
         public async Task<Realestate?> GetRealestateById(int id)
         {
             return await _db.Realestates.FirstOrDefaultAsync(i => i.RealestateId == id);
         }
+
+
+
         //ER DETTE RIKTIG? DEN UNDER?
-        public async Task<ApplicationUser> GetUserById(String id)
+        public async Task<ApplicationUser?> GetUserById(String id)
         {
             return await _db.User.FindAsync(id);
+            
         }
 
+       
 
     }
 
 
 
-}

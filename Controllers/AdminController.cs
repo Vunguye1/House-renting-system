@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Project1.Models;
 using Project1.ViewModels;
 using Project1.DAL;
 
-namespace Project1.Controllers
-{
+
+namespace Project1.Controllers;
+
     [Authorize(Roles = "Admin")] // this controller contains functions that are only for admin
     public class AdminController : Controller
     {
@@ -105,8 +107,8 @@ namespace Project1.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                var existingUser = _realestateDbContext.User.FirstOrDefault(u => u.Id == user.Id);
+
+                var existingUser = await _adminRepository.GetUserById(user.Id);
 
                 if (existingUser != null)
                 {
@@ -121,7 +123,8 @@ namespace Project1.Controllers
 
                     try
                     {
-                        await _realestateDbContext.SaveChangesAsync();
+                       
+                        await _adminRepository.UpdateUser(user);
                         return RedirectToAction(nameof(ListAllUsers));
                     }
                     catch (DbUpdateConcurrencyException ex)
@@ -143,13 +146,20 @@ namespace Project1.Controllers
 
 
 
-        [HttpPost]
-        public async Task<IActionResult> DeleteUserConfirmed(string userid)
+    [HttpPost]
+    public async Task<IActionResult> DeleteUserConfirmed(string userid)
+    {
+        bool returnok = await _adminRepository.DeleteUser(userid);
+
+        if (returnok)
         {
-            await _adminRepository.DeleteUser(userid);
-            return RedirectToAction(nameof(ListAllUsers));
+            RedirectToAction(nameof(ListAllUsers));
         }
+
+        return BadRequest("Deletion failed");
+    }
+        
 
 
     }
-}
+
