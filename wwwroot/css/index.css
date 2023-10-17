@@ -17,11 +17,6 @@
     background-size: cover;
 }
 
-p {
-    font-size: 2.8rem;
-    max-width: 560px;
-    color: white;
-}
 
 .mybutton {
     display: inline-block;
