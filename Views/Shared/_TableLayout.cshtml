@@ -5,16 +5,16 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<div class="container-fluid">
+<div class="container-fluid pt-4">
 
 
     @foreach (var realestate in Model)
     {
-        <div class="row g-5 rounded mt-4 listbox box">
-            <div class="col-4 pb-5">
-                <img src="@realestate.imageurl" alt="@realestate.Description" style="width: 280px; height: 280px; overflow:hidden">
+        <div class="row rounded mb-5 p-2 listbox box">
+            <div class="col-4 p-2">
+                <img src="@realestate.imageurl" alt="@realestate.Description" class="img rounded" style="width: 250px; height: 250px; overflow:hidden">
             </div>
-            <div class="col-8">
+            <div class="col-8 mt-2">
                 <h5 class="card-title">
                     <a asp-controller="Realestate"
                        asp-action="Details"

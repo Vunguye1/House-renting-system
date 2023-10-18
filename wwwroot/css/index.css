@@ -74,19 +74,33 @@ li, footer {
 
 /*White border around boxes in table view*/
 .listbox {
-    border: 3px solid #ffffff
+    border: 3px solid #ffffff;
+    transition: transform 0.2s;
 }
 /*That turns light grey when hoovering*/
     .listbox:hover {
-        border: 3px solid #D3D3D3;
+        transform: scale(1.05);
+        /*border: 3px solid #D3D3D3;*/
     }
 
 /*Buttons for showing houses/apartments*/
-.show {
+a.show {
     text-decoration: none;
-    color: white;
+    color: black;
+    border-color: #E8E8E8; /* Samme farge for kant */
+    
 }
 
-    .show:hover {
-        color: white
+a.show:hover {
+    color: black;
+    background-color: #E8E8E8;
+}
+    a.show.active {
+        background-color: #E8E8E8;
     }
+
+.view.active, .view:hover {
+    background-color: #E8E8E8;
+
+}
+
