@@ -23,13 +23,13 @@ li, footer {
     background-size: cover;
 }
 
-.maincard {
-    border: 1px solid black;
-    margin: 0 4rem;
+.visitoffice {
+    background-image: url(../img/officepicture.jpg);
+    background-size: cover;
+
 }
 
     
-
 
 .mybutton {
     font-size: 1rem;

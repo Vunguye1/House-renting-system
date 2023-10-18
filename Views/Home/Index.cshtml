@@ -44,38 +44,76 @@
             </div>
         </section>
 
+        <section>
+            <div class="visitoffice">
+                <!--background picture here-->
+                <div>
+                    <h3>
+                            Visit our Oslo office to know more about us
+                    </h3>
 
+                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, 
+                            feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. 
+                            Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
+                        </p>
+                        <button class="mybutton">About us</button>
+
+                </div>
+            </div>
+
+        </section>
 
         <section>
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-between">
 
-                <div class="card me-5 maincard" style="max-height: 200px;">
-                    <img src="./img/house.svg" class="card-img-top" style="height: 100%">
-                    <div class="card-body">
-                        <div>
-                            <div class="d-flex flex-column">
-                                <a asp-controller="Realestate"
-                                   asp-action="HouseGrid"
-                                   class="stretched-link"></a>
+                    <div id="carouselExample" class="carousel slide" style="max-width: 500px;">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="./img/Funkyhome/hall.jpg" class="d-block w-100" alt="...">
+
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./img/Funkyhome/hall.jpg" class="d-block w-100" alt="...">
+
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./img/Funkyhome/hall.jpg" class="d-block w-100" alt="...">
+
                             </div>
                         </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-                </div>
 
 
 
-                <div class="card maincard" style="max-height: 200px;">
-                    <img src="~/img/apartment.svg" class="card-img-top" style="height: 100%">
-                    <div class="card-body">
-                        <div>
-                            <div class="d-flex flex-column">                            
-                                <a asp-controller="Realestate"
-                                   asp-action="ApartmentGrid"
-                                   class="stretched-link"></a>
+                    <div id="carouselapartment" class="carousel slide" style="max-width: 500px;">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="./img/Funkyhome/hall.jpg" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./img/Funkyhome/hall.jpg" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./img/Funkyhome/hall.jpg" class="d-block w-100" alt="...">
                             </div>
                         </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselapartment" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselapartment" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-                </div>
     
             </div>
         </section>
