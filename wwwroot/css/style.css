@@ -16,10 +16,10 @@
     border: 3px solid #D3D3D3;
 }
 
-.grid{
+.show{
     text-decoration: none;
     color: white;
 }
-    .grid:hover {
+    .show:hover {
         color: white
     }
