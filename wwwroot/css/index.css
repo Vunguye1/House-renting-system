@@ -23,6 +23,13 @@ li, footer {
     background-size: cover;
 }
 
+.maincard {
+    border: 1px solid black;
+    margin: 0 4rem;
+}
+
+    
+
 
 .mybutton {
     font-size: 1rem;
@@ -45,20 +52,18 @@ li, footer {
     }
 
 .realestatetypes {
-    padding: 2rem 4rem;
     margin: 4rem;
 }
 
     .realestatetypes img {
-        max-width: 400px;
-        max-height: 400px;
-        margin-right: 5rem;
+        max-width: 550px;
+        max-height: 550px;
     }
 
     .realestatetypes > div p {
         font-size: 18px;
         line-height: 2;
-        max-width: 800px;
+        max-width: 600px;
     }
 
 .box {
