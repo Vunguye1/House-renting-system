@@ -2,16 +2,19 @@
 using Microsoft.EntityFrameworkCore;
 using Project1.Models;
 using Project1.ViewModels;
+using Project1.DAL;
 
 namespace Project1.Controllers
 {
     public class ApplicationUserController : Controller
     {
         private readonly RealestateDbContext _realestateDbContext;
+        private readonly IAdminRepository _adminRepository;
 
-        public ApplicationUserController(RealestateDbContext realestateDbContext)
+        public ApplicationUserController(RealestateDbContext realestateDbContext, IAdminRepository adminRepository)
         {
             _realestateDbContext = realestateDbContext;
+            _adminRepository = adminRepository;
         }
 
         // this method is to to exclude deleted Realestate records. A real estate is marked as deleted after a customer rent it
