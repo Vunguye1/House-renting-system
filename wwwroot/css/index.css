@@ -66,11 +66,46 @@ li, footer {
         max-width: 600px;
     }
 
+
+ /*Shadow around boxes both in table/list and grid*/
 .box {
     box-shadow: -8px -10px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
 }
 
-    .box:hover {
-        transform: translateY(-10px);
-        box-shadow: -8px -8px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
+.gridbox:hover { /*boxes in grid pops up when hovering*/
+    transform: translateY(-10px);
+    box-shadow: -8px -8px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
+}
+
+/*White border around boxes in table view*/
+.listbox {
+    border: 3px solid #ffffff;
+    transition: transform 0.2s;
+}
+/*That turns light grey when hoovering*/
+    .listbox:hover {
+        transform: scale(1.05);
+        /*border: 3px solid #D3D3D3;*/
     }
+
+/*Buttons for showing houses/apartments*/
+a.show {
+    text-decoration: none;
+    color: black;
+    border-color: #E8E8E8; /* Samme farge for kant */
+    
+}
+
+a.show:hover {
+    color: black;
+    background-color: #E8E8E8;
+}
+    a.show.active {
+        background-color: #E8E8E8;
+    }
+
+.view.active, .view:hover {
+    background-color: #E8E8E8;
+
+}
+

@@ -5,41 +5,36 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<div class="container-fluid">
+<div class="container-fluid pt-4">
 
 
     @foreach (var realestate in Model)
     {
-        <div class="d-flex flex-wrap border border-3 g-5 mt-4 justify-content-between">
-            <div class="p-4">
-                <img src="@realestate.imageurl" alt="@realestate.Description" style="max-width: 280px; max-height: 280px;">
+        <div class="row rounded mb-5 p-2 listbox box">
+            <div class="col-4 p-2">
+                <img src="@realestate.imageurl" alt="@realestate.Description" class="img rounded" style="width: 250px; height: 250px; overflow:hidden">
             </div>
-
-
-            <div class="d-flex flex-column justify-content-between p-4">
-
-                <div>
-                    <h5 class="card-title">
-                        <a asp-controller="Realestate"
-                           asp-action="Details"
-                           asp-route-id="@realestate.RealestateId"
-                           class="text-decoration-none">@realestate.Name</a>
-                    </h5>
-                    <p style="max-width: 700px">
-                        @realestate.Description
-                    </p>
-                </div>
-
-                <div class="d-flex flex-column align-items-end">
+            <div class="col-8 mt-2">
+                <h5 class="card-title">
+                    <a asp-controller="Realestate"
+                       asp-action="Details"
+                       asp-route-id="@realestate.RealestateId"
+                       class="text-decoration-none">@realestate.Name</a>
+                </h5>
+                <p>
+                    @realestate.Description
+                </p>
+                <div class="d-flex flex-md-column align-items-end">
                     <h5>
-                        @realestate.Price.ToString("0 000 NOK pr/week")
+                        @realestate.Price.ToString("N0").Replace(",", " ") NOK per/week
+
                     </h5>
 
                     @{
                         var currentLoggedinUser = await UserManager.GetUserAsync(User); // get currently logged in user
                     }
                     @if (SignInManager.IsSignedIn(User)) // If user is logged in
-                    {
+                    { 
 
                         @if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Admin")) // if this is admin, display the two buttons
                         {
@@ -112,10 +107,10 @@
                             </div>
                         }
 
-                    }
-
+                }
+                    
                 </div>
-
+                
             </div>
         </div>
 
