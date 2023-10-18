@@ -15,7 +15,8 @@
                        asp-route-id="@Model.RealestateId" class="stretched-link"></a>
                     <p class="card-text">@Model.Location</p>
                     <h5 class="d-flex justify-content-end">
-                        @Model.Price.ToString("0 000 NOK pr/week")
+                        @Model.Price.ToString("N0").Replace(",", " ") NOK per/week
+
                     </h5>
 
                     @if (@Model.User != null) // if there is owner --> display it

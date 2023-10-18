@@ -26,7 +26,8 @@
                 </p>
                 <div class="d-flex flex-md-column align-items-end">
                     <h5>
-                        @realestate.Price.ToString("0 000 NOK pr/week")
+                        @realestate.Price.ToString("N0").Replace(",", " ") NOK per/week
+
                     </h5>
 
                     @{
