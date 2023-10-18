@@ -93,6 +93,8 @@ builder.Logging.AddSerilog(logger);
 
 builder.Services.AddScoped<IRealestateRepository, RealestateRepository>(); //use realestate repository
 builder.Services.AddScoped<IAdminRepository, AdminRepository>(); //use admin repository
+builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>(); //use admin repository
+
 
 // build our app
 var app = builder.Build();
