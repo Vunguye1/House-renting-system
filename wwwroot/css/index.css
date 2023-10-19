@@ -49,15 +49,24 @@ li, footer, p {
     max-width: 45%;
 }
 
+#carouselHouse, #carouselApartment {
+    display: flex;
+    height: 400px;
+    width: 400px;
+}
 .c-item {
-    height: 600px;
-    width: 600px;
+    height: 100%;
+    width: 100%;
+    border: 3px solid black;
+    border-radius: 20px;
 }
 
-.c-img {
+.c-item > .c-img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    overflow: hidden;
+    border-radius: 20px;
 }
 
 
