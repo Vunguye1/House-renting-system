@@ -1,9 +1,22 @@
-﻿body {
+﻿@font-face {
+    font-family: OpensansRegular;
+    src: url(../fonts/Open_Sans/static/OpenSans-Regular.ttf);
+}
+
+@font-face {
+    font-family: OpensansHeader;
+    src: url(../fonts/Open_Sans/static/OpenSans-SemiBold.ttf);
+}
+body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: OpensansRegular, sans-serif;
     font-size: 60px;
+}
+
+h1 {
+    font-family: OpensansHeader;
 }
 
 li, footer, p {
@@ -31,6 +44,9 @@ li, footer, p {
     width: 70%;
     height: 40%;
     padding: 3rem;
+}
+.officecontent {
+    max-width: 45%;
 }
 
 .mybutton {
