@@ -26,8 +26,17 @@ li, footer {
 .visitoffice {
     background-image: url(../img/officepicture.jpg);
     background-size: cover;
-
+    padding: 5rem; /* Add padding to the outer .visitoffice */
 }
+
+    #visitofficeinside {
+        background-color: white;
+        max-height: 500px;
+        padding: 5rem; /* Add padding to the inner div */
+        font-size: 30px;
+    }
+
+
 
     
 
