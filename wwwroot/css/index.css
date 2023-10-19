@@ -6,17 +6,13 @@
     font-size: 60px;
 }
 
-li, footer {
+li, footer, p {
     font-size: 1rem;
 }
 
 .mainbg {
     font-size: 3rem;
     color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     padding: 2rem;
     height: 100vh;
     background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("../img/main_index.jpg");
@@ -26,19 +22,16 @@ li, footer {
 .visitoffice {
     background-image: url(../img/officepicture.jpg);
     background-size: cover;
-    padding: 5rem; /* Add padding to the outer .visitoffice */
+    padding: 6rem;
+    margin-bottom: 4rem;
 }
 
-    #visitofficeinside {
-        background-color: white;
-        max-height: 500px;
-        padding: 5rem; /* Add padding to the inner div */
-        font-size: 30px;
-    }
-
-
-
-    
+#visitofficeinside {
+    background-color: white;
+    width: 70%;
+    height: 40%;
+    padding: 3rem;
+}
 
 .mybutton {
     font-size: 1rem;
