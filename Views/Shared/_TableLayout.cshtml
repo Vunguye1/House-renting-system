@@ -44,69 +44,25 @@
                             <div>
                                 <a asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-primary">Update</a>
 
-
                                 <!-- Create delete real estate button -->
                                 <!-- Button trigger modal with a unique real estate id. This modal is used from Bootstrap library -->
                                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@realestate.RealestateId">
                                     Delete
                                 </a>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="DeleteModal-@realestate.RealestateId" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="DeleteModalLabel">DELETE</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Do you really want to remove property "@realestate.Name" from the system?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <form asp-action="DeleteConfirmed" asp-route-id="@realestate.RealestateId" method="post">
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         }
 
                         else if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Default") && realestate.UserId == currentLoggedinUser.Id)
-                        { // if this is a default user, only display buttons on real estates this user owns
+                        { 
+                            // if this is a default user, only display buttons on real estates this user owns
                             <div>
                                 <a asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-primary">Update</a>
-
 
                                 <!-- Create delete real estate button -->
                                 <!-- Button trigger modal with a unique real estate id. This modal is used from Bootstrap library -->
                                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@realestate.RealestateId">
                                     Delete
                                 </a>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="DeleteModal-@realestate.RealestateId" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="DeleteModalLabel">DELETE</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Do you really want to remove property @realestate.RealestateId from the system?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <form asp-action="DeleteConfirmed" asp-route-id="@realestate.RealestateId" method="post">
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                                    <a asp-controller="Realestate" asp-action="GeneralGrid" class="btn btn-secondary">Cancel</a>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         }
 
@@ -116,7 +72,27 @@
 
             </div>
         </div>
-
+        
+        <!-- Modal -->
+        <div class="modal fade" id="DeleteModal-@realestate.RealestateId" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="DeleteModalLabel">DELETE</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Do you really want to remove property "@realestate.Name" from the system?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <form asp-action="DeleteConfirmed" asp-route-id="@realestate.RealestateId" method="post">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
     <div class=" d-flex justify-content-end mt-4">
         <a class="btn btn-secondary"
