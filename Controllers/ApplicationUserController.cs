@@ -17,11 +17,7 @@ namespace Project1.Controllers
             _applicationUserRepository = applicationUserRepository;
         }
 
-        //// this method is to to exclude deleted Realestate records. A real estate is marked as deleted after a customer rent it
-        //public IQueryable<Realestate> GetActiveRealestates()
-        //{
-        //    return _realestateDbContext.Realestates.Where(r => !r.IsDeleted);
-        //}
+      
 
         public async Task<IActionResult> ListRealestateByOwner(string ownerId) // List all properties the user register on the system
         {
@@ -61,10 +57,10 @@ namespace Project1.Controllers
 
             if (ModelState.IsValid)
             {
-                //_realestateDbContext.Realestates.Update(realestate);
-                //await _realestateDbContext.SaveChangesAsync();
+                
                 await _applicationUserRepository.Update(realestate);
-                //VU ikke redriect inni her??? DENNE
+                
+                
             }
             return RedirectToAction(nameof(ListRealestateByOwner));
         }
@@ -74,16 +70,7 @@ namespace Project1.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            //var realestate = await _applicationUserRepository.GetRealestateById(id);
-            //if (realestate == null)
-            //{
-            //    return NotFound();
-            //}
-            //_realestateDbContext.Realestates.Remove(realestate);
-            //await _realestateDbContext.SaveChangesAsync();
-
-            //return RedirectToAction(nameof(ListRealestateByOwner));
-
+            
             await _applicationUserRepository.Delete(id);
             return RedirectToAction(nameof(ListRealestateByOwner));
         }
