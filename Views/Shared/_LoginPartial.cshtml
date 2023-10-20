@@ -21,12 +21,12 @@
         </li>
 
         <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @user.FirstName!</a>
+            <a id="manage" class="navbar-brand text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @user.FirstName!</a>
         </li>
 
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                <button id="logout" type="submit" class="navbar-brand btn btn-link text-dark pt-0">Logout</button>
             </form>
         </li>
 
@@ -34,18 +34,18 @@
         @if (await UserManager.IsInRoleAsync(user, "Admin"))  // Check if this user is an admin or just a default user
 
         {                           // we will add a button here for admin management
-            <li class="nav-item"> 
-                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin management</a>
+            <li class="nav-item">
+                <a class="navbar-brand text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin management</a>
             </li>
         }
         else // if this user is a default user
         {                           // we will add a button here to display all real estates this user has
             <li class="nav-item">
-                <a asp-controller="ApplicationUser" asp-action="ListRealestateByOwner" class="nav-link text-dark">Your real estates</a>
+                <a asp-controller="ApplicationUser" asp-action="ListRealestateByOwner" class="navbar-brand text-dark">Your real estates</a>
             </li>
 
             <li class="nav-item">
-                <a asp-controller="ApplicationUser" asp-action="ListRentHistory" asp-route-userId="@user.Id" class="nav-link text-dark">Your rent history</a>
+                <a asp-controller="ApplicationUser" asp-action="ListRentHistory" asp-route-userId="@user.Id" class="navbar-brand text-dark">Your rent history</a>
             </li>
         }
         
@@ -53,7 +53,7 @@
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="navbar-brand text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>
     }
 </ul>

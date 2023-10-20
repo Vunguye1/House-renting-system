@@ -70,6 +70,17 @@ li, footer, p {
     filter: brightness(0.6)
 }
 
+/*Footer*/
+footer {
+    margin-top: 6rem;
+    background-color: #BFB29E;
+}
+
+    footer > .maincontent {
+        padding: 2rem;
+        font-size: 20px;
+    }
+
 .mybutton {
     font-size: 1rem;
     display: inline-block;
