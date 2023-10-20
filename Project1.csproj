@@ -27,10 +27,14 @@
     <Folder Include="Migrations\" />
     <Folder Include="Logs\" />
     <Folder Include="DAL\" />
+    <Folder Include="wwwroot\img\icons\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Logs\" />
     <None Remove="DAL\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\img\icons\" />
   </ItemGroup>
 </Project>

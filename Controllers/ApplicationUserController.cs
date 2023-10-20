@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Project1.DAL;
 using Project1.Models;
 using Project1.ViewModels;
 using Project1.DAL;
@@ -15,17 +17,29 @@ namespace Project1.Controllers
         {
             _realestateDbContext = realestateDbContext;
             _applicationUserRepository = applicationUserRepository;
+        private readonly UserManager<ApplicationUser> _userManager; // call usermanager
+        private readonly SignInManager<ApplicationUser> _signInManager; // call signIn manager
+
+        public ApplicationUserController(RealestateDbContext realestateDbContext, UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager, IRealestateRepository realestateRepository)
+        {
+            _realestateDbContext = realestateDbContext;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
       
 
-        public async Task<IActionResult> ListRealestateByOwner(string ownerId) // List all properties the user register on the system
+        public async Task<IActionResult> ListRealestateByOwner() // List all properties the user register on the system
         {
-            //List<Realestate> realestates = await GetActiveRealestates()
-            //    .Where(p => p.UserId == ownerId).ToListAsync();
+            var curruser = await _userManager.GetUserAsync(User);
 
-            //er tolistAsync feil å bruke her, bør vi lage egen repo metode til denne under?
-            List<Realestate> realestates = await _applicationUserRepository.GetActiveRealestates().Where(p => p.UserId == ownerId).ToListAsync();
+            if (curruser == null)
+            {
+                return NotFound("User not found");
+            }
+            List<Realestate> realestates = await GetActiveRealestates()
+                .Where(p => p.UserId == curruser.Id).ToListAsync();
 
             var listmodel = new RealestateListViewModel(realestates, "Your registered real estate");
 
@@ -42,18 +56,21 @@ namespace Project1.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateRealEstate(int id)
         {
-            var item = await _applicationUserRepository.GetRealestateById(id);
+            var realestate = await _realestateDbContext.Realestates.FindAsync(id);
 
-            if (item == null)
+            if (realestate == null)
             {
                 return BadRequest("item not found");
             }
-            return View(item);
+            return View(realestate);
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateRealEstate(Realestate realestate)
         {
+            var curruser = await _userManager.GetUserAsync(User);
+
+            realestate.UserId = curruser.Id;
 
             if (ModelState.IsValid)
             {

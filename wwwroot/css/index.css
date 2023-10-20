@@ -1,29 +1,77 @@
-﻿body {
+﻿@font-face {
+    font-family: OpensansRegular;
+    src: url(../fonts/Open_Sans/static/OpenSans-Regular.ttf);
+}
+
+@font-face {
+    font-family: OpensansHeader;
+    src: url(../fonts/Open_Sans/static/OpenSans-SemiBold.ttf);
+}
+body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
-    color: red;
+    font-family: OpensansRegular, sans-serif;
+    font-size: 60px;
+}
+
+h1 {
+    font-family: OpensansHeader;
+}
+
+li, footer, p {
+    font-size: 1rem;
 }
 
 .mainbg {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    font-size: 3rem;
+    color: white;
     padding: 2rem;
     height: 100vh;
     background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("../img/main_index.jpg");
     background-size: cover;
 }
 
-p {
-    font-size: 2.8rem;
-    max-width: 560px;
-    color: white;
+.visitoffice {
+    background-image: url(../img/officepicture.jpg);
+    background-size: cover;
+    padding: 6rem;
+    margin-bottom: 4rem;
+}
+
+#visitofficeinside {
+    background-color: white;
+    width: 70%;
+    height: 40%;
+    padding: 3rem;
+}
+.officecontent {
+    max-width: 45%;
+}
+
+#carouselHouse, #carouselApartment {
+    display: flex;
+    height: 350px;
+    width: 350px;
+}
+.c-item {
+    height: 100%;
+    width: 100%;
+    border: 3px solid black;
+    border-radius: 20px;
+}
+
+.c-item > .c-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 15px;
+    filter: brightness(0.6)
 }
 
 .mybutton {
+    font-size: 1rem;
     display: inline-block;
     text-align: center;
     text-decoration: none;
@@ -34,11 +82,69 @@ p {
     background-color: #FBF6EC;
     padding: 0.6rem;
     min-width: 100px;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,
-        border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out, border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
     .mybutton:hover {
         background-color: #FDBB31;
         color: black;
     }
+
+.realestatetypes {
+    margin: 4rem;
+}
+
+    .realestatetypes img {
+        max-width: 550px;
+        max-height: 550px;
+    }
+
+    .realestatetypes > div p {
+        font-size: 18px;
+        line-height: 2;
+        max-width: 600px;
+    }
+
+
+ /*Shadow around boxes both in table/list and grid*/
+.box {
+    box-shadow: -8px -10px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
+}
+
+.gridbox:hover { /*boxes in grid pops up when hovering*/
+    transform: translateY(-10px);
+    box-shadow: -8px -8px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
+}
+
+/*White border around boxes in table view*/
+.listbox {
+    border: 3px solid #ffffff;
+    transition: transform 0.2s;
+}
+/*That turns light grey when hoovering*/
+    .listbox:hover {
+        transform: scale(1.05);
+        /*border: 3px solid #D3D3D3;*/
+    }
+
+/*Buttons for showing houses/apartments*/
+a.show {
+    text-decoration: none;
+    color: black;
+    border-color: #E8E8E8; /* Samme farge for kant */
+    
+}
+
+a.show:hover {
+    color: black;
+    background-color: #E8E8E8;
+}
+    a.show.active {
+        background-color: #E8E8E8;
+    }
+
+.view.active, .view:hover {
+    background-color: #E8E8E8;
+
+}
+
