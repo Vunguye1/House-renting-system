@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Project1.Models;
 
 namespace Project1.DAL;
@@ -7,8 +8,13 @@ namespace Project1.DAL;
 	{
     IQueryable<Realestate> GetActiveRealestates();
 	Task<Realestate?> GetRealestateById(int id);
-	Task<bool> Delete(int id);
-	Task Update(Realestate realestate);
+
+	Task<IEnumerable<Realestate>> GetRealestateByOwner(ApplicationUser user);
+
+	Task<IEnumerable<Rent>> ListRentHistory(string userId);
+
+    Task<bool> Delete(int id);
+	Task<bool> Update(Realestate realestate);
 
 }
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Project1.DAL;
 using Project1.Models;
 using Project1.ViewModels;
-using Project1.DAL;
+
 
 namespace Project1.Controllers
 {
@@ -12,20 +12,19 @@ namespace Project1.Controllers
     {
         private readonly RealestateDbContext _realestateDbContext;
         private readonly IApplicationUserRepository _applicationUserRepository;
-
-        public ApplicationUserController(RealestateDbContext realestateDbContext, IApplicationUserRepository applicationUserRepository)
-        {
-            _realestateDbContext = realestateDbContext;
-            _applicationUserRepository = applicationUserRepository;
         private readonly UserManager<ApplicationUser> _userManager; // call usermanager
         private readonly SignInManager<ApplicationUser> _signInManager; // call signIn manager
 
+      
+
         public ApplicationUserController(RealestateDbContext realestateDbContext, UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager, IRealestateRepository realestateRepository)
+            SignInManager<ApplicationUser> signInManager, IApplicationUserRepository applicationUserRepository)
         {
+            
             _realestateDbContext = realestateDbContext;
             _userManager = userManager;
             _signInManager = signInManager;
+            _applicationUserRepository = applicationUserRepository;
         }
 
       
@@ -38,25 +37,29 @@ namespace Project1.Controllers
             {
                 return NotFound("User not found");
             }
-            List<Realestate> realestates = await GetActiveRealestates()
-                .Where(p => p.UserId == curruser.Id).ToListAsync();
+
+
+            var realestates = await _applicationUserRepository.GetRealestateByOwner(curruser);
+
 
             var listmodel = new RealestateListViewModel(realestates, "Your registered real estate");
 
             return View(listmodel);
         }
 
+        //MANGLER
         public async Task<IActionResult> ListRentHistory(string userId) // List all properties the user register on the system
         {
-            List<Rent> renthistory = await _realestateDbContext.Rent.Where(p => p.UserId == userId).ToListAsync();
+            var renthistory = await _applicationUserRepository.ListRentHistory(userId);
 
             return View(renthistory);
         }
 
+        //ENDre
         [HttpGet]
         public async Task<IActionResult> UpdateRealEstate(int id)
         {
-            var realestate = await _realestateDbContext.Realestates.FindAsync(id);
+            var realestate = await _applicationUserRepository.GetRealestateById(id);
 
             if (realestate == null)
             {
@@ -75,7 +78,12 @@ namespace Project1.Controllers
             if (ModelState.IsValid)
             {
                 
-                await _applicationUserRepository.Update(realestate);
+                bool returnok = await _applicationUserRepository.Update(realestate);
+
+                if (!returnok)
+                {
+                    return BadRequest("Update failed"); 
+                }
                 
                 
             }
