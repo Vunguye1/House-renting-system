@@ -16,6 +16,10 @@ body {
     font-size: 60px;
 }
 
+#maincontainer {
+    margin-top: 56px;
+}
+
 h1, h4 {
     font-family: OpensansHeader;
 }

@@ -18,7 +18,7 @@
 </head>
 <body>
     <header>
-        <div class="d-flex justify-content-between bg-white border-bottom navbardiv">
+        <div class="d-flex justify-content-between bg-white border-bottom navbardiv fixed-top">
 
                 <div>
                     <a class="navbar-brand text-black ms-3" asp-area="" asp-controller="Home" asp-action="Index">Bolig saken</a>
@@ -34,7 +34,7 @@
             </div>
         
     </header>
-    <main role="main">
+    <main role="main" id="maincontainer">
         @RenderBody()
         @RenderSection("scripts", required: false)
     </main>
