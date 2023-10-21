@@ -2,38 +2,32 @@
 
 <div class="container">
     <h1>List of our eiendoms (@Model.CurrentViewName)</h1>
-    <div class="d-flex flex-row justify-content-end">
+    <div class="d-flex mb-2">
+        <div class="pb-2 pl-0">
 
-        <div class="dropdown me-2">
-            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Filter type
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item active" asp-controller="Realestate" asp-action="GeneralGrid" aria-current="true">General</a></li>
-                <li>
-                    <a class="dropdown-item" asp-controller="Realestate" asp-action="ApartmentGrid">Apartment</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" asp-controller="Realestate" asp-action="HouseGrid">House</a>
-                </li>
-            </ul>
+            <div class="d-grid gap-2 d-md-block">
+
+                <a class="show btn btn-md active" asp-controller="Realestate" asp-action="GeneralGrid">All Realestates</a>
+
+                <a class="show btn btn-md" asp-controller="Realestate" asp-action="ApartmentGrid">Apartments</a>
+
+                <a class="show btn btn-md" asp-controller="Realestate" asp-action="HouseGrid">Houses</a>
+
+
+
+            </div>
+
         </div>
 
-        <div class="dropdown">
-            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                View as
-            </button>
+        <div class="ms-auto pb-2 pr-0">
 
-            <ul class="dropdown-menu">
-                <li>
-                    <a class="dropdown-item" asp-action="GeneralGrid">Grid</a>
-                </li>
-                <li>
-                    <a class="dropdown-item active" asp-action="GeneralTable" aria-current="true">List</a>
-                </li>
-            </ul>
+
+            <div class="d-grid gap-2 d-md-block">
+                <a class="view btn btn-sm " asp-controller="Realestate" asp-action="GeneralGrid"><img src="/img/icons/grid.svg" alt="Grid" width="25" height="25"></a>
+                <a class="view btn btn-sm active" asp-controller="Realestate" asp-action="GeneralTable"><img src="/img/icons/list.svg" alt="List" width="25" height="25"></a>
+
+            </div>
         </div>
-
     </div>
 
     <partial name="_TableLayout" model="Model.realestates" />
