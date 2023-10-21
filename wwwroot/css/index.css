@@ -24,6 +24,27 @@ li, p {
     font-size: 1rem;
 }
 
+header {
+    font-size: 30px;
+}
+
+@media (max-width: 599px) {
+    header {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 1000px) {
+    header {
+        font-size: 28px;
+    }
+}
+
+
+.navbardiv, header {
+    max-height: 60px;
+}
+
 .mainbg {
     font-size: 3rem;
     color: white;
