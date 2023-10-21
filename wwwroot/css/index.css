@@ -7,6 +7,7 @@
     font-family: OpensansHeader;
     src: url(../fonts/Open_Sans/static/OpenSans-SemiBold.ttf);
 }
+
 body {
     box-sizing: border-box;
     margin: 0;
@@ -15,11 +16,11 @@ body {
     font-size: 60px;
 }
 
-h1 {
+h1, h4 {
     font-family: OpensansHeader;
 }
 
-li, footer, p {
+li, p {
     font-size: 1rem;
 }
 
@@ -45,6 +46,7 @@ li, footer, p {
     height: 40%;
     padding: 3rem;
 }
+
 .officecontent {
     max-width: 45%;
 }
@@ -54,6 +56,7 @@ li, footer, p {
     height: 350px;
     width: 350px;
 }
+
 .c-item {
     height: 100%;
     width: 100%;
@@ -61,14 +64,14 @@ li, footer, p {
     border-radius: 20px;
 }
 
-.c-item > .c-img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    overflow: hidden;
-    border-radius: 15px;
-    filter: brightness(0.6)
-}
+    .c-item > .c-img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        overflow: hidden;
+        border-radius: 15px;
+        filter: brightness(0.6)
+    }
 
 /*Footer*/
 footer {
@@ -76,9 +79,18 @@ footer {
     background-color: #BFB29E;
 }
 
-    footer > .maincontent {
+    footer > .footercontainer {
         padding: 2rem;
-        font-size: 20px;
+    }
+
+div.fcontent > p {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+    div.fcontent > p:hover {
+        cursor: pointer;
+        color: #737373;
     }
 
 .mybutton {
@@ -116,8 +128,17 @@ footer {
         max-width: 600px;
     }
 
+/* Buttons */
+.btn-subcribe {
+    background-color: black;
+    color: white;
+}
 
- /*Shadow around boxes both in table/list and grid*/
+    .btn-subcribe:hover {
+        color: white;
+        background-color: #737373;
+    }
+/*Shadow around boxes both in table/list and grid*/
 .box {
     box-shadow: -8px -10px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
 }
@@ -132,7 +153,7 @@ footer {
     border: 3px solid #ffffff;
     transition: transform 0.2s;
 }
-/*That turns light grey when hoovering*/
+    /*That turns light grey when hoovering*/
     .listbox:hover {
         transform: scale(1.05);
         /*border: 3px solid #D3D3D3;*/
@@ -143,19 +164,17 @@ a.show {
     text-decoration: none;
     color: black;
     border-color: #E8E8E8; /* Samme farge for kant */
-    
 }
 
-a.show:hover {
-    color: black;
-    background-color: #E8E8E8;
-}
+    a.show:hover {
+        color: black;
+        background-color: #E8E8E8;
+    }
+
     a.show.active {
         background-color: #E8E8E8;
     }
 
 .view.active, .view:hover {
     background-color: #E8E8E8;
-
 }
-
