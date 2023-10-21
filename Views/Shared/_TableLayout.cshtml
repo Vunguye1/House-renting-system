@@ -10,11 +10,11 @@
 
     @foreach (var realestate in Model)
     {
-        <div class="d-flex justify-content-between flex-wrap mt-4 listbox box">
+        <div class="d-flex flex-wrap mt-4 listbox box">
             <div class="p-4">
                 <img src="@realestate.imageurl" alt="@realestate.Description" class="img rounded" style="width: 250px; height: 250px; overflow:hidden">
             </div>
-            <div class="d-flex flex-column p-4">
+            <div class="d-flex flex-grow-1 flex-column p-4">
                 <div>
                     <h5 class="card-title">
                         <a asp-controller="Realestate"
@@ -22,6 +22,13 @@
                            asp-route-id="@realestate.RealestateId"
                            class="text-decoration-none">@realestate.Name</a>
                     </h5>
+                   
+                        @if (realestate.User != null)
+                            {
+                                <p>Owner: @realestate.User.FirstName @realestate.User.LastName</p>
+                          }
+                    
+                    <p>@realestate.Location</p>
                     <p style="max-width: 700px">
                         @realestate.Description
                     </p>
@@ -42,12 +49,13 @@
                         @if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Admin")) // if this is admin, display the two buttons
                         {
                             <div>
-                                <a asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-primary">Update</a>
+                                <a asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-outline-primary">Update</a>
 
                                 <!-- Create delete real estate button -->
                                 <!-- Button trigger modal with a unique real estate id. This modal is used from Bootstrap library -->
-                                <a class="btn popup" data-bs-toggle="modal" data-bs-target="#DeleteModal-@realestate.RealestateId">
-                                    <img src="/img/icons/trash3.svg" alt="List" width="25" height="25">
+                                <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@realestate.RealestateId">
+                                    <!--<img src="/img/icons/trash3.svg" alt="List" width="25" height="25"> -->
+                                    Delete
                                 </a>
                             </div>
                         }
