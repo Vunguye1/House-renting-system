@@ -16,6 +16,8 @@ namespace Project1.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager; // call signIn manager
         private readonly RealestateDbContext _realestateDbContext;
         private readonly IRealestateRepository _realestateRepository;
+        
+
 
         public RealestateController(RealestateDbContext realestateDbContext, UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager, IRealestateRepository realestateRepository)

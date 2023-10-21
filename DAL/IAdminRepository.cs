@@ -12,9 +12,9 @@ namespace Project1.DAL;
 		IQueryable<Realestate> GetActiveRealestates();
 		Task<IEnumerable<ApplicationUser>> ListAllUsers();
 		Task<IEnumerable<Realestate>> ListAllRealestates();
-		Task UpdateRealestate(Realestate realestate);
+		Task<bool>UpdateRealestate(Realestate realestate); //endret til bool
 		Task<bool> DeleteRealestate(int id);
-		Task UpdateUser(ApplicationUser user);
+		Task <bool> UpdateUser(ApplicationUser user); //endret til bool
 		Task<bool> DeleteUser(string userid);
 		Task<Realestate?> GetRealestateById(int id);
 

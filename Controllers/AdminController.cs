@@ -14,11 +14,13 @@ namespace Project1.Controllers;
     {
         private readonly RealestateDbContext _realestateDbContext;
         private readonly IAdminRepository _adminRepository;
+        private readonly ILogger<AdminController> _logger; //adding private readonly logger
 
-        public AdminController(RealestateDbContext realestateDbContext, IAdminRepository adminRepository)
+        public AdminController(RealestateDbContext realestateDbContext, IAdminRepository adminRepository, ILogger<AdminController> logger)
         {
             _realestateDbContext = realestateDbContext;
             _adminRepository = adminRepository;
+            _logger = logger; 
         }
 
         public IActionResult Index()
@@ -35,6 +37,11 @@ namespace Project1.Controllers;
         public async Task<IActionResult> ListAllUsers() // List all users registered in database. Testing purpose
         {
             var usersList = await _adminRepository.ListAllUsers();
+            if (usersList == null)
+        {
+            _logger.LogError("[AdminController] User list not found while executing _adminRepository.ListAllUsers()");
+            return NotFound("User list not found");
+        }
             return View(usersList);
         }
 
@@ -46,8 +53,14 @@ namespace Project1.Controllers;
         {
             //List<Realestate> propertylist = await GetActiveRealestates().ToListAsync();
             var propertylist = await _adminRepository.ListAllRealestates();
+            if (propertylist == null)
+        {
+            _logger.LogError("[AdminController] Property list not found while executing _adminRepository.ListAllRealestates()");
+            return NotFound("Property list not found");
+        }
             var listmodel = new RealestateListViewModel(propertylist, "GeneralTable");
             return View(listmodel);
+
         }
 
         // ------------------------ Real estates management by admin ------------------------
@@ -59,20 +72,32 @@ namespace Project1.Controllers;
 
             if (item == null)
             {
-                return NotFound();
+                _logger.LogError("[AdminController] Realestate not found when updating the RealestateId {RealestateId:0000}", id);
+                return BadRequest("Realestate not found for the RealestateId");
             }
+            
             return View(item);
         }
 
+    //DENNE VU
         [HttpPost]
         public async Task<IActionResult> UpdateRealEstate(Realestate realestate)
         {
 
             if (ModelState.IsValid)
             {
-                await _adminRepository.UpdateRealestate(realestate);
+
+                bool returnOk= await _adminRepository.UpdateRealestate(realestate);
+            if (returnOk)
+            {
+                return RedirectToAction(nameof(ListAllRealestates));
             }
+            }
+            _logger.LogWarning("[AdminController] Realestate update failed {@realestate]", realestate);
+            
+        //DETTE MÅ RETURNERE ET VIEW HER? MEN HVILKET?
             return RedirectToAction(nameof(ListAllRealestates));
+            
         }
 
 
@@ -80,8 +105,14 @@ namespace Project1.Controllers;
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _adminRepository.DeleteRealestate(id);
-            return RedirectToAction(nameof(ListAllRealestates));
+            bool returnOk= await _adminRepository.DeleteRealestate(id);
+            if (!returnOk)
+            {
+                _logger.LogError("[AdminController] Realestate deletion failed for the RealestateID {RealestateId:0000}", id);
+                return BadRequest("Realestate deletion failed");
+            }
+
+        return RedirectToAction(nameof(ListAllRealestates));
         }
 
         // ------------------------ Done real estates management by admin ------------------------
@@ -96,11 +127,13 @@ namespace Project1.Controllers;
 
             if (user == null)
             {
+                _logger.LogError("[AdminController] User not found when updating the UserId {UserId:0000}", userid);
                 return BadRequest("User not found");
             }
             return View(user);
         }
 
+    //DENNE VU
         [HttpPost]
         public async Task<IActionResult> UpdateUser(ApplicationUser user)
         {
@@ -123,8 +156,13 @@ namespace Project1.Controllers;
                     try
                     {
                        
-                        await _adminRepository.UpdateUser(user);
+                        bool returnOk= await _adminRepository.UpdateUser(user);
+                        if (returnOk)
+                        {
                         return RedirectToAction(nameof(ListAllUsers));
+                    }
+                        _logger.LogWarning("[AdminController] User update failed {@item}", user);
+                        
                     }
                     catch (DbUpdateConcurrencyException ex)
                     {
@@ -150,9 +188,10 @@ namespace Project1.Controllers;
     {
         bool returnok = await _adminRepository.DeleteUser(userid);
 
-        if (returnok)
+        if (!returnok)
         {
-            RedirectToAction(nameof(ListAllUsers));
+            _logger.LogError("[AdminController] User deletion failed for the userId {Userid:0000}", userid);
+            return BadRequest("User deletion failed");
         }
 
         return RedirectToAction(nameof(ListAllUsers));
