@@ -138,6 +138,22 @@ div.fcontent > p {
         color: white;
         background-color: #737373;
     }
+
+.btn-create-flashcard {
+    font-size: 1.2rem;
+    border: 1px solid black;
+    padding: 0.5rem;
+    margin-top: 4rem;
+    width: 8rem;
+    background-color: #fff;
+    transition: 500ms;
+}
+
+    .btn-create-flashcard:hover {
+        background-color: #FBF6EC;
+        transform: scale(1.1);
+    }
+
 /*Shadow around boxes both in table/list and grid*/
 .box {
     box-shadow: -8px -10px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
