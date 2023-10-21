@@ -7,6 +7,7 @@
     font-family: OpensansHeader;
     src: url(../fonts/Open_Sans/static/OpenSans-SemiBold.ttf);
 }
+
 body {
     box-sizing: border-box;
     margin: 0;
@@ -15,12 +16,37 @@ body {
     font-size: 60px;
 }
 
-h1 {
+#maincontainer {
+    margin-top: 56px;
+}
+
+h1, h4 {
     font-family: OpensansHeader;
 }
 
-li, footer, p {
+li, p {
     font-size: 1rem;
+}
+
+header {
+    font-size: 30px;
+}
+
+@media (max-width: 599px) {
+    header {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 1000px) {
+    header {
+        font-size: 28px;
+    }
+}
+
+
+.navbardiv, header {
+    max-height: 60px;
 }
 
 .mainbg {
@@ -45,6 +71,7 @@ li, footer, p {
     height: 40%;
     padding: 3rem;
 }
+
 .officecontent {
     max-width: 45%;
 }
@@ -54,6 +81,7 @@ li, footer, p {
     height: 350px;
     width: 350px;
 }
+
 .c-item {
     height: 100%;
     width: 100%;
@@ -61,14 +89,34 @@ li, footer, p {
     border-radius: 20px;
 }
 
-.c-item > .c-img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    overflow: hidden;
-    border-radius: 15px;
-    filter: brightness(0.6)
+    .c-item > .c-img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        overflow: hidden;
+        border-radius: 15px;
+        filter: brightness(0.6)
+    }
+
+/*Footer*/
+.footerparentcontainer {
+    margin-top: 6rem;
+    background-color: #BFB29E;
 }
+
+    .footerparentcontainer > .footercontainer {
+        padding: 2rem;
+    }
+
+div.fcontent > p {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+    div.fcontent > p:hover {
+        cursor: pointer;
+        color: #737373;
+    }
 
 .mybutton {
     font-size: 1rem;
@@ -105,26 +153,52 @@ li, footer, p {
         max-width: 600px;
     }
 
+/* Buttons */
+.btn-subscribe {
+    background-color: black;
+    color: white;
+}
 
- /*Shadow around boxes both in table/list and grid*/
+.btn-subcribe:hover {
+    color: white;
+    background-color: #737373;
+}
+
+.btn-main {
+    font-size: 1.2rem;
+    border: 1px solid black;
+    padding: 0.5rem;
+    margin-top: 4rem;
+    width: 8rem;
+    background-color: #fff;
+    transition: 500ms;
+}
+
+    .btn-main:hover {
+        background-color: #FBF6EC;
+        transform: scale(1.1);
+    }
+
+/*Shadow around boxes both in table/list and grid*/
 .box {
     box-shadow: -8px -10px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
+    transition: transform 0.2s;
 }
 
 .gridbox:hover { /*boxes in grid pops up when hovering*/
-    transform: translateY(-10px);
+    transform: scale(1.03);
     box-shadow: -8px -8px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
 }
 
 /*White border around boxes in table view*/
 .listbox {
     border: 3px solid #ffffff;
-    transition: transform 0.2s;
+    
 }
-/*That turns light grey when hoovering*/
+    /*That turns light grey when hoovering*/
     .listbox:hover {
-        transform: scale(1.05);
-        /*border: 3px solid #D3D3D3;*/
+        transform: scale(1.03);
+        
     }
 
 /*Buttons for showing houses/apartments*/
@@ -132,19 +206,23 @@ a.show {
     text-decoration: none;
     color: black;
     border-color: #E8E8E8; /* Samme farge for kant */
-    
 }
 
-a.show:hover {
-    color: black;
-    background-color: #E8E8E8;
-}
+    a.show:hover {
+        color: black;
+        background-color: #E8E8E8;
+    }
+
     a.show.active {
         background-color: #E8E8E8;
     }
 
 .view.active, .view:hover {
     background-color: #E8E8E8;
-
 }
 
+
+    .popup:hover {
+        transform: scale(1.2);
+        transition: transform 0,2s;
+    }

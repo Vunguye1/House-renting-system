@@ -1,240 +1,202 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
-    <link rel="stylesheet" href="css/index.css" />
-</head>
-<body>
-    <div class="mainContainer">
+﻿<link rel="stylesheet" href="/css/index.css">
 
-        <section>
-            <div class="mainbg d-flex flex-column align-items-center justify-content-center">
-                <div>
-                    <h1>Finn husly i hele Oslo hos en av våre utleiere</h1>
-                </div>
+<div class="mainContainer">
 
-                <div>
-                    <a class="mybutton" asp-controller="Realestate" asp-action="GeneralGrid">Book</a>
-                </div>
+    <section>
+        <div class="mainbg d-flex flex-column align-items-center justify-content-center">
+            <div>
+                <h1>Finn husly i hele Oslo hos en av våre utleiere</h1>
             </div>
-        </section>
 
-        <section class="container">
-            <div class="realestatetypes d-flex justify-content-between flex-wrap">
-                <div class="myimage">
-                    <img src="./img/mainpig.jpg" />
-                </div>
+            <div>
+                <a class="btn btn-main" asp-controller="Realestate" asp-action="GeneralGrid">Book</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="realestatetypes d-flex justify-content-between flex-wrap">
+            <div class="myimage">
+                <img src="./img/mainpig.jpg" />
+            </div>
 
 
-                <div>
-                    <h1>Our booking service</h1>
-                    <hr />
-                    <p>
-                        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
-                        tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
+            <div>
+                <h1>Our booking service</h1>
+                <hr />
+                <p>
+                    Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
+                    tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
 
+                </p>
+
+                <p>
+                    Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.
+                    Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.
+                    Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus,
+                    tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat.
+                    Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="visitoffice d-flex align-items-center justify-content-center">
+            <!--background picture here-->
+            <div id="visitofficeinside" class="d-flex flex-wrap justify-content-between">
+
+                <div class="officecontent">
+                    <h1>
+                        Visit our modern Oslo office
+                    </h1>
+
+                    <p class="mt-3">
+                        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam,
+                        feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
+                        Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
                     </p>
-
-                    <p>
-                        Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.
-                        Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.
-                        Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus,
-                        tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat.
-                        Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <div class="visitoffice d-flex align-items-center justify-content-center">
-                <!--background picture here-->
-                <div id="visitofficeinside" class="d-flex flex-wrap justify-content-between">
-
-                    <div class="officecontent">
-                        <h1>
-                            Visit our modern Oslo office
-                        </h1>
-
-                        <p class="mt-3">
-                            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam,
-                            feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
-                            Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
-                        </p>
-                        <button class="mybutton">About us</button>
-
-                    </div>
-
-                    <div class="officecontent">
-                        <img src="./img/housingservice.png" class="d-block w-100" alt="...">
-                    </div>
-
+                    <button class="btn btn-main">About us</button>
 
                 </div>
-            </div>
 
-        </section>
-
-        <section class="container">
-            <div class="d-flex justify-content-center">
-                
-                <div id="carouselHouse" class="carousel slide me-5" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active c-item">
-                            <img src="./img/House2/outside.jpg" class=" d-block w-100 c-img" alt="Slide house 1">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h3>Our houses</h3>
-                            </div>
-                        </div>
-                        <div class="carousel-item c-item">
-                            <img src="./img/House3/outside.jpg" class=" d-block w-100 c-img" alt="Slide house 2"> 
-                            <div class="carousel-caption d-none d-md-block">
-                                <h3>Our houses</h3>
-                            </div>
-                        </div>
-                        <div class="carousel-item c-item">
-                            <img src="./img/Funkyhome/outside.jpg" class=" d-block w-100 c-img" alt="Slide house 3"> 
-                            <div class="carousel-caption d-none d-md-block">
-                                <h3>Our houses</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselHouse" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselHouse" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-
-
-
-
-                <div id="carouselApartment" class="carousel slide me-5" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active c-item">
-                            <img src="./img/apartment2/living.jpg" class=" c-img" alt="Slide apartment 1">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h3>Our apartments</h3>
-                            </div>
-                        </div>
-                        <div class="carousel-item c-item">
-                            <img src="./img/apartment1/livingroom.jpg" class=" c-img" alt="Slide apartment 2">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h3>Our apartments</h3>
-                            </div>
-                            </div>
-                        <div class="carousel-item c-item">
-                            <img src="./img/StudioApartment/mainroom.jpg" class="c-img" alt="Slide apartment 3">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h3>Our apartments</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselApartment" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselApartment" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                <div class="officecontent">
+                    <img src="./img/housingservice.png" class="d-block w-100" alt="...">
                 </div>
 
 
             </div>
-        </section>
+        </div>
+
+    </section>
+
+    <section class="container">
+        <div class="d-flex justify-content-center">
+
+            <div id="carouselHouse" class="carousel slide me-5" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active c-item">
+                        <img src="./img/House2/outside.jpg" class=" d-block w-100 c-img" alt="Slide house 1">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>Our houses</h3>
+                        </div>
+                    </div>
+                    <div class="carousel-item c-item">
+                        <img src="./img/House3/outside.jpg" class=" d-block w-100 c-img" alt="Slide house 2">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>Our houses</h3>
+                        </div>
+                    </div>
+                    <div class="carousel-item c-item">
+                        <img src="./img/Funkyhome/outside.jpg" class=" d-block w-100 c-img" alt="Slide house 3">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>Our houses</h3>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselHouse" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselHouse" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+
+
+
+            <div id="carouselApartment" class="carousel slide me-5" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active c-item">
+                        <img src="./img/apartment2/living.jpg" class=" c-img" alt="Slide apartment 1">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>Our apartments</h3>
+                        </div>
+                    </div>
+                    <div class="carousel-item c-item">
+                        <img src="./img/apartment1/livingroom.jpg" class=" c-img" alt="Slide apartment 2">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>Our apartments</h3>
+                        </div>
+                    </div>
+                    <div class="carousel-item c-item">
+                        <img src="./img/StudioApartment/mainroom.jpg" class="c-img" alt="Slide apartment 3">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>Our apartments</h3>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselApartment" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselApartment" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+
+        </div>
+    </section>
+</div>
+<div class="footerparentcontainer">
+    <div class="container footercontainer">
+
+        <div class="d-flex flex-wrap justify-content-between p-3">
+            <div class="d-flex justify-content-start">
+                <!---->
+                <div class="fcontent me-5">
+                    <!--Contact us-->
+                    <h4>Support</h4>
+                    <p>Contact us</p>
+                    <p>Cover Information</p>
+                    <p>Customer Service</p>
+                    <p>Cancellation options</p>
+                    <p>Refunds</p>
+                    <p>FAQ</p>
+                    <p>Renting Guides</p>
+                    <p>Cookie Settings</p>
+                </div>
+
+                <div class="fcontent ms-5 me-5">
+                    <!--Hosting service-->
+                    <h4>Hosting</h4>
+                    <p>Rent out your real estate</p>
+                    <p>Hosting Resources</p>
+                    <p>Hosting Responsibility</p>
+                    <p>Student Discount</p>
+                    <p>Bolig Care</p>
+                    <p>Sustainability</p>
+
+
+                </div>
+
+                <div class="fcontent ms-5">
+                    <!--About Bolig-->
+                    <h4>Bolig</h4>
+                    <p>Student Discount</p>
+                    <p>Careers</p>
+                    <p>About Bolig</p>
+                    <p>Press</p>
+                    <p>Facebook</p>
+                    <p>Pinterest</p>
+                    <p>Instagram</p>
+                    <p>Linkedin</p>
+
+                </div>
+            </div>
+
+            <div class="d-flex flex-column align-items-center">
+                <p>Enjoy your 10% off your first booking</p>
+                <a class="btn btn-subscribe w-100 mb-5">Subcribe</a>
+            </div>
+        </div>
+
+
     </div>
+</div>
 
-    <footer class="text-center text-white mt-4" style="background-color: #caced1;">
-        <!-- Grid container -->
-        <div class="container p-4">
-            <!-- Section: Images -->
-            <section class="">
-                <div class="row">
-                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
-                             data-ripple-color="light">
-                            <img src="https://mdbcdn.b-cdn.net/img/new/fluid/city/113.webp"
-                                 class="w-100" />
-                            <a href="#!">
-                                <div class="mask"
-                                     style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
-                             data-ripple-color="light">
-                            <img src="https://mdbcdn.b-cdn.net/img/new/fluid/city/111.webp"
-                                 class="w-100" />
-                            <a href="#!">
-                                <div class="mask"
-                                     style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
-                             data-ripple-color="light">
-                            <img src="https://mdbcdn.b-cdn.net/img/new/fluid/city/112.webp"
-                                 class="w-100" />
-                            <a href="#!">
-                                <div class="mask"
-                                     style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
-                             data-ripple-color="light">
-                            <img src="https://mdbcdn.b-cdn.net/img/new/fluid/city/114.webp"
-                                 class="w-100" />
-                            <a href="#!">
-                                <div class="mask"
-                                     style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
-                             data-ripple-color="light">
-                            <img src="https://mdbcdn.b-cdn.net/img/new/fluid/city/115.webp"
-                                 class="w-100" />
-                            <a href="#!">
-                                <div class="mask"
-                                     style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
-                        <div class="bg-image hover-overlay ripple shadow-1-strong rounded"
-                             data-ripple-color="light">
-                            <img src="https://mdbcdn.b-cdn.net/img/new/fluid/city/116.webp"
-                                 class="w-100" />
-                            <a href="#!">
-                                <div class="mask"
-                                     style="background-color: rgba(251, 251, 251, 0.2);"></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- Section: Images -->
-        </div>
-        <!-- Grid container -->
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2023 Copyright:
-            <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
-</body>
-</html>
 

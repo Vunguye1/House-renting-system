@@ -18,25 +18,25 @@
 </head>
 <body>
     <header>
-        <!--first navigation bar-->
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bolig saken</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-sm-end">
-                    <ul class="navbar-nav flex-grow-1 d-sm-inline-flex justify-content-sm-end">
+        <div class="d-flex justify-content-between bg-white border-bottom navbardiv fixed-top">
+
+                <div>
+                    <a class="navbar-brand text-black ms-3" asp-area="" asp-controller="Home" asp-action="Index">Bolig saken</a>
+                    <a class="navbar-brand text-black" asp-controller="Realestate" asp-action="GeneralGrid">Book</a>
+                </div>
+                
+
+                <div>
+                    <ul>
                         <partial name="_LoginPartial" />
                     </ul>
                 </div>
             </div>
-        </nav>
+        
     </header>
-    <main role="main">
+    <main role="main" id="maincontainer">
         @RenderBody()
-        @RenderSection("scripts", required: false);
+        @RenderSection("scripts", required: false)
     </main>
     
 </body>

@@ -3,57 +3,57 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul class="navbar-nav">
+<div class="dropdown me-5">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
+        // get the logged on user from the database
+        var user = await UserManager.GetUserAsync(User);
 
-            @{ // get the logged on user from the database
-                var user = await UserManager.GetUserAsync(User);
-                
-            }
+        <button class="btn dropdown-toggle navbar-brand text-black" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Hello, @user.FirstName!
 
-            @if ( user.ProfilePicture != null) // if profilePicture is updated --> display it
+            @if (user.ProfilePicture != null) // if profilePicture is updated --> display it
             {
-                <img style="width:30px;height:30px; object-fit:cover; border-radius:20px" src="data:image/*;base64,@(Convert.ToBase64String(user.ProfilePicture))">
-
+                <img class="ms-1" style="width:30px;height:30px; object-fit:cover; border-radius:20px" src="data:image/*;base64,@(Convert.ToBase64String(user.ProfilePicture))">
             }
-        </li>
+        </button>
 
-        <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @user.FirstName!</a>
-        </li>
 
-        <li class="nav-item">
-            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
-        </li>
-
-        // if this user is admin user
-        @if (await UserManager.IsInRoleAsync(user, "Admin"))  // Check if this user is an admin or just a default user
-
-        {                           // we will add a button here for admin management
-            <li class="nav-item"> 
-                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin management</a>
-            </li>
-        }
-        else // if this user is a default user
-        {                           // we will add a button here to display all real estates this user has
-            <li class="nav-item">
-                <a asp-controller="ApplicationUser" asp-action="ListRealestateByOwner" class="nav-link text-dark">Your real estates</a>
-            </li>
-
-            <li class="nav-item">
-                <a asp-controller="ApplicationUser" asp-action="ListRentHistory" asp-route-userId="@user.Id" class="nav-link text-dark">Your rent history</a>
-            </li>
-        }
         
+        <ul class="dropdown-menu">
+            <li>
+                <a id="manage" class="dropdown-item navbar-brand text-black" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Account Information</a>
+            </li>
+
+            <!--if this user is admin user-->
+            @if (await UserManager.IsInRoleAsync(user, "Admin"))  // Check if this user is an admin or just a default user
+
+            {                           // we will add a button here for admin management
+                <li>
+                    <a class="dropdown-item navbar-brand text-black" asp-area="" asp-controller="Admin" asp-action="Index">Admin management</a>
+                </li>
+            }
+            else // if this user is a default user
+            {                           // we will add a button here to display all real estates this user has
+                <li>
+                    <a asp-controller="ApplicationUser" asp-action="ListRealestateByOwner" class="dropdown-item navbar-brand text-black">Your real estates</a>
+                </li>
+
+                <li>
+                    <a asp-controller="ApplicationUser" asp-action="ListRentHistory" asp-route-userId="@user.Id" class="dropdown-item navbar-brand text-black">Your rent history</a>
+                </li>
+            }
+            <li>
+                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button id="logout" type="submit" class="dropdown-item navbar-brand text-black text-dark">Logout</button>
+                </form>
+            </li>
+        </ul>
+
     }
     else
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        </li>
+        <a class="navbar-brand text-black" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
     }
-</ul>
+
+</div>
