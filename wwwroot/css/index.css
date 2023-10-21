@@ -95,12 +95,12 @@ header {
     }
 
 /*Footer*/
-footer {
+.footerparentcontainer {
     margin-top: 6rem;
     background-color: #BFB29E;
 }
 
-    footer > .footercontainer {
+    .footerparentcontainer > .footercontainer {
         padding: 2rem;
     }
 
@@ -150,17 +150,17 @@ div.fcontent > p {
     }
 
 /* Buttons */
-.btn-subcribe {
+.btn-subscribe {
     background-color: black;
     color: white;
 }
 
-    .btn-subcribe:hover {
-        color: white;
-        background-color: #737373;
-    }
+.btn-subcribe:hover {
+    color: white;
+    background-color: #737373;
+}
 
-.btn-create-flashcard {
+.btn-main {
     font-size: 1.2rem;
     border: 1px solid black;
     padding: 0.5rem;
@@ -170,7 +170,7 @@ div.fcontent > p {
     transition: 500ms;
 }
 
-    .btn-create-flashcard:hover {
+    .btn-main:hover {
         background-color: #FBF6EC;
         transform: scale(1.1);
     }
