@@ -286,12 +286,10 @@ namespace Project1.Migrations
                     b.Property<int>("RealestateId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("RentDateFrom")
-                        .IsRequired()
+                    b.Property<DateTime>("RentDateFrom")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("RentDateTo")
-                        .IsRequired()
+                    b.Property<DateTime>("RentDateTo")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("TotalPrice")
