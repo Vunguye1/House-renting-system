@@ -90,7 +90,7 @@ public class AdminRepository : IAdminRepository
 
         catch (Exception e)
         {
-            _logger.LogError("[AdminRepository] Failed to update Realestate, error message: {ErrorMessage}", e.Message );
+            _logger.LogError("[AdminRepository] Failed to update Realestate, error message: {e}", e.Message );
             return false;
         }
         
@@ -134,7 +134,7 @@ public class AdminRepository : IAdminRepository
         }
         catch (Exception e)
         {
-            _logger.LogError("[AdminRepository] Failed to update User, error message: {ErrorMessage}", e.Message);
+            _logger.LogError("[AdminRepository] Failed to update User, error message: {e}", e.Message);
             return false;
         }
         

@@ -14,17 +14,19 @@ namespace Project1.Controllers
         private readonly IApplicationUserRepository _applicationUserRepository;
         private readonly UserManager<ApplicationUser> _userManager; // call usermanager
         private readonly SignInManager<ApplicationUser> _signInManager; // call signIn manager
+        private readonly ILogger<ApplicationUserController> _logger;
 
       
 
         public ApplicationUserController(RealestateDbContext realestateDbContext, UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager, IApplicationUserRepository applicationUserRepository)
+            SignInManager<ApplicationUser> signInManager, IApplicationUserRepository applicationUserRepository, ILogger<ApplicationUserController> logger)
         {
             
             _realestateDbContext = realestateDbContext;
             _userManager = userManager;
             _signInManager = signInManager;
             _applicationUserRepository = applicationUserRepository;
+            _logger = logger;
         }
 
       
@@ -35,27 +37,38 @@ namespace Project1.Controllers
 
             if (curruser == null)
             {
+                _logger.LogError("[ApplicationUserController] User not found while executing _userManager.GetUserAsync");
                 return NotFound("User not found");
             }
 
 
             var realestates = await _applicationUserRepository.GetRealestateByOwner(curruser);
 
+            if (realestates == null)
+            {
+                _logger.LogError("[ApplicationUserController] Realestate by owner not found while executing ");
+                return NotFound("Realestate by owner not found _applicationUserRepository.GetRealestateByOwner(curruser)");
+            }
 
             var listmodel = new RealestateListViewModel(realestates, "Your registered real estate");
-
             return View(listmodel);
         }
 
-        //MANGLER
+        
         public async Task<IActionResult> ListRentHistory(string userId) // List all properties the user register on the system
         {
             var renthistory = await _applicationUserRepository.ListRentHistory(userId);
 
+            if (renthistory == null)
+            {
+                _logger.LogError("[ApplicationUserController] Rent history list not found while excecuting _applicationUserRepository.ListRentHistory(userId)");
+                return NotFound("Rent history not found");
+            }
+
             return View(renthistory);
         }
 
-        //ENDre
+        
         [HttpGet]
         public async Task<IActionResult> UpdateRealEstate(int id)
         {
@@ -63,31 +76,40 @@ namespace Project1.Controllers
 
             if (realestate == null)
             {
-                return BadRequest("item not found");
+                _logger.LogError("[ApplicationUserController] Realestate not found when updating th realestateId {RealestateId:0000}", id);
+                return BadRequest("realestate not found for realestateId ");
             }
             return View(realestate);
         }
 
+        //DENNE VU
         [HttpPost]
         public async Task<IActionResult> UpdateRealEstate(Realestate realestate)
         {
             var curruser = await _userManager.GetUserAsync(User);
+
+            if (curruser == null)
+            {
+                _logger.LogError("[ApplicationUserController] User not found while executing _userManager.GetUserAsync");
+                return NotFound("User not found");
+            }
 
             realestate.UserId = curruser.Id;
 
             if (ModelState.IsValid)
             {
                 
-                bool returnok = await _applicationUserRepository.Update(realestate);
+                bool returnOk = await _applicationUserRepository.Update(realestate);
 
-                if (!returnok)
+                if (returnOk)
                 {
-                    return BadRequest("Update failed"); 
-                }
-                
-                
+                    return RedirectToAction(nameof(ListRealestateByOwner));
+                }  
             }
-            return RedirectToAction(nameof(ListRealestateByOwner));
+            _logger.LogWarning("[ApplicationUserController] Realestate update failed {@realestate}", realestate);
+            //MÅ RETURNERE ET VIEW MEN HVILKET
+            return View(realestate);
+            
         }
 
 
@@ -96,7 +118,12 @@ namespace Project1.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             
-            await _applicationUserRepository.Delete(id);
+            bool returnOk= await _applicationUserRepository.Delete(id);
+            if (!returnOk)
+            {
+                _logger.LogError("[ApplicationUserController] Realestate deletion failed for the RealestateId {RealestateId:0000}", id);
+                return BadRequest("Realestate deletion failed");
+            }
             return RedirectToAction(nameof(ListRealestateByOwner));
         }
     }

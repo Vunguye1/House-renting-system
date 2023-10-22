@@ -10,47 +10,94 @@ public class ApplicationUserRepository : IApplicationUserRepository
 	private readonly RealestateDbContext _db;
 	private readonly UserManager<ApplicationUser> _userManager; // call usermanager
 	private readonly SignInManager<ApplicationUser> _signInManager; // call signIn manager
+	private readonly ILogger<ApplicationUserRepository> _logger; //adding private readonly logger
 
 	public ApplicationUserRepository(RealestateDbContext db, UserManager<ApplicationUser> userManager,
-			SignInManager<ApplicationUser> signInManager)
+			SignInManager<ApplicationUser> signInManager, ILogger<ApplicationUserRepository> logger)
 	{
 		_db = db;
 		_userManager = userManager;
 		_signInManager = signInManager;
+		_logger = logger;
 	}
 
 
 	public IQueryable<Realestate> GetActiveRealestates()
 	{
-		return _db.Realestates.Where(r => !r.IsDeleted);
+		try
+		{
+            return _db.Realestates.Where(r => !r.IsDeleted);
+        }
+		catch(Exception e)
+		{
+			_logger.LogError("[ApplicationUserRepository] An error occurred while retrieving active realestates, error message: {e}" , e.Message);
+			return null;
+		}
+		
 	}
 
 	public async Task<Realestate?> GetRealestateById(int id)
 	{
-		return await _db.Realestates.FindAsync(id);
+        try
+        {
+            return await _db.Realestates.FindAsync(id);
+        }
+        catch (Exception e)
+        {
+			_logger.LogError("[ApplicationUserRepository] Realestates ToListAsync() failed when GetRealestateById for RealestateId {RealestateId:0000}, error message: {e}", id, e.Message);
+			return null;
+        }
+        
 	}
 
 	public async Task<IEnumerable<Realestate>> GetRealestateByOwner(ApplicationUser user)
 	{
-
-		return await GetActiveRealestates().Where(p => p.UserId == user.Id).ToListAsync();
+        try
+        {
+            return await GetActiveRealestates().Where(p => p.UserId == user.Id).ToListAsync();
+        }
+        catch (Exception e)
+        {
+			_logger.LogError("[ApplicationUserRepository] An error occurred while retrieving realestates by owner, error message: {e}", e.Message);
+			return null;
+        }
+        
 	}
 
 	public async Task<IEnumerable<Rent>> ListRentHistory(string userId) {
-		return await _db.Rent.Where(p => p.UserId == userId).ToListAsync();
+		try
+		{
+            return await _db.Rent.Where(p => p.UserId == userId).ToListAsync();
+        }
+		catch(Exception e)
+		{
+			_logger.LogError("[ApplicationUserRepository] An error occurred while listing rent history for user with ID {UserId:0000}, error message:  {e} ", userId, e.Message);
+			return null;
+		}
+
+		
     }
 
 
     public async Task<bool> Delete(int id)
 	{
-		var realestate = await _db.Realestates.FindAsync(id);
-		if(realestate == null)
+		try
 		{
+            var realestate = await _db.Realestates.FindAsync(id);
+            if (realestate == null)
+            {
+                return false;
+            }
+            _db.Realestates.Remove(realestate);
+            await _db.SaveChangesAsync();
+            return true;
+        }
+		catch(Exception e)
+		{
+			_logger.LogError("[ApplicationUserRepository] Realestate deletion failed for the RealestateId {RealestateId:0000} , error message: {e}", id, e.Message);
 			return false;
 		}
-		_db.Realestates.Remove(realestate);
-		await _db.SaveChangesAsync();
-		return true;
+		
 	}
 
 	public async Task<bool> Update(Realestate realestate)
@@ -64,6 +111,7 @@ public class ApplicationUserRepository : IApplicationUserRepository
 
 		catch(Exception e)
 		{
+			_logger.LogError("[ApplicationUserRepository]  An error occurred while updating realestate, error message: {e}", e.Message);
 			return false;
 		}
 
