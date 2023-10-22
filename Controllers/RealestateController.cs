@@ -139,7 +139,7 @@ namespace Project1.Controllers
 
             if (user == null) // if no one is logged in
             {
-                _logger.LogWarning("[RealestateController] user not found while executing  _userManager.GetUserAsync");
+                _logger.LogError("[RealestateController] user not found while executing  _userManager.GetUserAsync");
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
@@ -159,6 +159,7 @@ namespace Project1.Controllers
             }
         }
 
+        
         [Authorize(Roles = "Default")] // Authorized only to default user
         [HttpGet]
         public async Task<IActionResult> Rent(int realestateId)
@@ -166,7 +167,8 @@ namespace Project1.Controllers
             var realestate = await _realestateRepository.GetRealestateById(realestateId);
             if (realestate == null)
             {
-                return BadRequest("Real estate not found.");
+                _logger.LogError("[RealestateController] realestate not found while executing GetRealestateById(realestateId)");
+                return BadRequest("Realestate not found.");
             }
 
             var viewModel = new RentViewModel
@@ -184,13 +186,13 @@ namespace Project1.Controllers
         [HttpPost]
         public async Task<IActionResult> Rent(RentViewModel rentmodel) 
         {
-            try
-            {
+            
                 var user = await _userManager.GetUserAsync(User); // get current user
                 var realestate = await _realestateRepository.GetRealestateById(rentmodel.Rent.RealestateId); // get the chosen real estate
 
                 if (user == null || realestate == null)
                 {
+                    _logger.LogError("[RealestateController] realestate or user not found");
                     return BadRequest("User or Real estate not found.");
                 }
 
@@ -216,13 +218,10 @@ namespace Project1.Controllers
 
                 else
                 {
+                    _logger.LogError("[RealestateController] Rent creation failed");
                     return BadRequest("Rent creation failed");
                 }
-            }
-            catch
-            {
-                return BadRequest("Create rent fail");
-            }
+    
         }
     }
 }
