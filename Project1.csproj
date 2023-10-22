@@ -36,5 +36,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\img\icons\" />
+    <Content Remove="wwwroot\img\icons\house-heart.svg" />
   </ItemGroup>
 </Project>
