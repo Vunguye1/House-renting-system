@@ -11,8 +11,8 @@ using Project1.Models;
 namespace Project1.Migrations
 {
     [DbContext(typeof(RealestateDbContext))]
-    [Migration("20231017123722_plswork")]
-    partial class plswork
+    [Migration("20231022170651_plsssssssssswork")]
+    partial class plsssssssssswork
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -301,7 +301,6 @@ namespace Project1.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("RentID");
@@ -385,8 +384,7 @@ namespace Project1.Migrations
                     b.HasOne("Project1.Models.ApplicationUser", "User")
                         .WithMany("Rents")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Realestate");
 
