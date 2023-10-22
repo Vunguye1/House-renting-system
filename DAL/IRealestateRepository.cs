@@ -20,7 +20,7 @@ public interface IRealestateRepository
 
     Task<bool> Create(Realestate property);
 
-    //public async Task<IActionResult> Rent(RentViewModel rentmodel)
+    
     Task<bool> Rent(Rent nyrent);
 
 }
@@ -29,15 +29,3 @@ public interface IRealestateRepository
 
 
 
-
-
-//public async Task<IActionResult> GeneralGrid()
-//public async Task<IActionResult> GeneralTable()
-//public async Task<IActionResult> ApartmentGrid()
-//public async Task<IActionResult> ApartmentTable()
-//public async Task<IActionResult> HouseGrid()
-//public async Task<IActionResult> HouseTable()
-
-//public async Task<IActionResult> Details(int id)
-
-//public async Task<IActionResult> Rent(int realestateId)

@@ -16,16 +16,18 @@ namespace Project1.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager; // call signIn manager
         private readonly RealestateDbContext _realestateDbContext;
         private readonly IRealestateRepository _realestateRepository;
+        private readonly ILogger<RealestateController> _logger;
         
 
 
         public RealestateController(RealestateDbContext realestateDbContext, UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager, IRealestateRepository realestateRepository)
+            SignInManager<ApplicationUser> signInManager, IRealestateRepository realestateRepository, ILogger<RealestateController> logger)
         {
             _realestateDbContext = realestateDbContext;
             _userManager = userManager;
             _signInManager = signInManager;
             _realestateRepository = realestateRepository;
+            _logger = logger;
         }
 
         public async Task<IActionResult> GeneralGrid() // this view will return both leilighet and hus
@@ -35,7 +37,8 @@ namespace Project1.Controllers
 
             if (propertylist == null)
             {
-                return NotFound("Real estates are not found");
+                _logger.LogError("[RealestateController] Property list not found while executing _realestateRepository.GetAll()");
+                return NotFound("Realestate list not found");
             }
             var listmodel = new RealestateListViewModel(propertylist, "GeneralGrid");
             return View(listmodel);
@@ -47,7 +50,9 @@ namespace Project1.Controllers
 
             if (propertylist == null)
             {
-                return NotFound("Real estates are not found");
+                _logger.LogError("[RealestateController] Property list not found while executing _realestateRepository.GetAll()");
+                return NotFound("Realestate list not found");
+                
             }
             var listmodel = new RealestateListViewModel(propertylist, "GeneralTable");
             return View(listmodel);
@@ -59,7 +64,8 @@ namespace Project1.Controllers
 
             if (apartmentonly == null)
             {
-                return NotFound("Apartments are not found");
+                _logger.LogError("[RealestateController] apartment list not found while executing _realestateRepository.GetOnlyApartment()");
+                return NotFound("Apartment list not found");
             }
 
             var listmodel = new RealestateListViewModel(apartmentonly, "ApartmentGrid");
@@ -72,7 +78,8 @@ namespace Project1.Controllers
 
             if (apartmentonly == null)
             {
-                return NotFound("Apartments are not found");
+                _logger.LogError("[RealestateController] apartment list not found while executing _realestateRepository.GetOnlyApartment()");
+                return NotFound("Apartment list not found");
             }
 
             var listmodel = new RealestateListViewModel(apartmentonly, "ApartmentTable");
@@ -85,7 +92,8 @@ namespace Project1.Controllers
 
             if (houseonly == null)
             {
-                return NotFound("Houses are not found");
+                _logger.LogError("[RealestateController] House list not found while executing _realestateRepository.GetOnlyHouse()");
+                return NotFound("House list not found");
             }
             var listmodel = new RealestateListViewModel(houseonly, "HouseGrid");
             return View(listmodel);
@@ -97,7 +105,8 @@ namespace Project1.Controllers
 
             if (houseonly == null)
             {
-                return NotFound("Houses are not found");
+                _logger.LogError("[RealestateController] House list not found while executing _realestateRepository.GetOnlyHouse()");
+                return NotFound("House list not found");
             }
             var listmodel = new RealestateListViewModel(houseonly, "HouseTable");
             return View(listmodel);
@@ -107,7 +116,10 @@ namespace Project1.Controllers
         {
             var item = await _realestateRepository.GetRealestateById(id);
             if (item == null)
-                return NotFound();
+            {
+                _logger.LogError("[RealestateController] Realestate found for the RealestateId {RealestateId:0000}", id);
+                return NotFound("Realestate not found for the realestateId");
+            }
             return View(item);
         }
 
@@ -127,6 +139,7 @@ namespace Project1.Controllers
 
             if (user == null) // if no one is logged in
             {
+                _logger.LogWarning("[RealestateController] user not found while executing  _userManager.GetUserAsync");
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
@@ -141,6 +154,7 @@ namespace Project1.Controllers
 
                     }
                 }
+                _logger.LogWarning("[RealestateController] Realestate creation failed {@property} ", property);
                 return View(property);
             }
         }
