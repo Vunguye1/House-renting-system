@@ -159,6 +159,8 @@ namespace Project1.Controllers
                 Rent = new Rent() // display the targeted real estate to user
             };
 
+            viewModel.Rent.RentDateFrom = DateTime.Today; // use today as basic value
+            viewModel.Rent.RentDateTo = DateTime.Today; 
 
             return View(viewModel);
         }
@@ -186,8 +188,10 @@ namespace Project1.Controllers
                     User = user,
                     RealestateId = realestate.RealestateId,
                     Realestate = realestate,
-                    TotalPrice = realestate.Price
                 };
+
+                var days = (rentmodel.Rent.RentDateTo - rentmodel.Rent.RentDateFrom).Days; // Find out the number of days customers want to stay
+                newRent.TotalPrice = (days * realestate.Price) / 7; // Find out price
 
                 realestate.IsDeleted = true; // Mark the Realestate as deleted
 
