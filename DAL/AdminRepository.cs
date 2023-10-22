@@ -25,7 +25,7 @@ public class AdminRepository : IAdminRepository
 
 
     // this method is to to exclude deleted Realestate records. A real estate is marked as deleted after a customer rent it
-    public IQueryable<Realestate> GetActiveRealestates()
+    public IQueryable<Realestate>? GetActiveRealestates()
     {
         try
         {
@@ -41,7 +41,7 @@ public class AdminRepository : IAdminRepository
 
 
     //Task<IEnumerable<ApplicationUser>> ListAllUsers();
-    public async Task<IEnumerable<ApplicationUser>> ListAllUsers()
+    public async Task<IEnumerable<ApplicationUser>?> ListAllUsers()
     {
         try
         {
@@ -59,21 +59,29 @@ public class AdminRepository : IAdminRepository
 
 
     //Task<IEnumerable<Realestate>> ListAllRealestates();
-    public async Task<IEnumerable<Realestate>> ListAllRealestates()
+    public async Task<IEnumerable<Realestate>?> ListAllRealestates()
     {
         try
         {
-            return await GetActiveRealestates().ToListAsync();
+            var activeRealestates = GetActiveRealestates();
 
+            if (activeRealestates != null)
+            {
+                return await activeRealestates.ToListAsync();
+            }
+            else
+            {
+                // Handle the case where GetActiveRealestates() returns null.
+                return null;
+            }
         }
-
         catch (Exception e)
         {
             _logger.LogError("[AdminRepository] activeRealestates ToListAsync() failed when ListAllRealestates(), error message: {e}", e.Message);
             return null;
-
         }
     }
+
 
 
 

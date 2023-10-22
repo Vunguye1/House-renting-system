@@ -19,7 +19,7 @@ namespace Project1.DAL;
 
 
     // this method is to to exclude deleted Realestate records. A real estate is marked as deleted after a customer rent it
-    public IQueryable<Realestate> GetActiveRealestates()
+    public IQueryable<Realestate>? GetActiveRealestates()
     {
         try
         {
@@ -37,8 +37,17 @@ namespace Project1.DAL;
     {
         try
         {
-            return await GetActiveRealestates().ToListAsync();
+            var activeRealestates = GetActiveRealestates();
 
+            if (activeRealestates != null)
+            {
+                return await activeRealestates.ToListAsync();
+            }
+            else
+            {
+                // Handle the case where GetActiveRealestates() returns null.
+                return null;
+            }
         }
 
         catch(Exception e)
@@ -54,7 +63,18 @@ namespace Project1.DAL;
         
         try
         {
-            return await GetActiveRealestates().Where(p => p.Type == "Apartment").ToListAsync();
+            var activeRealestates = GetActiveRealestates();
+
+            if (activeRealestates != null)
+            {
+                return await activeRealestates.Where(p => p.Type == "Apartment").ToListAsync();
+            }
+            else
+            {
+                // Handle the case where GetActiveRealestates() returns null.
+                return null;
+            }
+            
         }
         catch(Exception e)
         {
@@ -67,7 +87,17 @@ namespace Project1.DAL;
     {
         try
         {
-            return await GetActiveRealestates().Where(p => p.Type == "House").ToListAsync();
+            var activeRealestates = GetActiveRealestates();
+
+            if (activeRealestates != null)
+            {
+                return await activeRealestates.Where(p => p.Type == "House").ToListAsync();
+            }
+            else
+            {
+                // Handle the case where GetActiveRealestates() returns null.
+                return null;
+            }
         }
         catch (Exception e)
         {

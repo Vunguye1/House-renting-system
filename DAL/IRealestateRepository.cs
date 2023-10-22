@@ -8,7 +8,7 @@ namespace Project1.DAL;
 public interface IRealestateRepository
 {
 
-    IQueryable<Realestate> GetActiveRealestates();
+    IQueryable<Realestate>? GetActiveRealestates();
 
     Task<IEnumerable<Realestate>?> GetAll();
 
