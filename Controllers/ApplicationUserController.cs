@@ -55,13 +55,22 @@ namespace Project1.Controllers
         }
 
         
-        public async Task<IActionResult> ListRentHistory(string userId) // List all properties the user register on the system
+        public async Task<IActionResult> ListRentHistory() // List all properties the user register on the system
         {
-            var renthistory = await _applicationUserRepository.ListRentHistory(userId);
+
+            var curruser = await _userManager.GetUserAsync(User);
+
+            if (curruser == null)
+            {
+                _logger.LogError("[ApplicationUserController] User not found while executing _userManager.GetUserAsync");
+                return NotFound("User not found");
+            }
+
+            var renthistory = await _applicationUserRepository.ListRentHistory(curruser);
 
             if (renthistory == null)
             {
-                _logger.LogError("[ApplicationUserController] Rent history list not found while excecuting _applicationUserRepository.ListRentHistory(userId)");
+                _logger.LogError("[ApplicationUserController] Rent history list not found while excecuting _applicationUserRepository.ListRentHistory()");
                 return NotFound("Rent history not found");
             }
 

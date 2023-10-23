@@ -75,14 +75,14 @@ public class ApplicationUserRepository : IApplicationUserRepository
         
 	}
 
-	public async Task<IEnumerable<Rent>?> ListRentHistory(string userId) {
+	public async Task<IEnumerable<Rent>?> ListRentHistory(ApplicationUser user) {
 		try
 		{
-            return await _db.Rent.Where(p => p.UserId == userId).ToListAsync();
+            return await _db.Rent.Where(p => p.UserId == user.Id).ToListAsync();
         }
 		catch(Exception e)
 		{
-			_logger.LogError("[ApplicationUserRepository] An error occurred while listing rent history for user with ID {UserId:0000}, error message:  {e} ", userId, e.Message);
+			_logger.LogError("[ApplicationUserRepository] An error occurred while listing rent history for user with ID {UserId:0000}, error message:  {e} ", user.Id, e.Message);
 			return null;
 		}
 
