@@ -22,7 +22,7 @@ public class ApplicationUserRepository : IApplicationUserRepository
 	}
 
 
-	public IQueryable<Realestate> GetActiveRealestates()
+	public IQueryable<Realestate>? GetActiveRealestates()
 	{
 		try
 		{
@@ -50,11 +50,22 @@ public class ApplicationUserRepository : IApplicationUserRepository
         
 	}
 
-	public async Task<IEnumerable<Realestate>> GetRealestateByOwner(ApplicationUser user)
+	public async Task<IEnumerable<Realestate>?> GetRealestateByOwner(ApplicationUser user)
 	{
         try
         {
-            return await GetActiveRealestates().Where(p => p.UserId == user.Id).ToListAsync();
+            var activeRealestates = GetActiveRealestates();
+
+            if (activeRealestates != null)
+            {
+                return await activeRealestates.Where(p => p.UserId == user.Id).ToListAsync();
+            }
+            else
+            {
+                // Handle the case where GetActiveRealestates() returns null.
+                return null;
+            }
+           
         }
         catch (Exception e)
         {
@@ -64,7 +75,7 @@ public class ApplicationUserRepository : IApplicationUserRepository
         
 	}
 
-	public async Task<IEnumerable<Rent>> ListRentHistory(string userId) {
+	public async Task<IEnumerable<Rent>?> ListRentHistory(string userId) {
 		try
 		{
             return await _db.Rent.Where(p => p.UserId == userId).ToListAsync();

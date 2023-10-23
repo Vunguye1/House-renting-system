@@ -107,7 +107,6 @@ namespace Project1.Controllers
                 }  
             }
             _logger.LogWarning("[ApplicationUserController] Realestate update failed {@realestate}", realestate);
-            //MÅ RETURNERE ET VIEW MEN HVILKET
             return View(realestate);
             
         }
