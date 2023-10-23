@@ -40,7 +40,6 @@ public class AdminRepository : IAdminRepository
     }
 
 
-    //Task<IEnumerable<ApplicationUser>> ListAllUsers();
     public async Task<IEnumerable<ApplicationUser>?> ListAllUsers()
     {
         try
@@ -57,8 +56,6 @@ public class AdminRepository : IAdminRepository
 
 
 
-
-    //Task<IEnumerable<Realestate>> ListAllRealestates();
     public async Task<IEnumerable<Realestate>?> ListAllRealestates()
     {
         try
@@ -85,7 +82,6 @@ public class AdminRepository : IAdminRepository
 
 
 
-    //Task UpdateRealestate(Realestate realestate);
     public async Task<bool> UpdateRealestate(Realestate realestate)
     {
 
@@ -105,7 +101,6 @@ public class AdminRepository : IAdminRepository
     }
 
 
-    //Task<bool> Delete(int id);
     public async Task<bool> DeleteRealestate(int id)
     {
 
@@ -132,7 +127,6 @@ public class AdminRepository : IAdminRepository
 
 
 
-    //Task UpdateUser(ApplicationUser user);
     public async Task<bool> UpdateUser(ApplicationUser user)
     {
         try
@@ -148,8 +142,6 @@ public class AdminRepository : IAdminRepository
         
     }
 
-
-    //Task<bool> DeleteUser(String userid);
     public async Task<bool> DeleteUser(string userid)
     {
         try
@@ -179,8 +171,6 @@ public class AdminRepository : IAdminRepository
 
     }
 
-    //DENNE
-    //se på loggingen her, hvordan vet den at realestateID i errormeldingen skal byttes ut med id'en???
     public async Task<Realestate?> GetRealestateById(int id)
     {
         try

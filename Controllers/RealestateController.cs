@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ namespace Project1.Controllers
         private readonly RealestateDbContext _realestateDbContext;
         private readonly IRealestateRepository _realestateRepository;
         private readonly ILogger<RealestateController> _logger;
-        
+
 
 
         public RealestateController(RealestateDbContext realestateDbContext, UserManager<ApplicationUser> userManager,
@@ -52,7 +53,7 @@ namespace Project1.Controllers
             {
                 _logger.LogError("[RealestateController] Property list not found while executing _realestateRepository.GetAll()");
                 return NotFound("Realestate list not found");
-                
+
             }
             var listmodel = new RealestateListViewModel(propertylist, "GeneralTable");
             return View(listmodel);
@@ -138,6 +139,7 @@ namespace Project1.Controllers
             property.UserId = user.Id; // bind newly registered house to the currently logged user
 
             if (user == null) // if no one is logged in
+                
             {
                 _logger.LogError("[RealestateController] user not found while executing  _userManager.GetUserAsync");
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -159,11 +161,13 @@ namespace Project1.Controllers
             }
         }
 
-        
+
         [Authorize(Roles = "Default")] // Authorized only to default user
         [HttpGet]
         public async Task<IActionResult> Rent(int realestateId)
         {
+
+            // get real estate
             var realestate = await _realestateRepository.GetRealestateById(realestateId);
             if (realestate == null)
             {
@@ -171,14 +175,16 @@ namespace Project1.Controllers
                 return BadRequest("Realestate not found.");
             }
 
+            // view model for renting function. With this model, we can keep track of which real estate user want to rent
             var viewModel = new RentViewModel
             {
                 Realestate = realestate,
                 Rent = new Rent() // display the targeted real estate to user
             };
 
-            viewModel.Rent.RentDateFrom = DateTime.Today; // use today as basic value
-            viewModel.Rent.RentDateTo = DateTime.Today; 
+            // use today as start day
+            viewModel.Rent.RentDateFrom = DateTime.Today; 
+            viewModel.Rent.RentDateTo = DateTime.Today;
 
             return View(viewModel);
         }
@@ -186,46 +192,46 @@ namespace Project1.Controllers
 
         [Authorize(Roles = "Default")] // Authorized only to default user
         [HttpPost]
-        public async Task<IActionResult> Rent(RentViewModel rentmodel) 
+        public async Task<IActionResult> Rent(RentViewModel rentmodel)
         {
-            
-                var user = await _userManager.GetUserAsync(User); // get current user
-                var realestate = await _realestateRepository.GetRealestateById(rentmodel.Rent.RealestateId); // get the chosen real estate
 
-                if (user == null || realestate == null)
-                {
-                    _logger.LogError("[RealestateController] realestate or user not found");
-                    return BadRequest("User or Real estate not found.");
-                }
+            var user = await _userManager.GetUserAsync(User); // get current user
+            var realestate = await _realestateRepository.GetRealestateById(rentmodel.Rent.RealestateId); // get the chosen real estate
 
-                var newRent = new Rent // create a new rent
-                {
-                    RentDateFrom = rentmodel.Rent.RentDateFrom,
-                    RentDateTo = rentmodel.Rent.RentDateTo,
-                    UserId = user.Id,
-                    User = user,
-                    RealestateId = realestate.RealestateId,
-                    Realestate = realestate,
-                };
+            if (user == null || realestate == null)
+            {
+                _logger.LogError("[RealestateController] realestate or user not found");
+                return BadRequest("User or Real estate not found.");
+            }
 
-                var days = (rentmodel.Rent.RentDateTo - rentmodel.Rent.RentDateFrom).Days; // Find out the number of days customers want to stay
-                newRent.TotalPrice = (days * realestate.Price) / 7; // Find out price
+            var newRent = new Rent // create a new rent
+            {
+                RentDateFrom = rentmodel.Rent.RentDateFrom,
+                RentDateTo = rentmodel.Rent.RentDateTo,
+                UserId = user.Id,
+                User = user,
+                RealestateId = realestate.RealestateId,
+                Realestate = realestate,
+            };
 
-                realestate.IsDeleted = true; // Mark the Realestate as deleted
+            var days = (rentmodel.Rent.RentDateTo - rentmodel.Rent.RentDateFrom).Days; // Find out the number of days customers want to stay
+            newRent.TotalPrice = (days * realestate.Price) / 7; // Find out price
 
-                bool returnOK = await _realestateRepository.Rent(newRent);
-                
-                if (returnOK )
-                {
-                    return RedirectToAction(nameof(GeneralGrid));
-                }
+            realestate.IsDeleted = true; // Mark the Realestate as deleted
 
-                else
-                {
-                    _logger.LogError("[RealestateController] Rent creation failed");
-                    return BadRequest("Rent creation failed");
-                }
-    
+            bool returnOK = await _realestateRepository.Rent(newRent);
+
+            if (returnOK)
+            {
+                return RedirectToAction(nameof(GeneralGrid));
+            }
+
+            else
+            {
+                _logger.LogError("[RealestateController] Rent creation failed");
+                return BadRequest("Rent creation failed");
+            }
+
         }
     }
 }
