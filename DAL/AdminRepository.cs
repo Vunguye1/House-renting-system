@@ -187,7 +187,7 @@ public class AdminRepository : IAdminRepository
 
 
 
-    //ER DETTE RIKTIG? DEN UNDER?
+    
     public async Task<ApplicationUser?> GetUserById(String id)
     {
         try

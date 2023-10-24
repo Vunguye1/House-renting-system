@@ -79,7 +79,7 @@ namespace Project1.Controllers;
             return View(item);
         }
 
-    //DENNE VU
+    
         [HttpPost]
         public async Task<IActionResult> UpdateRealEstate(Realestate realestate)
         {
@@ -94,9 +94,8 @@ namespace Project1.Controllers;
             }
             }
             _logger.LogWarning("[AdminController] Realestate update failed {@realestate]", realestate);
-            
-        //DETTE MÅ RETURNERE ET VIEW HER? MEN HVILKET?
-            return RedirectToAction(nameof(ListAllRealestates));
+        
+            return View(realestate);
             
         }
 
@@ -133,7 +132,7 @@ namespace Project1.Controllers;
             return View(user);
         }
 
-    //DENNE VU
+    
         [HttpPost]
         public async Task<IActionResult> UpdateUser(ApplicationUser user)
         {
@@ -153,8 +152,7 @@ namespace Project1.Controllers;
 
                     _realestateDbContext.Entry(existingUser).State = EntityState.Modified;
 
-                    try
-                    {
+                    
                        
                         bool returnOk= await _adminRepository.UpdateUser(user);
                         if (returnOk)
@@ -163,17 +161,14 @@ namespace Project1.Controllers;
                     }
                         _logger.LogWarning("[AdminController] User update failed {@item}", user);
                         
-                    }
-                    catch (DbUpdateConcurrencyException ex)
-                    {
-                        // Handle the concurrency exception, if needed.
-                        BadRequest(ex);
-                    }
+                    
+                  
                 }
                 else
                 {
+                    _logger.LogError("[AdminController] User not found when updating the userId {UserId:0000}", user.Id);
                     // Handle the case where the user is not found in the database.
-                    NotFound("User not found");
+                    return BadRequest("User not found");
                 }
             }
 

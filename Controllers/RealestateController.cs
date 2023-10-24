@@ -137,6 +137,7 @@ namespace Project1.Controllers
         {
             var user = await _userManager.GetUserAsync(User); // get currently logged in user
             property.UserId = user.Id; // bind newly registered house to the currently logged user
+            property.imageurl = await FileUpload();
 
             if (user == null) // if no one is logged in
                 
@@ -215,7 +216,7 @@ namespace Project1.Controllers
             };
 
             var days = (rentmodel.Rent.RentDateTo - rentmodel.Rent.RentDateFrom).Days; // Find out the number of days customers want to stay
-            newRent.TotalPrice = (days * realestate.Price) / 7; // Find out price
+            newRent.TotalPrice = days * realestate.Price; // Find out price
 
             realestate.IsDeleted = true; // Mark the Realestate as deleted
 
@@ -232,6 +233,59 @@ namespace Project1.Controllers
                 return BadRequest("Rent creation failed");
             }
 
+        }
+
+        // Function for uploading file
+        public async Task<string> FileUpload()
+        {
+
+            IFormFile? file = null;
+
+            if (Request.Form.Files.Count > 0) // if there are any uploaded files
+            {  
+
+                file = Request.Form.Files.FirstOrDefault(); // we take it
+            }
+
+            if (file != null)
+            {
+                // Create a new file name with help of path class. The Guid will generate a unique identifier for us
+                var currFileName = Path.GetFileName(file.FileName ?? "");
+
+                // Get the directory name from this new file path
+                var myDir = Path.GetDirectoryName(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploadedimages", currFileName));
+
+                // If the directory does not exist, we create a new directory
+                if (!Directory.Exists(myDir))
+                {
+                    // Create here
+                    if (myDir != null)
+                    {
+                        Directory.CreateDirectory(myDir);
+                    }
+                }
+
+                // Copy our image to the indicated path
+                try
+                {
+                    // Create the file, or overwrite if the file exists. Checkout the link: https://learn.microsoft.com/en-us/dotnet/api/system.io.file.create?view=net-6.0 
+                    await using var newfile = System.IO.File.Create(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploadedimages", currFileName));
+                    await file.CopyToAsync(newfile); 
+                }
+                catch (Exception e)
+                {
+                    // Log if copying file is wrong
+                    _logger.LogError("[RealestateController] Fail while copying {e}", e);
+                    return "";
+                }
+                // Return file path. This will help our realestate.imageurl to navigate to image's location
+                return Path.Combine("/", "img", "uploadedimages", currFileName);
+            }
+
+            else
+            {
+                return "";
+            }
         }
     }
 }

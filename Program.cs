@@ -120,7 +120,7 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    DBInit.Seed(app);
+    DBInit.Seed(app, app.Services.CreateScope().ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>());
 }
 
 app.UseStaticFiles();

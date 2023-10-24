@@ -91,7 +91,7 @@ namespace Project1.Controllers
             return View(realestate);
         }
 
-        //DENNE VU
+        
         [HttpPost]
         public async Task<IActionResult> UpdateRealEstate(Realestate realestate)
         {

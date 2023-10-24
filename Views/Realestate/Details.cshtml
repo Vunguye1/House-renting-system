@@ -82,7 +82,7 @@
             <p>@Model.Description</p>
             <p>Persons: @Model.Persons</p>
             <p>Bathrooms: @Model.Bathrooms</p>
-            <h3 class="d-flex justify-content-end pe-3">@Model.Price.ToString("0 000 NOK pr/week")</h3>
+            <h3 class="d-flex justify-content-end pe-3">@Model.Price.ToString("0 000 NOK pr / day")</h3>
 
             @{
                 var currentLoggedinUser = await UserManager.GetUserAsync(User); // get currently logged in user
@@ -107,3 +107,6 @@
 
     </div>
 </div>
+
+<partial name="_footerdiv" />
+
