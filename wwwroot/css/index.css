@@ -79,6 +79,10 @@ header {
     max-width: 45%;
 }
 
+.divcontent {
+    min-height: 47vh;
+}
+
 #carouselHouse, #carouselApartment {
     display: flex;
     height: 350px;
