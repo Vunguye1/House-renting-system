@@ -25,8 +25,8 @@ namespace Project1.Models
                     {
                         UserName = "peertrust@gmail.com",
                         Email = "peertrust@gmail.com",
-                        FirstName = "peer",
-                        LastName = "trust",
+                        FirstName = "Per",
+                        LastName = "Hovland",
                         EmailConfirmed = true,
                     },
 
@@ -34,8 +34,8 @@ namespace Project1.Models
                     {
                         UserName = "randaoili@gmail.com",
                         Email = "randaoili@gmail.com",
-                        FirstName = "rand",
-                        LastName = "aoili",
+                        FirstName = "Rolf",
+                        LastName = "Amundsen",
                         EmailConfirmed = true,
                     }
                 };
