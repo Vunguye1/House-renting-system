@@ -5,14 +5,79 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<div class="container">
-    <h3 class="m-5">
+<div class="container pt-10 ">
+    <h3 class="detail-h ">
         @Model.Name
     </h3>
+    <img  src="/img/icons/person-fill.svg" alt="Grid" width="20" height="20">@Model.User.FirstName @Model.User.LastName</img>
+    <img class="ms-4" src="/img/icons/geo-alt-fill.svg" alt="Grid" width="18" height="18">@Model.Location</img>
 
     <div class="row gx-5">
-        <img alt="@Model.Description" src="@Model.imageurl" class="img-fluid"/>
+        <div id="carouselDetail" class="carousel slide me-5" data-bs-ride="carousel">
+            <div class="carousel-inner rounded">
+                @{
 
+                    int fileCount = 0;
+                    if (Directory.Exists("wwwroot/" + Model.imagefile)) //If the directory exicts
+                    {
+                        //Try to count how many files in the Directory if it exists
+                        string[] files = Directory.GetFiles("wwwroot/" + Model.imagefile);
+                        fileCount = files.Length;
+
+                        //we need to att wwwroot/ on the string from the database which will be eg. wwwroot/img/villa
+                        // We need img/villa for when i acually try to get the picture, but to find the file the only thing that worked was wwwroot/img/villa
+
+
+                        //Define i to help me start on img1
+                        int i = 1;
+                        while (i <= fileCount)
+                        {
+
+                            String imgString = "img" + i + ".jpg"; //make the img name: img1.jpg, img2.jpg, img3.jpg with the help of i
+                            String img = "/" + Model.imagefile + "/" + imgString; //The img url, eg. /img/villa/img1.jpg
+
+                            if (i == 1) //if its the first picture, then we want it to be active
+                            {
+
+                                <div class="carousel-item active detail-c">
+                                    <img src="@img" class=" detail-c-img" alt="@img">
+                                </div>
+                            }
+                            else //The rest of the images
+                            {
+                                <div class="carousel-item detail-c">
+                                    <img src="@img" class=" detail-c-img" alt="@img">
+                                </div>}
+                            i++;
+                        }
+                        i--;
+
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselDetail" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            @for (int j = 1; j < i; j++)
+                            {
+                                <button type="button" data-bs-target="#carouselDetail" data-bs-slide-to="@j" aria-label="'Slide'+@j"></button>
+
+                            }
+                        </div>
+                    }
+                }
+
+
+
+
+
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselDetail" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselDetail" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
         <div class="m-5">
             <p>@Model.Description</p>
             <p>Persons: @Model.Persons</p>
@@ -26,7 +91,7 @@
             {
 
                 <a asp-controller="Realestate" asp-action="Rent" asp-route-realestateId="@Model.RealestateId" class="btn btn-success">Rent</a>
-                
+
             }
             else if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Default") && Model.UserId != currentLoggedinUser.Id) // if user is logged in, display only on real estates that this user does not own
             {
@@ -38,7 +103,7 @@
             }
 
         </div>
-        
+
 
     </div>
 </div>
