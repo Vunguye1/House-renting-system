@@ -11,7 +11,7 @@ using Project1.Models;
 namespace Project1.Migrations
 {
     [DbContext(typeof(RealestateDbContext))]
-    [Migration("20231024133236_plsfunkedsad")]
+    [Migration("20231024133902_plsfunkedsad")]
     partial class plsfunkedsad
     {
         /// <inheritdoc />

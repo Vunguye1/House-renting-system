@@ -14,8 +14,12 @@ namespace Project1.Models
             context.Database.EnsureCreated();
 
 
-            // we create two default users here
-            var users = new List<ApplicationUser> {
+            
+
+            if (!context.Realestates.Any())
+            {
+                // we create two default users here
+                var users = new List<ApplicationUser> {
 
                     new ApplicationUser
                     {
@@ -36,15 +40,15 @@ namespace Project1.Models
                     }
                 };
 
-            // create and give the "default user" role
-            userManager.CreateAsync(users[0], "Dontknowyet123*");
-            userManager.AddToRoleAsync(users[0], "Default");
+                // create and give the "default user" role
+                userManager.CreateAsync(users[0], "Dontknowyet123*");
+                userManager.AddToRoleAsync(users[0], "Default");
 
-            userManager.CreateAsync(users[1], "Dontknowyet123*");
-            userManager.AddToRoleAsync(users[1], "Default");
+                userManager.CreateAsync(users[1], "Dontknowyet123*");
+                userManager.AddToRoleAsync(users[1], "Default");
 
-            if (!context.Realestates.Any())
-            {
+
+
                 // Mock some real estates
                 var items = new List<Realestate>
 
@@ -74,7 +78,7 @@ namespace Project1.Models
                     imagefile = "/img/Villa",
                     Persons= 8,
                     Bathrooms=2,
-                    UserId = users[0].Id
+                    UserId = users[1].Id
                 },
                   new Realestate
                 {
@@ -132,7 +136,7 @@ namespace Project1.Models
                     imagefile = "/img/Funkyhome",
                     Persons=2,
                     Bathrooms=1,
-                    UserId = users[0].Id
+                    UserId = users[1].Id
                 }
                   ,
                   new Realestate
@@ -146,7 +150,7 @@ namespace Project1.Models
                     imagefile = "/img/apartment2",
                     Persons=8,
                     Bathrooms=4,
-                    UserId = users[0].Id
+                    UserId = users[1].Id
                 }
                   ,
                   new Realestate
