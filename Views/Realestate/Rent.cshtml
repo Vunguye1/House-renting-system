@@ -11,13 +11,13 @@
 
         <div class="form-group">
             <label asp-for="@Model.Rent.RentDateFrom"></label><span class="text-danger">*</span>
-            <input asp-for="@Model.Rent.RentDateFrom" class="form-control" />
+            <input asp-for="@Model.Rent.RentDateFrom" class="form-control" type="date" />
             <span asp-validation-for="@Model.Rent.RentDateFrom" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="@Model.Rent.RentDateTo"></label><span class="text-danger">*</span>
-            <input asp-for="@Model.Rent.RentDateTo" class="form-control" />
+            <input asp-for="@Model.Rent.RentDateTo" class="form-control" type="date" />
             <span asp-validation-for="@Model.Rent.RentDateTo" class="text-danger"></span>
         </div>
 

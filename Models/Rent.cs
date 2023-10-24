@@ -4,8 +4,8 @@ namespace Project1.Models
 	public class Rent
 	{
 		public int RentID { get; set; }
-		public string RentDateFrom { get; set; } = string.Empty;
-		public string RentDateTo { get; set; } = string.Empty;
+		public DateTime RentDateFrom { get; set; }
+		public DateTime RentDateTo { get; set; }
 
         public string? UserId { get; set; } = string.Empty;
         //navigation property

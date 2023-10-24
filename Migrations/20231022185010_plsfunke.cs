@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Project1.Migrations
 {
     /// <inheritdoc />
-    public partial class pls : Migration
+    public partial class plsfunke : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -185,7 +185,8 @@ namespace Project1.Migrations
                         name: "FK_Realestates_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -194,9 +195,9 @@ namespace Project1.Migrations
                 {
                     RentID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    RentDateFrom = table.Column<string>(type: "TEXT", nullable: false),
-                    RentDateTo = table.Column<string>(type: "TEXT", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    RentDateFrom = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    RentDateTo = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UserId = table.Column<string>(type: "TEXT", nullable: true),
                     RealestateId = table.Column<int>(type: "INTEGER", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
@@ -208,7 +209,7 @@ namespace Project1.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Rent_Realestates_RealestateId",
                         column: x => x.RealestateId,

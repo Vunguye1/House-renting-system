@@ -20,11 +20,17 @@
 
                 <td>@rent.RentDateTo</td>
 
-                <td>@rent.User.UserName</td>
+                @if (rent.User != null)
+                {
+                    <td>@rent.User.UserName</td>
 
-                <td>ID: @rent.Realestate.RealestateId, Name: @rent.Realestate.Name </td>
+                }
 
-                <td> @rent.TotalPrice </td>
+                @if (rent.Realestate != null)
+                {
+                    <td>ID: @rent.Realestate.RealestateId, Name: @rent.Realestate.Name </td>
+                }
+                <td> @rent.TotalPrice kr </td>
 
             </tr>
         }

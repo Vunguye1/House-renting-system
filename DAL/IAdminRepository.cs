@@ -9,9 +9,9 @@ namespace Project1.DAL;
 	public interface IAdminRepository
 	{
 	
-		IQueryable<Realestate> GetActiveRealestates();
-		Task<IEnumerable<ApplicationUser>> ListAllUsers();
-		Task<IEnumerable<Realestate>> ListAllRealestates();
+		IQueryable<Realestate>? GetActiveRealestates();
+		Task<IEnumerable<ApplicationUser>?> ListAllUsers();
+		Task<IEnumerable<Realestate>?> ListAllRealestates();
 		Task<bool>UpdateRealestate(Realestate realestate); //endret til bool
 		Task<bool> DeleteRealestate(int id);
 		Task <bool> UpdateUser(ApplicationUser user); //endret til bool

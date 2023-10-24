@@ -7,7 +7,9 @@ namespace Project1.Models
 {
     public class AuthorizedHandling
     {
-
+        /* 
+         Based on this link, we learn how to handle authorization https://codewithmukesh.com/blog/user-management-in-aspnet-core-mvc/
+         */
 
         //Seed Roles
         public static async Task SeedRolesAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)

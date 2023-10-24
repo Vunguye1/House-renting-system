@@ -9,12 +9,11 @@ namespace Project1.Models
         {
             using var serviceScope = app.ApplicationServices.CreateScope();
             RealestateDbContext context = serviceScope.ServiceProvider.GetRequiredService<RealestateDbContext>();
-            //context.Database.EnsureDeleted(); //Always deletes the database, can comment out.
             context.Database.EnsureCreated();
 
             if (!context.Realestates.Any())
             {
-
+                // we create two default users here
                 var users = new List<ApplicationUser> {
 
                     new ApplicationUser
@@ -39,7 +38,7 @@ namespace Project1.Models
                 };
 
 
-
+                // Mock some real estates
                 var items = new List<Realestate>
 
             {
