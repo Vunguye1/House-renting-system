@@ -157,12 +157,12 @@ div.fcontent > p {
     }
 
 /* Buttons */
-.btn-subscribe {
+#btn-subscribe {
     background-color: black;
     color: white;
 }
 
-.btn-subcribe:hover {
+#btn-subcribe:hover {
     color: white;
     background-color: #737373;
 }
