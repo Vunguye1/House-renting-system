@@ -4,6 +4,7 @@ namespace Project1.Models
 	public class Rent
 	{
 		public int RentID { get; set; }
+
 		public DateTime RentDateFrom { get; set; }
 		public DateTime RentDateTo { get; set; }
 
@@ -14,6 +15,7 @@ namespace Project1.Models
         public int RealestateId { get; set; }
         //navigation property
         public virtual Realestate? Realestate { get; set; } = default!;
+
 
 		public decimal TotalPrice { get; set; }
 		
