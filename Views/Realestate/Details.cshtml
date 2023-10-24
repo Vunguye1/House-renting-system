@@ -9,8 +9,23 @@
     <h3 class="detail-h ">
         @Model.Name
     </h3>
-    <img  src="/img/icons/person-fill.svg" alt="Grid" width="20" height="20">@Model.User.FirstName @Model.User.LastName</img>
-    <img class="ms-4" src="/img/icons/geo-alt-fill.svg" alt="Grid" width="18" height="18">@Model.Location</img>
+
+    @if (Model.User == null)
+    {
+        <img src="/img/icons/person-fill.svg" alt="Grid" width="20" height="20">
+
+        <span>Anoymous</span>
+
+    }
+    else
+    {
+        <img src="/img/icons/person-fill.svg" alt="Grid" width="20" height="20">
+
+        <span>@Model.User.FirstName @Model.User.LastName</span>
+
+    }
+
+    <img class="ms-4" src="/img/icons/geo-alt-fill.svg" alt="Grid" width="18" height="18"><span>@Model.Location</span>
 
     <div class="row gx-5">
         <div id="carouselDetail" class="carousel slide me-5" data-bs-ride="carousel">
@@ -47,7 +62,8 @@
                             {
                                 <div class="carousel-item detail-c">
                                     <img src="@img" class=" detail-c-img" alt="@img">
-                                </div>}
+                                </div>
+                            }
                             i++;
                         }
                         i--;
