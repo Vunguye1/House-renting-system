@@ -5,14 +5,14 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<div class="container-fluid pt-4">
+<div class="container-fluid">
 
 
     @foreach (var realestate in Model)
     {
-        <div class="d-flex flex-wrap mt-4 listbox box">
-            <div class="p-4">
-                <img src="@realestate.imageurl" alt="@realestate.Description" class="img rounded" style="width: 250px; height: 250px; overflow:hidden">
+        <div class="d-flex flex-wrap mb-5 listbox box rounded">
+            <div class="p-4 ">
+                <img src="@realestate.imageurl" alt="@realestate.Description" class="img rounded" style="width:250px; height: 250px; overflow:hidden">
             </div>
             <div class="d-flex flex-grow-1 flex-column p-4">
                 <div>
@@ -22,34 +22,44 @@
                            asp-route-id="@realestate.RealestateId"
                            class="text-decoration-none">@realestate.Name</a>
                     </h5>
-                   
-                        @if (realestate.User != null)
-                            {
-                                <p>Owner: @realestate.User.FirstName @realestate.User.LastName</p>
-                          }
-                    
+
+                    @if (realestate.User != null)
+                    {
+                        <p>Owner: @realestate.User.FirstName @realestate.User.LastName</p>
+                    }
+
                     <p>@realestate.Location</p>
-                    <p style="max-width: 700px">
+                    <p class="text-container" style="max-width: 700px">
                         @realestate.Description
                     </p>
-                </div>
+                    <a asp-controller="Realestate"
+                       asp-action="Details"
+                       asp-route-id="@realestate.RealestateId"
+                       class="text-decoration-none pt-0 "> more...</a>
 
-                <div class="d-flex flex-column align-items-end">
+
+                </div>
+            </div>
+
+
+                <div class="d-flex flex-column mt-auto pb-4 mb-2 me-4">
                     <h5>
                         @realestate.Price.ToString("N0").Replace(",", " ") NOK /week
 
                     </h5>
 
+
                     @{
                         var currentLoggedinUser = await UserManager.GetUserAsync(User); // get currently logged in user
                     }
+
                     @if (SignInManager.IsSignedIn(User)) // If user is logged in
                     {
 
                         @if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Admin")) // if this is admin, display the two buttons
                         {
                             <div>
-                                <a asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-outline-primary">Update</a>
+                                <a asp-controller="Admin" asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-outline-primary">Update</a>
 
                                 <!-- Create delete real estate button -->
                                 <!-- Button trigger modal with a unique real estate id. This modal is used from Bootstrap library -->
@@ -61,26 +71,36 @@
                         }
 
                         else if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Default") && realestate.UserId == currentLoggedinUser.Id)
-                        { 
+                        {
                             // if this is a default user, only display buttons on real estates this user owns
                             <div>
-                                <a asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-primary">Update</a>
+                                <a asp-controller="ApplicationUser" asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-outline-primary">Update</a>
 
                                 <!-- Create delete real estate button -->
                                 <!-- Button trigger modal with a unique real estate id. This modal is used from Bootstrap library -->
-                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@realestate.RealestateId">
+                                <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@realestate.RealestateId">
                                     Delete
                                 </a>
                             </div>
                         }
+                        else if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Default") && realestate.UserId != currentLoggedinUser.Id) // if user is logged in, display only on real estates that this user does not own
+                        {
+                            <a asp-controller="Realestate" asp-action="Rent" asp-route-realestateId="@realestate.RealestateId" class="btn btn-success">Rent</a>
+                        }
+
+
 
                     }
+                    else if (!SignInManager.IsSignedIn(User)) // If user is not logged in
+                    {
 
+                        <a asp-controller="Realestate" asp-action="Rent" asp-route-realestateId="@realestate.RealestateId" class="btn btn-success">Rent</a>
+
+                    }
                 </div>
-
-            </div>
+            
         </div>
-        
+
         <!-- Modal -->
         <div class="modal fade" id="DeleteModal-@realestate.RealestateId" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -107,6 +127,12 @@
            asp-controller="Realestate"
            asp-action="Create">Register your place here!</a>
     </div>
-
 </div>
 
+
+
+@*
+                
+
+    
+*@

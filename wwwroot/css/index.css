@@ -229,3 +229,11 @@ a.show {
         transform: scale(1.2);
         transition: transform 0,2s;
     }
+
+.text-container {
+    line-height:1.3;
+    max-height: 3.9em; /* Sett ønsket høyde for visningen */
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 1px;
+}
