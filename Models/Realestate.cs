@@ -21,7 +21,7 @@ namespace Project1.Models
         [RegularExpression(@"[a-zA-ZæøåÆØÅ., \-]{2,50}", ErrorMessage = "Location must must consist of 2 to 50 letters")]
         public string Location { get; set; } = string.Empty;
 
-        [StringLength(500)]
+        [StringLength(2000)]
         public string? Description { get; set; }
 
         public bool IsDeleted { get; set; }
