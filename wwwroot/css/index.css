@@ -1,271 +1,279 @@
 ﻿@font-face {
-    font-family: OpensansRegular;
-    src: url(../fonts/Open_Sans/static/OpenSans-Regular.ttf);
+  font-family: OpensansRegular;
+  src: url(../fonts/Open_Sans/static/OpenSans-Regular.ttf);
 }
 
 @font-face {
-    font-family: OpensansHeader;
-    src: url(../fonts/Open_Sans/static/OpenSans-SemiBold.ttf);
+  font-family: OpensansHeader;
+  src: url(../fonts/Open_Sans/static/OpenSans-SemiBold.ttf);
 }
 
 body {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: OpensansRegular, sans-serif;
-    font-size: 60px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: OpensansRegular, sans-serif;
+  font-size: 60px;
 }
 
 #maincontainer {
-    margin-top: 56px;
+  margin-top: 56px;
 }
 
-h1, h4, h5 {
-    font-family: OpensansHeader;
+h1,
+h4,
+h5 {
+  font-family: OpensansHeader;
 }
-h5{
-    color:black
+h5 {
+  color: black;
 }
 
-li, p {
-    font-size: 1rem;
+li,
+p {
+  font-size: 1rem;
 }
 
 header {
-    font-size: 30px;
+  font-size: 30px;
 }
 
 @media (max-width: 599px) {
-    header {
-        font-size: 20px;
-    }
+  header {
+    font-size: 20px;
+  }
 }
 
 @media (min-width: 600px) and (max-width: 1000px) {
-    header {
-        font-size: 28px;
-    }
+  header {
+    font-size: 28px;
+  }
 }
 
-
-.navbardiv, header {
-    max-height: 60px;
-    margin-bottom:30px;
+.navbardiv,
+header {
+  max-height: 60px;
+  margin-bottom: 30px;
 }
 
 .mainbg {
-    font-size: 3rem;
-    color: white;
-    padding: 2rem;
-    height: 100vh;
-    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("../img/main_index.jpg");
-    background-size: cover;
+  font-size: 3rem;
+  color: white;
+  padding: 2rem;
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../img/main_index.jpg");
+  background-size: cover;
 }
 
 .visitoffice {
-    background-image: url(../img/officepicture.jpg);
-    background-size: cover;
-    padding: 6rem;
-    margin-bottom: 4rem;
+  background-image: url(../img/officepicture.jpg);
+  background-size: cover;
+  padding: 6rem;
+  margin-bottom: 4rem;
 }
 
 #visitofficeinside {
-    background-color: white;
-    width: 70%;
-    height: 40%;
-    padding: 3rem;
+  background-color: white;
+  width: 70%;
+  height: 40%;
+  padding: 3rem;
 }
 
 .officecontent {
-    max-width: 45%;
+  max-width: 45%;
 }
 
 /*Carousel in index*/
-#carouselHouse, #carouselApartment {
-    display: flex;
-    height: 350px;
-    width: 350px;
+.divcontent {
+  min-height: 47vh;
+}
+
+#carouselHouse,
+#carouselApartment {
+  display: flex;
+  height: 350px;
+  width: 350px;
 }
 
 .c-item {
-    height: 100%;
-    width: 100%;
-    border: 3px solid black;
-    border-radius: 20px;
+  height: 100%;
+  width: 100%;
+  border: 3px solid black;
+  border-radius: 20px;
 }
 
-    .c-item > .c-img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        overflow: hidden;
-        border-radius: 15px;
-        filter: brightness(0.6)
-    }
+.c-item > .c-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 15px;
+  filter: brightness(0.6);
+}
 /*Carousel in index DONE*/
 
 /*Carousel in Detail*/
 #carouselDetail {
-    display: flex;
-    height: 600px;
-    width: 800px;
+  display: flex;
+  height: 600px;
+  width: 800px;
 }
 .detail-c {
-    height: 100%;
-    width: 100%;
-    
+  height: 100%;
+  width: 100%;
 }
 
-    .detail-c > .detail-c-img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        overflow: hidden;
-        
-    }
+.detail-c > .detail-c-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
 /*Carousel in Detail DONE*/
 
 /*Footer*/
 .footerparentcontainer {
-    margin-top: 6rem;
-    background-color: #BFB29E;
+  margin-top: 6rem;
+  background-color: #bfb29e;
 }
 
-    .footerparentcontainer > .footercontainer {
-        padding: 2rem;
-    }
+.footerparentcontainer > .footercontainer {
+  padding: 2rem;
+}
 
 div.fcontent > p {
-    font-size: 0.8rem;
-    margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
 }
 
-    div.fcontent > p:hover {
-        cursor: pointer;
-        color: #737373;
-    }
+div.fcontent > p:hover {
+  cursor: pointer;
+  color: #737373;
+}
 
 .mybutton {
-    font-size: 1rem;
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
-    color: black;
-    cursor: pointer;
-    border: 1px solid black;
-    border-radius: 0.1rem;
-    background-color: #FBF6EC;
-    padding: 0.6rem;
-    min-width: 100px;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out, border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  font-size: 1rem;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 0.1rem;
+  background-color: #fbf6ec;
+  padding: 0.6rem;
+  min-width: 100px;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-    .mybutton:hover {
-        background-color: #FDBB31;
-        color: black;
-    }
+.mybutton:hover {
+  background-color: #fdbb31;
+  color: black;
+}
 
 .realestatetypes {
-    margin: 4rem;
+  margin: 4rem;
 }
 
-    .realestatetypes img {
-        max-width: 550px;
-        max-height: 550px;
-    }
+.realestatetypes img {
+  max-width: 550px;
+  max-height: 550px;
+}
 
-    .realestatetypes > div p {
-        font-size: 18px;
-        line-height: 2;
-        max-width: 600px;
-    }
+.realestatetypes > div p {
+  font-size: 18px;
+  line-height: 2;
+  max-width: 600px;
+}
 
 /* Buttons */
 #btn-subscribe {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
 
 #btn-subcribe:hover {
-    color: white;
-    background-color: #737373;
+  color: white;
+  background-color: #737373;
 }
 
 .btn-main {
-    font-size: 1.2rem;
-    border: 1px solid black;
-    padding: 0.5rem;
-    margin-top: 4rem;
-    width: 8rem;
-    background-color: #fff;
-    transition: 500ms;
+  font-size: 1.2rem;
+  border: 1px solid black;
+  padding: 0.5rem;
+  margin-top: 4rem;
+  width: 8rem;
+  background-color: #fff;
+  transition: 500ms;
 }
 
-    .btn-main:hover {
-        background-color: #FBF6EC;
-        transform: scale(1.1);
-    }
+.btn-main:hover {
+  background-color: #fbf6ec;
+  transform: scale(1.1);
+}
 
 /*Shadow around boxes both in table/list and grid*/
 .box {
-    box-shadow: -8px -10px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
-    transition: transform 0.2s;
+  box-shadow: -8px -10px 15px rgba(100, 100, 100, 0.05),
+    10px 10px 15px rgba(50, 50, 50, 0.12);
+  transition: transform 0.2s;
 }
 
-.gridbox:hover { /*boxes in grid pops up when hovering*/
-    transform: scale(1.03);
-    box-shadow: -8px -8px 15px rgba(100,100,100,0.05),10px 10px 15px rgba(50, 50, 50,0.12);
+.gridbox:hover {
+  /*boxes in grid pops up when hovering*/
+  transform: scale(1.03);
+  box-shadow: -8px -8px 15px rgba(100, 100, 100, 0.05),
+    10px 10px 15px rgba(50, 50, 50, 0.12);
 }
 
 /*White border around boxes in table view*/
 .listbox {
-    border: 3px solid #ffffff;
-    
+  border: 3px solid #ffffff;
 }
-    /*That turns light grey when hoovering*/
-    .listbox:hover {
-        transform: scale(1.03);
-        
-    }
+/*That turns light grey when hoovering*/
+.listbox:hover {
+  transform: scale(1.03);
+}
 
 /*Buttons for showing houses/apartments*/
 a.show {
-    text-decoration: none;
-    color: black;
-    border-color: #E8E8E8; /* Samme farge for kant */
+  text-decoration: none;
+  color: black;
+  border-color: #e8e8e8; /* Samme farge for kant */
 }
 
-    a.show:hover {
-        color: black;
-        background-color: #E8E8E8;
-    }
-
-    a.show.active {
-        background-color: #E8E8E8;
-    }
-
-.view.active, .view:hover {
-    background-color: #E8E8E8;
+a.show:hover {
+  color: black;
+  background-color: #e8e8e8;
 }
 
+a.show.active {
+  background-color: #e8e8e8;
+}
 
-    .popup:hover {
-        transform: scale(1.2);
-        transition: transform 0,2s;
-    }
+.view.active,
+.view:hover {
+  background-color: #e8e8e8;
+}
+
+.popup:hover {
+  transform: scale(1.2);
+  transition: transform 0, 2s;
+}
 
 .text-container {
-    line-height:1.3;
-    max-height: 3.9em; /* Sett ønsket høyde for visningen */
-    overflow: hidden;
-    position: relative;
-    margin-bottom: 1px;
+  line-height: 1.3;
+  max-height: 3.9em; /* Sett ønsket høyde for visningen */
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 1px;
 }
 
-.detail-h{
-    padding-top:40px;
-    align-content:center;
-    margin-left:auto;
-    margin-right:auto;
-
+.detail-h {
+  padding-top: 40px;
+  align-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
