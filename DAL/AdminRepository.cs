@@ -171,8 +171,7 @@ public class AdminRepository : IAdminRepository
 
     }
 
-    //DENNE
-    //se på loggingen her, hvordan vet den at realestateID i errormeldingen skal byttes ut med id'en???
+   
     public async Task<Realestate?> GetRealestateById(int id)
     {
         try
@@ -189,7 +188,7 @@ public class AdminRepository : IAdminRepository
 
 
 
-    //ER DETTE RIKTIG? DEN UNDER?
+    
     public async Task<ApplicationUser?> GetUserById(String id)
     {
         try

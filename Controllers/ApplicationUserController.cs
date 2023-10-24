@@ -82,7 +82,7 @@ namespace Project1.Controllers
             return View(realestate);
         }
 
-        //DENNE VU
+        
         [HttpPost]
         public async Task<IActionResult> UpdateRealEstate(Realestate realestate)
         {
@@ -107,7 +107,6 @@ namespace Project1.Controllers
                 }  
             }
             _logger.LogWarning("[ApplicationUserController] Realestate update failed {@realestate}", realestate);
-            //MÅ RETURNERE ET VIEW MEN HVILKET
             return View(realestate);
             
         }
