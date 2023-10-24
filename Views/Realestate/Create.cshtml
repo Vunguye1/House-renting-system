@@ -3,7 +3,7 @@
 <div class="container">
     <h2>Register your new property here :) !</h2>
 
-    <form asp-action="Create">
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label asp-for="Name"></label><span class="text-danger">*</span>
             <input asp-for="Name" class="form-control" />
@@ -49,10 +49,13 @@
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
 
-        <input type="hidden" asp-for="imagefile" />
         <input type="hidden" asp-for="imageurl" />
 
-
+        <div class="form-group m-4">
+        <label asp-for="imageurl" class="form-label" style="width: 100%;">Upload image</label>
+        <input type="file" asp-for="imageurl" name="file" id="file" accept=".jpg, .jpeg, .png" required />
+        <span asp-validation-for="imageurl" class="text-danger"></span>
+        </div>
 
         <button type="submit" class="btn btn-primary">Create</button>
         <a asp-controller="ApplicationUser" asp-action="ListRealestateByOwner" class="btn btn-secondary">Cancel</a>
