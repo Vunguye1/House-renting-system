@@ -137,6 +137,7 @@ namespace Project1.Controllers
         {
             var user = await _userManager.GetUserAsync(User); // get currently logged in user
             property.UserId = user.Id; // bind newly registered house to the currently logged user
+            property.imageurl = await FileUpload();
 
             if (user == null) // if no one is logged in
                 
@@ -215,7 +216,7 @@ namespace Project1.Controllers
             };
 
             var days = (rentmodel.Rent.RentDateTo - rentmodel.Rent.RentDateFrom).Days; // Find out the number of days customers want to stay
-            newRent.TotalPrice = (days * realestate.Price) / 7; // Find out price
+            newRent.TotalPrice = days * realestate.Price; // Find out price
 
             realestate.IsDeleted = true; // Mark the Realestate as deleted
 
@@ -232,6 +233,65 @@ namespace Project1.Controllers
                 return BadRequest("Rent creation failed");
             }
 
+        }
+
+        // Function for uploading file
+        public async Task<string> FileUpload()
+        {
+
+            IFormFile? file = null;
+
+            if (Request.Form.Files.Count > 0) // if there are any uploaded files
+            {  
+
+                file = Request.Form.Files.FirstOrDefault(); // we take it
+            }
+
+            if (file != null)
+            {
+                // Create a new file name with help of path class. The Guid will generate a unique identifier for us
+                var currFileName = Guid.NewGuid() + Path.GetFileName(file.FileName ?? "");
+
+                //  Give our file a path
+                var filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploadedimages", currFileName);
+
+                // Get the directory name from this file path
+                var myDir = Path.GetDirectoryName(filepath);
+
+                // If the directory does not exist, we create a new directory
+                if (!Directory.Exists(myDir))
+                    try
+                    {
+                        // Create here
+                        if (myDir != null) Directory.CreateDirectory(myDir);
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.LogError($"[RealestateController] FileUpload() failed! Error: {e}");
+                        return "";
+                    }
+
+                // Copy our image to the indicated path
+                try
+                {
+                    // Create the file, or overwrite if the file exists.
+                    await using var newfile = System.IO.File.Create(filepath);
+                    await file.CopyToAsync(newfile); // We get this from: https://learn.microsoft.com/en-us/dotnet/api/system.io.file.create?view=net-6.0 
+                }
+                catch (Exception e)
+                {
+                    // Exception and logging if the copying fails
+                    _logger.LogError("[RealestateController] An exception occurred while copying file: {e}", e);
+                    return "";
+                }
+                // Return file path. This will help our realestate.imageurl to navigate to image's location
+                return Path.Combine("/", "img", "uploadedimages", currFileName);
+            }
+
+            else
+            {
+                return "";
+            }
         }
     }
 }
