@@ -250,38 +250,32 @@ namespace Project1.Controllers
             if (file != null)
             {
                 // Create a new file name with help of path class. The Guid will generate a unique identifier for us
-                var currFileName = Guid.NewGuid() + Path.GetFileName(file.FileName ?? "");
+                var currFileName = Path.GetFileName(file.FileName ?? "");
 
-                //  Give our file a path
-                var filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploadedimages", currFileName);
-
-                // Get the directory name from this file path
-                var myDir = Path.GetDirectoryName(filepath);
+                // Get the directory name from this new file path
+                var myDir = Path.GetDirectoryName(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploadedimages", currFileName));
 
                 // If the directory does not exist, we create a new directory
                 if (!Directory.Exists(myDir))
-                    try
+                {
+                    // Create here
+                    if (myDir != null)
                     {
-                        // Create here
-                        if (myDir != null) Directory.CreateDirectory(myDir);
+                        Directory.CreateDirectory(myDir);
                     }
-                    catch (Exception e)
-                    {
-                        _logger.LogError($"[RealestateController] FileUpload() failed! Error: {e}");
-                        return "";
-                    }
+                }
 
                 // Copy our image to the indicated path
                 try
                 {
-                    // Create the file, or overwrite if the file exists.
-                    await using var newfile = System.IO.File.Create(filepath);
-                    await file.CopyToAsync(newfile); // We get this from: https://learn.microsoft.com/en-us/dotnet/api/system.io.file.create?view=net-6.0 
+                    // Create the file, or overwrite if the file exists. Checkout the link: https://learn.microsoft.com/en-us/dotnet/api/system.io.file.create?view=net-6.0 
+                    await using var newfile = System.IO.File.Create(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploadedimages", currFileName));
+                    await file.CopyToAsync(newfile); 
                 }
                 catch (Exception e)
                 {
-                    // Exception and logging if the copying fails
-                    _logger.LogError("[RealestateController] An exception occurred while copying file: {e}", e);
+                    // Log if copying file is wrong
+                    _logger.LogError("[RealestateController] Fail while copying {e}", e);
                     return "";
                 }
                 // Return file path. This will help our realestate.imageurl to navigate to image's location

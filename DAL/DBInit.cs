@@ -1,20 +1,21 @@
 ﻿using Castle.Core.Resource;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Project1.Models
 {
     public class DBInit
     {
-        public static void Seed(IApplicationBuilder app)
+        public static void Seed(IApplicationBuilder app, UserManager<ApplicationUser> userManager)
         {
             using var serviceScope = app.ApplicationServices.CreateScope();
             RealestateDbContext context = serviceScope.ServiceProvider.GetRequiredService<RealestateDbContext>();
+            //context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
-            if (!context.Realestates.Any())
-            {
-                // we create two default users here
-                var users = new List<ApplicationUser> {
+
+            // we create two default users here
+            var users = new List<ApplicationUser> {
 
                     new ApplicationUser
                     {
@@ -22,7 +23,6 @@ namespace Project1.Models
                         Email = "peertrust@gmail.com",
                         FirstName = "peer",
                         LastName = "trust",
-                        PasswordHash = "Dontknowyet123*",
                         EmailConfirmed = true,
                     },
 
@@ -32,12 +32,19 @@ namespace Project1.Models
                         Email = "randaoili@gmail.com",
                         FirstName = "rand",
                         LastName = "aoili",
-                        PasswordHash = "Dontknowyet123*",
                         EmailConfirmed = true,
-                    },
+                    }
                 };
 
+            // create and give the "default user" role
+            userManager.CreateAsync(users[0], "Dontknowyet123*");
+            userManager.AddToRoleAsync(users[0], "Default");
 
+            userManager.CreateAsync(users[1], "Dontknowyet123*");
+            userManager.AddToRoleAsync(users[1], "Default");
+
+            if (!context.Realestates.Any())
+            {
                 // Mock some real estates
                 var items = new List<Realestate>
 
@@ -54,8 +61,7 @@ namespace Project1.Models
                     imagefile="/img/StudioApartment",
                     Persons=4,
                     Bathrooms=1,
-                    UserId = users[0].Id,
-                    User = users[0]
+                    UserId = users[0].Id
                 },
                  new Realestate
                 {
@@ -68,8 +74,7 @@ namespace Project1.Models
                     imagefile = "/img/Villa",
                     Persons= 8,
                     Bathrooms=2,
-                    UserId = users[0].Id,
-                    User = users[0]
+                    UserId = users[0].Id
                 },
                   new Realestate
                 {
@@ -82,8 +87,7 @@ namespace Project1.Models
                     imagefile = "/img/house2",
                     Persons=6,
                     Bathrooms=2,
-                    UserId = users[1].Id,
-                    User = users[1]
+                    UserId = users[0].Id
                 },
 
 
@@ -100,8 +104,7 @@ namespace Project1.Models
                     imagefile = "/img/house3",
                     Persons=4,
                     Bathrooms=3,
-                    UserId = users[0].Id,
-                    User = users[0]
+                    UserId = users[0].Id
                 }
                   ,
                   new Realestate
@@ -115,8 +118,7 @@ namespace Project1.Models
                     imagefile = "/img/hus1",
                     Persons=5,
                     Bathrooms=2,
-                    UserId = users[1].Id,
-                    User = users[1]
+                    UserId = users[0].Id
                 }
                   ,
                   new Realestate
@@ -130,8 +132,7 @@ namespace Project1.Models
                     imagefile = "/img/Funkyhome",
                     Persons=2,
                     Bathrooms=1,
-                    UserId = users[1].Id,
-                    User = users[1]
+                    UserId = users[0].Id
                 }
                   ,
                   new Realestate
@@ -145,8 +146,7 @@ namespace Project1.Models
                     imagefile = "/img/apartment2",
                     Persons=8,
                     Bathrooms=4,
-                    UserId = users[1].Id,
-                    User = users[1]
+                    UserId = users[0].Id
                 }
                   ,
                   new Realestate
@@ -161,13 +161,10 @@ namespace Project1.Models
                     imagefile = "/img/apartment1",
                     Persons=4,
                     Bathrooms=1,
-                    UserId = users[0].Id,
-                    User = users[0]
+                    UserId = users[0].Id
                 },
             };
-                context.AddRange(users);
                 context.AddRange(items);
-                context.SaveChanges();
             }
 
 
