@@ -29,14 +29,14 @@ public class AdminRepository : IAdminRepository
     {
         try
         {
-           return _db.Realestates.Where(r => !r.IsDeleted);
+            return _db.Realestates.Where(r => !r.IsDeleted);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             _logger.LogError("[AdminRepository] An error occurred while retrieving active realestates in GetActiveRealestates(), error message: {e}", e.Message);
             return null;
         }
-        
+
     }
 
 
@@ -46,12 +46,12 @@ public class AdminRepository : IAdminRepository
         {
             return await _db.User.ToListAsync();
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             _logger.LogError("[AdminRepository] user ToListAsync() failed when ListAllUsers(), error message: {e}", e.Message);
             return null;
         }
-        
+
     }
 
 
@@ -94,10 +94,10 @@ public class AdminRepository : IAdminRepository
 
         catch (Exception e)
         {
-            _logger.LogError("[AdminRepository] Failed to update Realestate, error message: {e}", e.Message );
+            _logger.LogError("[AdminRepository] Failed to update Realestate, error message: {e}", e.Message);
             return false;
         }
-        
+
     }
 
 
@@ -117,12 +117,12 @@ public class AdminRepository : IAdminRepository
             return true;
 
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             _logger.LogError("[AdminRepository] Failed to delete Realestate with ID {RealestateId}: error message: {e}", id, e.Message);
             return false;
         }
-        
+
     }
 
 
@@ -139,7 +139,7 @@ public class AdminRepository : IAdminRepository
             _logger.LogError("[AdminRepository] Failed to update User, error message: {e}", e.Message);
             return false;
         }
-        
+
     }
 
     public async Task<bool> DeleteUser(string userid)
@@ -148,10 +148,21 @@ public class AdminRepository : IAdminRepository
         {
             var user = await _userManager.FindByIdAsync(userid); // find the user that we want to delete
 
-            if (user == null)
+            if (user == null) // if user is not found, then return false
             {
                 return false;
             }
+
+
+            // if user is existed, we also deleted all properties this user owns
+            if (user.Realestate != null)
+            {
+                foreach (var realestate in user.Realestate)
+                {
+                    realestate.IsDeleted = true;
+                }
+            }
+
 
             var result = await _userManager.DeleteAsync(user);
 
@@ -162,12 +173,12 @@ public class AdminRepository : IAdminRepository
 
             return false;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             _logger.LogError("[AdminRepository] Failed to delete user with ID {UserId}: error message: {e}", userid, e.Message);
             return false;
         }
-        
+
 
     }
 
@@ -177,24 +188,24 @@ public class AdminRepository : IAdminRepository
         {
             return await _db.Realestates.FirstOrDefaultAsync(i => i.RealestateId == id);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-            _logger.LogError("[AdminRepository] An error occurred while attempting to retrieve real estate by ID in GetRealestateByID for RealestateID {RealestateId:0000}, error message: {e}",id, e.Message);
+            _logger.LogError("[AdminRepository] An error occurred while attempting to retrieve real estate by ID in GetRealestateByID for RealestateID {RealestateId:0000}, error message: {e}", id, e.Message);
             return null;
         }
-        
+
     }
 
 
 
-    
+
     public async Task<ApplicationUser?> GetUserById(String id)
     {
         try
         {
             return await _db.User.FindAsync(id);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             _logger.LogError("[AdminRepository] User FindAsync(id) failed when GetUserById for User {UserId:0000}, error message: {e}", id, e.Message);
             return null;
