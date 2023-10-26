@@ -249,7 +249,7 @@ namespace Project1.Controllers
 
             if (file != null)
             {
-                // Create a new file name with help of path class. The Guid will generate a unique identifier for us
+                // Get file name with help of path class.
                 var currFileName = Path.GetFileName(file.FileName ?? "");
 
                 // Get the directory name from this new file path
