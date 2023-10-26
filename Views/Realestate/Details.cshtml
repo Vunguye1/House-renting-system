@@ -169,32 +169,28 @@
             {
                 <a asp-controller="Realestate" asp-action="Rent" asp-route-realestateId="@Model.RealestateId" class="btn btn-lg w-20 btn-success">Rent</a>
             }
+        </div>
 
-
-            <!-- Modal -->
-            <div class="modal fade" id="DeleteModal-@Model.RealestateId" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="DeleteModalLabel">DELETE</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Do you really want to remove property "@Model.Name" from the system?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <form asp-action="DeleteConfirmed" asp-route-id="@Model.RealestateId" method="post">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="DeleteModal-@Model.RealestateId" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="DeleteModalLabel">DELETE</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Do you really want to remove property "@Model.Name" from the system?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <form asp-action="DeleteConfirmed" asp-route-id="@Model.RealestateId" method="post">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </div>
                 </div>
             </div>
-
         </div>
-
-
 
     </div>
 
