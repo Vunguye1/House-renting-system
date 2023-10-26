@@ -12,7 +12,7 @@ namespace Project1.Models
          */
 
         //Seed Roles
-        public static async Task SeedRolesAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
         {
             // Create 2 roles. "admin" roles for admin and "default" for normal users
             await roleManager.CreateAsync(new IdentityRole("Admin"));
@@ -24,7 +24,7 @@ namespace Project1.Models
 
         // Lets create an "admin" user whenever we start application
 
-        public static async Task CreateAdmin(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task CreateAdmin(UserManager<ApplicationUser> userManager)
         {
 
             // Provide basic info to this admin user
