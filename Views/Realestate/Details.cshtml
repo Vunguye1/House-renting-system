@@ -6,6 +6,7 @@
 @inject UserManager<ApplicationUser> UserManager
 
 <div class="container pt-10 m-15">
+    <a class="show btn btn-sm mt-3" asp-controller="Realestate" asp-action="GeneralGrid">Back to all Realestates</a>
     <div class="d-flex justify-content-around flex-wrap">
         <div class="detail-container row justify-content-center ">
 
@@ -13,6 +14,7 @@
 
 
             <div class="row flex-grow-1">
+
                 <div>
                     <h3 class="detail-h ">
                         @Model.Name
@@ -197,6 +199,5 @@
     </div>
 
 </div>
-
 <partial name="_footerdiv" />
 

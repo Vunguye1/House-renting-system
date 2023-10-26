@@ -297,19 +297,24 @@ a.show.active {
   margin-bottom: 1px;
 }
 
+
+/*Header in Detail.cshtml*/
 .detail-h {
-  padding-top: 40px;
+  padding-top: 15px;
   align-content: center;
   margin-left: auto;
   margin-right: auto;
 }
+
 .detail-container {
     /*width:800px;*/
     display: flex;
     width: 600px;
 }
 
-
+/*For the rent card on Detail.cshtml
+  wide screen on the right side
+*/
 @media (min-width: 1000px) {
     .card.rentbox {
         width: 300px;
@@ -324,6 +329,7 @@ a.show.active {
     }
 
 }
+/* narrow screen rent card underneath*/
 @media  (max-width: 1000px) {
 
     .card.rentbox {
@@ -341,4 +347,9 @@ a.show.active {
 
 .divlist{
     max-widht:100px;
+}
+
+.generalheader {
+    padding-top: 20px;
+    margin-top: 40px;
 }
