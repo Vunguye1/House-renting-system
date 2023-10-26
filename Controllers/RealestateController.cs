@@ -137,7 +137,10 @@ namespace Project1.Controllers
         {
             var user = await _userManager.GetUserAsync(User); // get currently logged in user
             property.UserId = user.Id; // bind newly registered house to the currently logged user
-            property.imageurl = await FileUpload();
+
+            String[] imagePath = await FileUpload();
+            property.imageurl = imagePath[0];
+            property.imagefile = imagePath[1];
 
             if (user == null) // if no one is logged in
                 
@@ -236,7 +239,7 @@ namespace Project1.Controllers
         }
 
         // Function for uploading file
-        public async Task<string> FileUpload()
+        public async Task<string[]> FileUpload()
         {
 
             IFormFile? file = null;
@@ -249,11 +252,11 @@ namespace Project1.Controllers
 
             if (file != null)
             {
-                // Get file name with help of path class.
-                var currFileName = Path.GetFileName(file.FileName ?? "");
 
-                // Get the directory name from this new file path
-                var myDir = Path.GetDirectoryName(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploadedimages", currFileName));
+                // create a custom folder name each time a picture is uploaded
+                var customedDir = Guid.NewGuid().ToString();
+                // Get the directory name from this new file path, and give this file a new name
+                var myDir = Path.GetDirectoryName(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", customedDir, "img1.jpg"));
 
                 // If the directory does not exist, we create a new directory
                 if (!Directory.Exists(myDir))
@@ -269,22 +272,22 @@ namespace Project1.Controllers
                 try
                 {
                     // Create the file, or overwrite if the file exists. Checkout the link: https://learn.microsoft.com/en-us/dotnet/api/system.io.file.create?view=net-6.0 
-                    await using var newfile = System.IO.File.Create(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploadedimages", currFileName));
+                    await using var newfile = System.IO.File.Create(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", customedDir, "img1.jpg"));
                     await file.CopyToAsync(newfile); 
                 }
                 catch (Exception e)
                 {
                     // Log if copying file is wrong
                     _logger.LogError("[RealestateController] Fail while copying {e}", e);
-                    return "";
+                    return new string[] { "", "" };
                 }
-                // Return file path. This will help our realestate.imageurl to navigate to image's location
-                return Path.Combine("/", "img", "uploadedimages", currFileName);
+                // Return file path. This will help our realestate.imageurl and realestate.inmagefile to navigate to image's location
+                return new string[] { Path.Combine("/", "img", customedDir, "img1.jpg"), Path.Combine("img", customedDir)}; 
             }
 
             else
             {
-                return "";
+                return new string[] { "", "" };
             }
         }
     }
