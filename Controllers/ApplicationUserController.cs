@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project1.DAL;
@@ -8,6 +9,8 @@ using Project1.ViewModels;
 
 namespace Project1.Controllers
 {
+    [Authorize(Roles = "Default")] // this controller contains functions that are only for default user
+
     public class ApplicationUserController : Controller
     {
         private readonly RealestateDbContext _realestateDbContext;
