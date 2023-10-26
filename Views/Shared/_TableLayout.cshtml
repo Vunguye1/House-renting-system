@@ -10,13 +10,13 @@
 
     @foreach (var realestate in Model)
     {
-        <div class="d-flex flex-wrap mb-5 listbox box rounded">
+        <div class="d-flex mb-5 listbox box rounded">
             <div class="p-4 ">
                 <img src="@realestate.imageurl" alt="@realestate.Description" class="img rounded" style="width:250px; height: 250px; overflow:hidden"> 
                 
 
             </div>
-            <div class="d-flex flex-grow-1 flex-column p-4">
+            <div class="d-flex flex-grow-1 flex-column p-4 divlist">
                 <div>
                     <h5 class="card-title">
                         <a asp-controller="Realestate"
@@ -44,9 +44,9 @@
             </div>
 
 
-                <div class="d-flex flex-column mt-auto pb-4 mb-2 me-4">
+                <div class="d-flex flex-column mt-auto p-4 mb-2 pricelist ">
                     <h5>
-                        @realestate.Price.ToString("N0").Replace(",", " ") NOK / day
+                        @realestate.Price.ToString("N0").Replace(",", " ") NOK/day
 
                     </h5>
 

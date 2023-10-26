@@ -18,16 +18,16 @@
 </head>
 <body>
     <header>
-        <div class="d-flex justify-content-between bg-white border-bottom navbardiv fixed-top">
+        <div class="d-flex justify-content-between border-bottom-0 navbardiv fixed-top">
 
-                <div>
-                    <a class="navbar-brand text-black ms-3" asp-area="" asp-controller="Home" asp-action="Index">Bolig saken</a>
+                <div class="d-flex align-items-center">
+                    <a class="navbar-brand text-black ms-3" asp-area="" asp-controller="Home" asp-action="Index"><img src="/img/icons/house-heart-fill.svg"  height="40" width="40"/></a>
                     <a class="navbar-brand text-black" asp-controller="Realestate" asp-action="GeneralGrid">Book</a>
                 </div>
                 
 
-                <div>
-                    <ul>
+                <div class="d-flex align-items-center">
+                    <ul class="d-flex align-items-center">
                         <partial name="_LoginPartial" />
                     </ul>
                 </div>

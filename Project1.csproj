@@ -28,8 +28,8 @@
     <Folder Include="Logs\" />
     <Folder Include="DAL\" />
     <Folder Include="wwwroot\img\icons\" />
-    <Folder Include="wwwroot\img\House1\" />
     <Folder Include="wwwroot\img\apartment2\" />
+    <Folder Include="wwwroot\img\House1\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,7 +39,7 @@
   <ItemGroup>
     <Content Remove="wwwroot\img\icons\" />
     <Content Remove="wwwroot\img\icons\house-heart.svg" />
-    <Content Remove="wwwroot\img\House1\" />
     <Content Remove="wwwroot\img\apartment2\" />
+    <Content Remove="wwwroot\img\House1\" />
   </ItemGroup>
 </Project>

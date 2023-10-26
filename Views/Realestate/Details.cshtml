@@ -5,123 +5,195 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<div class="container pt-10 ">
-    <h3 class="detail-h ">
-        @Model.Name
-    </h3>
+<div class="container pt-10 m-15">
+    <div class="d-flex justify-content-around flex-wrap">
+        <div class="detail-container row justify-content-center ">
 
-    @if (Model.User == null)
-    {
-        <img src="/img/icons/person-fill.svg" alt="Grid" width="20" height="20">
 
-        <span>Anoymous</span>
 
-    }
-    else
-    {
-        <img src="/img/icons/person-fill.svg" alt="Grid" width="20" height="20">
 
-        <span>@Model.User.FirstName @Model.User.LastName</span>
-
-    }
-
-    <img class="ms-4" src="/img/icons/geo-alt-fill.svg" alt="Grid" width="18" height="18"><span>@Model.Location</span>
-
-    <div class="row gx-5">
-        <div id="carouselDetail" class="carousel slide me-5" data-bs-ride="carousel">
-            <div class="carousel-inner rounded">
-                @{
-
-                    int fileCount = 0;
-                    if (Directory.Exists("wwwroot/" + Model.imagefile)) //If the directory exicts
+            <div class="row flex-grow-1">
+                <div>
+                    <h3 class="detail-h ">
+                        @Model.Name
+                    </h3>
+                    @if (Model.User == null)
                     {
-                        //Try to count how many files in the Directory if it exists
-                        string[] files = Directory.GetFiles("wwwroot/" + Model.imagefile);
-                        fileCount = files.Length;
+                        <img src="/img/icons/person-fill.svg" alt="Grid" width="20" height="20">
 
-                        //we need to att wwwroot/ on the string from the database which will be eg. wwwroot/img/villa
-                        // We need img/villa for when i acually try to get the picture, but to find the file the only thing that worked was wwwroot/img/villa
+                        <span>Anoymous</span>
 
-
-                        //Define i to help me start on img1
-                        int i = 1;
-                        while (i <= fileCount)
-                        {
-
-                            String imgString = "img" + i + ".jpg"; //make the img name: img1.jpg, img2.jpg, img3.jpg with the help of i
-                            String img = "/" + Model.imagefile + "/" + imgString; //The img url, eg. /img/villa/img1.jpg
-
-                            if (i == 1) //if its the first picture, then we want it to be active
-                            {
-
-                                <div class="carousel-item active detail-c">
-                                    <img src="@img" class=" detail-c-img" alt="@img">
-                                </div>
-                            }
-                            else //The rest of the images
-                            {
-                                <div class="carousel-item detail-c">
-                                    <img src="@img" class=" detail-c-img" alt="@img">
-                                </div>
-                            }
-                            i++;
-                        }
-                        i--;
-
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselDetail" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            @for (int j = 1; j < i; j++)
-                            {
-                                <button type="button" data-bs-target="#carouselDetail" data-bs-slide-to="@j" aria-label="'Slide'+@j"></button>
-
-                            }
-                        </div>
                     }
-                }
+                    else
+                    {
+                        <img src="/img/icons/person-fill.svg" alt="Grid" width="20" height="20">
+
+                        <span>@Model.User.FirstName @Model.User.LastName</span>
+
+                    }
+
+                    <img class="ms-4" src="/img/icons/geo-alt-fill.svg" alt="Grid" width="18" height="18"><span>@Model.Location</span>
+                </div>
+
+                <div id="carouselDetail" class="carousel slide m-2 justify-content-center" data-bs-ride="carousel">
+
+                    <div class="carousel-inner rounded">
+                        @{
+
+                            int fileCount = 0;
+                            if (Directory.Exists("wwwroot/" + Model.imagefile)) //If the directory exicts
+                            {
+                                //Try to count how many files in the Directory if it exists
+                                string[] files = Directory.GetFiles("wwwroot/" + Model.imagefile);
+                                fileCount = files.Length;
+
+                                //we need to att wwwroot/ on the string from the database which will be eg. wwwroot/img/villa
+                                // We need img/villa for when i acually try to get the picture, but to find the file the only thing that worked was wwwroot/img/villa
+
+
+                                //Define i to help me start on img1
+                                int i = 1;
+                                string[] imglist = new string[fileCount];
+                                while (i <= fileCount)
+                                {
+
+                                    String imgString = "img" + i + ".jpg"; //make the img name: img1.jpg, img2.jpg, img3.jpg with the help of i
+                                    String img = "/" + Model.imagefile + "/" + imgString; //The img url, eg. /img/villa/img1.jpg
+
+                                    if (i == 1) //if its the first picture, then we want it to be active
+                                    {
+
+                                        <div class="carousel-item active detail-c">
+                                            <img src="@img" class=" detail-c-img" alt="@img">
+                                        </div>
+                                    }
+                                    else //The rest of the images
+                                    {
+                                        <div class="carousel-item detail-c">
+                                            <img src="@img" class=" detail-c-img" alt="@img">
+                                        </div>
+                                    }
+                                    imglist[i - 1] = img;
+                                    i++;
+                                }
+                                i--;
+
+                                <div class="carousel-indicators m-1">
+
+                                    <img class="img-indicator m-0.2 active" type="button" data-bs-target="#carouselDetail" data-bs-slide-to="0" aria-current="true" aria-label="'Slide'+1" src="@imglist[0]" alt="Slide 1" style=" width: 60px; height: 40px; ">
+
+
+                                    @for (int j = 1; j < i; j++)
+                                    {
+
+                                        <img class="img-indicator m-0.2" type="button" data-bs-target="#carouselDetail" data-bs-slide-to="@j" aria-label="'Slide'+1" src="@imglist[j]" alt="'Slide'+@j" style=" width: 60px; height: 50px;">
+
+
+                                    }
+                                </div>
+                            }
+                        }
 
 
 
 
 
 
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselDetail" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselDetail" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselDetail" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselDetail" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="m-2">
+                    <h6>Some information:</h6>
+                    <p>@Model.Description</p>
+
+                    <!--------------->
+                </div>
             </div>
         </div>
-        <div class="m-5">
-            <p>@Model.Description</p>
-            <p>Persons: @Model.Persons</p>
-            <p>Bathrooms: @Model.Bathrooms</p>
-            <h3 class="d-flex justify-content-end pe-3">@Model.Price.ToString("0 000 NOK pr / day")</h3>
+            <div class="card rentbox box">
+                <h3>Rent @Model.Name?</h3>
+                <p class="border-bottom pb-2">@Model.Persons Guests</p>
+                <p class="border-bottom pb-2">@Model.Bathrooms Bathrooms</p>
+                <h3 class="d-flex pb-2">@Model.Price.ToString("N0").Replace(",", " ") NOK/day</h3>
 
-            @{
-                var currentLoggedinUser = await UserManager.GetUserAsync(User); // get currently logged in user
-            }
-            @if (!SignInManager.IsSignedIn(User)) // If user is not logged in
-            {
+                @{
+                    var currentLoggedinUser = await UserManager.GetUserAsync(User); // get currently logged in user
+                }
+                @if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Admin")) // if this is admin, display the two buttons
+                {
+                    <div class="detail-border">
+                        <p> Hello Admin! Do you want to manage this property?</p>
+                        <a asp-controller="Admin" asp-action="UpdateRealEstate" asp-route-id="@Model.RealestateId" class="btn btn-outline-primary">Update</a>
 
-                <a asp-controller="Realestate" asp-action="Rent" asp-route-realestateId="@Model.RealestateId" class="btn btn-success">Rent</a>
+                        <!-- Create delete real estate button -->
+                        <!-- Button trigger modal with a unique real estate id. This modal is used from Bootstrap library -->
+                        <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@Model.RealestateId">
+                            <!--<img src="/img/icons/trash3.svg" alt="List" width="25" height="25"> -->
+                            Delete
+                        </a>
+                    </div>
+                }
 
-            }
-            else if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Default") && Model.UserId != currentLoggedinUser.Id) // if user is logged in, display only on real estates that this user does not own
-            {
-                <a asp-controller="Realestate" asp-action="Rent" asp-route-realestateId="@Model.RealestateId" class="btn btn-success">Rent</a>
-            }
-            else
-            {
-                <div> Hi, admin </div>
-            }
+                else if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Default") && Model.UserId == currentLoggedinUser.Id)
+                {
+                    // if this is a default user, only display buttons on real estates this user owns
+                    <div class="border-top p-2">
+                        <p> Hello @Model.User.FirstName! Do you want to manage your property?</p>
+                        <a asp-controller="ApplicationUser" asp-action="UpdateRealEstate" asp-route-id="@Model.RealestateId" class="btn btn-outline-primary">Update</a>
+
+                        <!-- Create delete real estate button -->
+                        <!-- Button trigger modal with a unique real estate id. This modal is used from Bootstrap library -->
+                        <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@Model.RealestateId">
+                            Delete
+                        </a>
+                    </div>
+                }
+                else if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Default") && Model.UserId != currentLoggedinUser.Id) // if user is logged in, display only on real estates that this user does not own
+                {
+                    <a asp-controller="Realestate" asp-action="Rent" asp-route-realestateId="@Model.RealestateId" class="btn btn-lg w-20 btn-success">Rent</a>
+                }
+
+                else if (!SignInManager.IsSignedIn(User)) // If user is not logged in
+                {
+
+                    <a asp-controller="Realestate" asp-action="Rent" asp-route-realestateId="@Model.RealestateId" class="btn btn-success">Rent</a>
+
+                }
+                <!-- Modal -->
+                <div class="modal fade" id="DeleteModal-@Model.RealestateId" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="DeleteModalLabel">DELETE</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Do you really want to remove property "@Model.Name" from the system?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <form asp-action="DeleteConfirmed" asp-route-id="@Model.RealestateId" method="post">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
 
         </div>
-
-
-    </div>
+    
+</div>
 </div>
 
 <partial name="_footerdiv" />

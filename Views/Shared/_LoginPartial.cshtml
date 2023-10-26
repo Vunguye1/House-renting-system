@@ -3,7 +3,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<div class="dropdown me-5">
+<div class="dropdown me-5 d-flex">
     @if (SignInManager.IsSignedIn(User))
     {
         // get the logged on user from the database
@@ -11,7 +11,7 @@
 
         if (user != null)
         {
-            <button class="btn dropdown-toggle navbar-brand text-black" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="mt-2 pt-0 btn dropdown-toggle navbar-brand text-black" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Hello, @user.FirstName!
 
                 @if (user.ProfilePicture != null) // if profilePicture is updated --> display it
@@ -56,12 +56,12 @@
 
         else
         {
-            <a class="navbar-brand text-black" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class=" navbar-brand text-black" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
         }
     }
     else
     {
-        <a class="navbar-brand text-black" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class=" navbar-brand text-black" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
     }
 
 </div>
