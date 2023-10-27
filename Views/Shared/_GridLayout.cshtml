@@ -13,16 +13,23 @@
                     <a asp-controller="Realestate"
                        asp-action="Details"
                        asp-route-id="@Model.RealestateId" class="stretched-link"></a>
-                    <p class="card-text">@Model.Location</p>
-                    <h5 class="d-flex justify-content-end">
-                        @Model.Price.ToString("N0").Replace(",", " ") NOK / day
-
-                    </h5>
+                    <span>
+                        <img src="/img/icons/geo-alt-fill.svg" alt="Grid" width="18" height="18"><span>@Model.Location</span>
+                    </span>
 
                     @if (@Model.User != null) // if there is owner --> display it
                     {
-                        <p>Owner: @Model.User.FirstName</p>
+                        <span class="mt-2">
+                            <img src="/img/icons/person-fill.svg" alt="Grid" width="20" height="20">
+
+                            <span>@Model.User.FirstName @Model.User.LastName</span>
+                        </span>
                     }
+
+                    <h5 class="d-flex justify-content-end mt-3">
+                        @Model.Price.ToString("N0").Replace(",", " ") NOK/day
+
+                    </h5>
                 </div>
             </div>
         </div>

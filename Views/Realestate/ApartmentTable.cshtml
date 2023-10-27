@@ -1,8 +1,9 @@
 ﻿@model RealestateListViewModel
 
 <div class="container">
-    <h1>List of our apartments (@Model.CurrentViewName)</h1>
-    <div class="d-flex">
+    <h2 class="generalheader">Check out our Apartments!</h2>
+    <p class="mb-2">We have multiple options here, both small and big, close to the city center and outside.</p>
+    <div class="d-flex mb-2">
         <div class="pb-2 pl-0">
 
             <div class="d-grid gap-2 d-md-block">
@@ -32,3 +33,4 @@
 
     <partial name="_TableLayout" model="Model.realestates" />
 </div>
+<partial name="_footerdiv" />

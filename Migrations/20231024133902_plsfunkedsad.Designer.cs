@@ -11,8 +11,8 @@ using Project1.Models;
 namespace Project1.Migrations
 {
     [DbContext(typeof(RealestateDbContext))]
-    [Migration("20231022185010_plsfunke")]
-    partial class plsfunke
+    [Migration("20231024133902_plsfunkedsad")]
+    partial class plsfunkedsad
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

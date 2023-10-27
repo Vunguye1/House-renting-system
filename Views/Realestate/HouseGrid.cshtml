@@ -1,8 +1,8 @@
 ﻿@model RealestateListViewModel
 
 <div class="container">
-    <h1>This is all houses we have (@Model.CurrentViewName)</h1>
-
+    <h2 class="generalheader">Check out our Houses!</h2>
+    <p class="mb-2">We have multiple options here, both houses with pool, in the city and outside.</p>
     <div class="d-flex mb-2">
         <div class="pb-2 pl-0">
 
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="row row-cols-1 row-cols-md-3 g-5">
         @foreach (var realestate in Model.realestates)
         {
@@ -44,3 +44,4 @@
            asp-action="Create">Register your place here!</a>
     </div>
 </div>
+<partial name="_footerdiv" />

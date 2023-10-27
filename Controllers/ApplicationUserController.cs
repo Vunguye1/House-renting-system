@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project1.DAL;
@@ -8,6 +9,8 @@ using Project1.ViewModels;
 
 namespace Project1.Controllers
 {
+    [Authorize(Roles = "Default")] // this controller contains functions that are only for default user
+
     public class ApplicationUserController : Controller
     {
         private readonly RealestateDbContext _realestateDbContext;
@@ -81,14 +84,28 @@ namespace Project1.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateRealEstate(int id)
         {
-            var realestate = await _applicationUserRepository.GetRealestateById(id);
+            var curruser = await _userManager.GetUserAsync(User);
 
-            if (realestate == null)
-            {
-                _logger.LogError("[ApplicationUserController] Realestate not found when updating the realestateId {RealestateId:0000}", id);
-                return BadRequest("realestate not found for realestateId ");
+            if (curruser.Realestate != null) {
+
+                foreach (var rs in curruser.Realestate)
+                {
+                    if (rs.RealestateId == id)
+                    {
+                        var realestate = await _applicationUserRepository.GetRealestateById(id);
+
+                        if (realestate == null)
+                        {
+                            _logger.LogError("[ApplicationUserController] Realestate not found when updating th realestateId {RealestateId:0000}", id);
+                            return BadRequest("realestate not found for realestateId ");
+                        }
+                        return View(realestate);
+                    }
+                }
             }
-            return View(realestate);
+            return NotFound("404! This real estate is not yours");
+            
+            
         }
 
         

@@ -107,11 +107,11 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<RealestateDbContext>();
     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-    await AuthorizedHandling.SeedRolesAsync(userManager, roleManager);
+    await AuthorizedHandling.SeedRolesAsync(roleManager);
 
     // add admin accoutn when application starts
     
-    await AuthorizedHandling.CreateAdmin(userManager, roleManager);
+    await AuthorizedHandling.CreateAdmin(userManager);
 
 }
 
@@ -120,7 +120,7 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    DBInit.Seed(app);
+    DBInit.Seed(app, app.Services.CreateScope().ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>());
 }
 
 app.UseStaticFiles();

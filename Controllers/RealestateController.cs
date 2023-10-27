@@ -137,7 +137,10 @@ namespace Project1.Controllers
         {
             var user = await _userManager.GetUserAsync(User); // get currently logged in user
             property.UserId = user.Id; // bind newly registered house to the currently logged user
-            property.imageurl = await FileUpload();
+
+            String[] imagePath = await FileUpload();
+            property.imageurl = imagePath[0];
+            property.imagefile = imagePath[1];
 
             if (user == null) // if no one is logged in
                 
@@ -236,7 +239,7 @@ namespace Project1.Controllers
         }
 
         // Function for uploading file
-        public async Task<string> FileUpload()
+        public async Task<string[]> FileUpload()
         {
 
             IFormFile? file = null;
@@ -249,48 +252,42 @@ namespace Project1.Controllers
 
             if (file != null)
             {
-                // Create a new file name with help of path class. The Guid will generate a unique identifier for us
-                var currFileName = Guid.NewGuid() + Path.GetFileName(file.FileName ?? "");
 
-                //  Give our file a path
-                var filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploadedimages", currFileName);
-
-                // Get the directory name from this file path
-                var myDir = Path.GetDirectoryName(filepath);
+                // create a custom folder name each time a picture is uploaded
+                var customedDir = Guid.NewGuid().ToString();
+                // Get the directory name from this new file path, and give this file a new name
+                var myDir = Path.GetDirectoryName(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", customedDir, "img1.jpg"));
 
                 // If the directory does not exist, we create a new directory
                 if (!Directory.Exists(myDir))
-                    try
+                {
+                    // Create here
+                    if (myDir != null)
                     {
-                        // Create here
-                        if (myDir != null) Directory.CreateDirectory(myDir);
+                        Directory.CreateDirectory(myDir);
                     }
-                    catch (Exception e)
-                    {
-                        _logger.LogError($"[RealestateController] FileUpload() failed! Error: {e}");
-                        return "";
-                    }
+                }
 
                 // Copy our image to the indicated path
                 try
                 {
-                    // Create the file, or overwrite if the file exists.
-                    await using var newfile = System.IO.File.Create(filepath);
-                    await file.CopyToAsync(newfile); // We get this from: https://learn.microsoft.com/en-us/dotnet/api/system.io.file.create?view=net-6.0 
+                    // Create the file, or overwrite if the file exists. Checkout the link: https://learn.microsoft.com/en-us/dotnet/api/system.io.file.create?view=net-6.0 
+                    await using var newfile = System.IO.File.Create(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", customedDir, "img1.jpg"));
+                    await file.CopyToAsync(newfile); 
                 }
                 catch (Exception e)
                 {
-                    // Exception and logging if the copying fails
-                    _logger.LogError("[RealestateController] An exception occurred while copying file: {e}", e);
-                    return "";
+                    // Log if copying file is wrong
+                    _logger.LogError("[RealestateController] Fail while copying {e}", e);
+                    return new string[] { "", "" };
                 }
-                // Return file path. This will help our realestate.imageurl to navigate to image's location
-                return Path.Combine("/", "img", "uploadedimages", currFileName);
+                // Return file path. This will help our realestate.imageurl and realestate.inmagefile to navigate to image's location
+                return new string[] { Path.Combine("/", "img", customedDir, "img1.jpg"), Path.Combine("img", customedDir)}; 
             }
 
             else
             {
-                return "";
+                return new string[] { "", "" };
             }
         }
     }
