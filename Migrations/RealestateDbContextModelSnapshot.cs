@@ -238,6 +238,7 @@ namespace Project1.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .HasMaxLength(2000)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")

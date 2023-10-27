@@ -118,8 +118,8 @@ namespace Project1.Models
                     Price = 3000,
                     Location="Storo, Oslo",
                     Description = "Welcome to your Riverside Retreat at Storo, where nature and modern comfort coexist in perfect harmony. This idyllic retreat offers a serene escape from the urban hustle and bustle, nestled along the tranquil riverbanks. The air is filled with the soothing sounds of flowing water, and the views are nothing short of enchanting. Your haven boasts a stylish interior that seamlessly marries contemporary design with the surrounding natural beauty. Here, you can unwind, reflect, and recharge in a space where the river's embrace is your constant companion. Experience a riverside getaway that promises tranquility and rejuvenation, all in the heart of Storo",
-                    imageurl = "/img/House/img1.jpg",
-                    imagefile = "img/House",
+                    imageurl = "/img/House1/img1.jpg",
+                    imagefile = "img/House1",
                     Persons=5,
                     Bathrooms=2,
                     UserId = users[0].Id
