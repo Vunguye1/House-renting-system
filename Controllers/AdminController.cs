@@ -9,7 +9,7 @@ using Project1.DAL;
 
 namespace Project1.Controllers;
 
-    [Authorize(Roles = "Admin")] // this controller contains functions that are only for admin
+    [Authorize(Roles = "Admin")] 
     public class AdminController : Controller
     {
         private readonly RealestateDbContext _realestateDbContext;

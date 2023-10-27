@@ -85,7 +85,7 @@ namespace Project1.Controllers
 
             if (realestate == null)
             {
-                _logger.LogError("[ApplicationUserController] Realestate not found when updating th realestateId {RealestateId:0000}", id);
+                _logger.LogError("[ApplicationUserController] Realestate not found when updating the realestateId {RealestateId:0000}", id);
                 return BadRequest("realestate not found for realestateId ");
             }
             return View(realestate);
