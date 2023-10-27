@@ -9,7 +9,7 @@ namespace Project1.Models
         [Key]
         public int RealestateId { get; set; }
 
-        [RegularExpression(@"[0-9a-zA-ZæøåÆØÅ. \-]{2,20}", ErrorMessage="The name must be numbers or letters and between 2 to 20 characters.")]
+        [RegularExpression(@"[0-9a-zA-ZæøåÆØÅ. \-]{2,50}", ErrorMessage="The name must be numbers or letters and between 2 to 50 characters.")]
         public string Name { get; set; } = string.Empty;
 
         public string Type { get; set; } = string.Empty;
