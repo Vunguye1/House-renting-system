@@ -9,7 +9,7 @@ using Project1.DAL;
 
 namespace Project1.Controllers;
 
-    [Authorize(Roles = "Admin")] 
+    [Authorize(Roles = "Admin")] //Only Admin can do these requests
     public class AdminController : Controller
     {
         private readonly RealestateDbContext _realestateDbContext;
@@ -23,52 +23,45 @@ namespace Project1.Controllers;
             _logger = logger; 
         }
 
-        public IActionResult Index()
-        {
+        public IActionResult Index() //Responsible for displaying the admin “main page”
+    {
             return View();
         }
 
-        //// this method is to to exclude deleted Realestate records. A real estate is marked as deleted after a customer rent it
-        //public IQueryable<Realestate> GetActiveRealestates()
-        //{
-        //    return _realestateDbContext.Realestates.Where(r => !r.IsDeleted);
-        //}
-
-        public async Task<IActionResult> ListAllUsers() // List all users registered in database. Testing purpose
-        {
-            var usersList = await _adminRepository.ListAllUsers();
-            if (usersList == null)
+        public async Task<IActionResult> ListAllUsers() // Lists all users that are registered in the database
+    {
+            var usersList = await _adminRepository.ListAllUsers(); //get all users with repo method
+            if (usersList == null) //check if the list is null
         {
             _logger.LogError("[AdminController] User list not found while executing _adminRepository.ListAllUsers()");
             return NotFound("User list not found");
         }
-            return View(usersList);
+            return View(usersList);//return the list of user in view if list not empty
         }
 
 
         
 
 
-    public async Task<IActionResult> ListAllRealestates() // List all existing real estates
+    public async Task<IActionResult> ListAllRealestates() // List all existing real estates 
         {
-            //List<Realestate> propertylist = await GetActiveRealestates().ToListAsync();
-            var propertylist = await _adminRepository.ListAllRealestates();
-            if (propertylist == null)
+      
+            var propertylist = await _adminRepository.ListAllRealestates(); //get all realestates with repo method
+        if (propertylist == null) //chekc if list is null
         {
             _logger.LogError("[AdminController] Property list not found while executing _adminRepository.ListAllRealestates()");
             return NotFound("Property list not found");
         }
             var listmodel = new RealestateListViewModel(propertylist, "GeneralTable");
-            return View(listmodel);
+            return View(listmodel); //list realestates in table view
 
         }
 
         // ------------------------ Real estates management by admin ------------------------
-        [HttpGet]
-        public async Task<IActionResult> UpdateRealEstate(int id)
-        {
-            //var item = await _realestateDbContext.Realestates.FindAsync(id);
-            var item = await _adminRepository.GetRealestateById(id);
+        [HttpGet] // GET request- used to display the form for updating an existing real estate
+        public async Task<IActionResult> UpdateRealEstate(int id) //:  admin has the capability to update a particular real estate 
+    {
+            var item = await _adminRepository.GetRealestateById(id); //get the realestate we want to update.
 
             if (item == null)
             {
@@ -80,15 +73,15 @@ namespace Project1.Controllers;
         }
 
     
-        [HttpPost]
+        [HttpPost] //POST request - Used to handle the submission of the edited form
         public async Task<IActionResult> UpdateRealEstate(Realestate realestate)
         {
 
             if (ModelState.IsValid)
             {
 
-                bool returnOk= await _adminRepository.UpdateRealestate(realestate);
-            if (returnOk)
+                bool returnOk= await _adminRepository.UpdateRealestate(realestate); //tries to update realestate
+            if (returnOk) //if OK we return to the view of all realestates.
             {
                 return RedirectToAction(nameof(ListAllRealestates));
             }
@@ -101,45 +94,45 @@ namespace Project1.Controllers;
 
 
 
-        [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            bool returnOk= await _adminRepository.DeleteRealestate(id);
-            if (!returnOk)
+        [HttpPost] //POST- perform the deletion of the realestate
+    public async Task<IActionResult> DeleteConfirmed(int id) //Admin has the capability to delete real es
+    {
+            bool returnOk= await _adminRepository.DeleteRealestate(id); //try to delete the realestate
+            if (!returnOk) //if not OK we log the error.
             {
                 _logger.LogError("[AdminController] Realestate deletion failed for the RealestateID {RealestateId:0000}", id);
                 return BadRequest("Realestate deletion failed");
             }
 
-        return RedirectToAction(nameof(ListAllRealestates));
-        }
+        return RedirectToAction(nameof(ListAllRealestates)); //if OK we return to the view of all realestates.
+    }
 
         // ------------------------ Done real estates management by admin ------------------------
 
 
         // ------------------------ Users management ------------------------
 
-        [HttpGet]
-        public async Task<IActionResult> UpdateUser(string userid)
-        {
-            var user = await _adminRepository.GetUserById(userid);
+        [HttpGet] // GET request- used to display the form for updating a user.
+    public async Task<IActionResult> UpdateUser(string userid) // admin has the capability to update a particular user
+    {
+            var user = await _adminRepository.GetUserById(userid); //Gets the user we want to update
 
-            if (user == null)
+            if (user == null) // if user not found we log
             {
                 _logger.LogError("[AdminController] User not found when updating the UserId {UserId:0000}", userid);
                 return BadRequest("User not found");
             }
-            return View(user);
+            return View(user); // else we return the user we want to update in form view
         }
 
     
-        [HttpPost]
-        public async Task<IActionResult> UpdateUser(ApplicationUser user)
+        [HttpPost] //POST request - Used to handle the submission of the edited user.
+    public async Task<IActionResult> UpdateUser(ApplicationUser user) //
         {
             if (ModelState.IsValid)
             {
 
-                var existingUser = await _adminRepository.GetUserById(user.Id);
+                var existingUser = await _adminRepository.GetUserById(user.Id); 
 
                 if (existingUser != null)
                 {
@@ -154,8 +147,8 @@ namespace Project1.Controllers;
 
                     
                        
-                        bool returnOk= await _adminRepository.UpdateUser(user);
-                        if (returnOk)
+                        bool returnOk= await _adminRepository.UpdateUser(user); //try to update user
+                        if (returnOk) //if OK we return to the list of all users
                         {
                         return RedirectToAction(nameof(ListAllUsers));
                     }
@@ -179,11 +172,11 @@ namespace Project1.Controllers;
 
 
     [HttpPost]
-    public async Task<IActionResult> DeleteUserConfirmed(string userid)
+    public async Task<IActionResult> DeleteUserConfirmed(string userid) //delete user 
     {
-        bool returnok = await _adminRepository.DeleteUser(userid);
+        bool returnok = await _adminRepository.DeleteUser(userid); //try do delte
 
-        if (!returnok)
+        if (!returnok) //if not ok we log en return bad request
         {
             _logger.LogError("[AdminController] User deletion failed for the userId {Userid:0000}", userid);
             return BadRequest("User deletion failed");

@@ -15,37 +15,36 @@ namespace Project1.Controllers
 
         private readonly UserManager<ApplicationUser> _userManager; // call usermanager
         private readonly SignInManager<ApplicationUser> _signInManager; // call signIn manager
-        private readonly RealestateDbContext _realestateDbContext;
         private readonly IRealestateRepository _realestateRepository;
         private readonly ILogger<RealestateController> _logger;
 
 
 
-        public RealestateController(RealestateDbContext realestateDbContext, UserManager<ApplicationUser> userManager,
+        public RealestateController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager, IRealestateRepository realestateRepository, ILogger<RealestateController> logger)
         {
-            _realestateDbContext = realestateDbContext;
+            
             _userManager = userManager;
             _signInManager = signInManager;
             _realestateRepository = realestateRepository;
             _logger = logger;
         }
 
-        public async Task<IActionResult> GeneralGrid() // this view will return both leilighet and hus
+        public async Task<IActionResult> GeneralGrid() // : Returns Grid view with both Apartment and houses (all realestates).
         {
 
-            var propertylist = await _realestateRepository.GetAll();
+            var propertylist = await _realestateRepository.GetAll(); //try to get all realestates
 
-            if (propertylist == null)
+            if (propertylist == null) //if the list is null we log
             {
                 _logger.LogError("[RealestateController] Property list not found while executing _realestateRepository.GetAll()");
                 return NotFound("Realestate list not found");
             }
             var listmodel = new RealestateListViewModel(propertylist, "GeneralGrid");
-            return View(listmodel);
+            return View(listmodel); //return in grid view
         }
 
-        public async Task<IActionResult> GeneralTable() // general table view
+        public async Task<IActionResult> GeneralTable() // Same as GeneralGrid but displayed in Table instead.
         {
             var propertylist = await _realestateRepository.GetAll();
 
@@ -59,11 +58,11 @@ namespace Project1.Controllers
             return View(listmodel);
         }
 
-        public async Task<IActionResult> ApartmentGrid() // only apartments, grid layout
+        public async Task<IActionResult> ApartmentGrid() // Returns grid view with only Apartment
         {
-            var apartmentonly = await _realestateRepository.GetOnlyApartment();
+            var apartmentonly = await _realestateRepository.GetOnlyApartment(); //try to get apartments
 
-            if (apartmentonly == null)
+            if (apartmentonly == null) //if apartments is null we log
             {
                 _logger.LogError("[RealestateController] apartment list not found while executing _realestateRepository.GetOnlyApartment()");
                 return NotFound("Apartment list not found");
@@ -73,7 +72,7 @@ namespace Project1.Controllers
             return View(listmodel);
         }
 
-        public async Task<IActionResult> ApartmentTable() // only apartments, table layout
+        public async Task<IActionResult> ApartmentTable() //Same as ApartmentGrid but displayed in Table instead
         {
             var apartmentonly = await _realestateRepository.GetOnlyApartment();
 
@@ -87,7 +86,7 @@ namespace Project1.Controllers
             return View(listmodel);
         }
 
-        public async Task<IActionResult> HouseGrid() // only houses, grid layout
+        public async Task<IActionResult> HouseGrid() // Similar to ApartmentGrid but houses instead of apartment
         {
             var houseonly = await _realestateRepository.GetOnlyHouse();
 
@@ -113,10 +112,10 @@ namespace Project1.Controllers
             return View(listmodel);
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id) //info site of the given real estate
         {
-            var item = await _realestateRepository.GetRealestateById(id);
-            if (item == null)
+            var item = await _realestateRepository.GetRealestateById(id); //try to get realestate
+            if (item == null) //if null we log
             {
                 _logger.LogError("[RealestateController] Realestate found for the RealestateId {RealestateId:0000}", id);
                 return NotFound("Realestate not found for the realestateId");

@@ -13,7 +13,7 @@ namespace Project1.Controllers
 
     public class ApplicationUserController : Controller
     {
-        private readonly RealestateDbContext _realestateDbContext;
+       
         private readonly IApplicationUserRepository _applicationUserRepository;
         private readonly UserManager<ApplicationUser> _userManager; // call usermanager
         private readonly SignInManager<ApplicationUser> _signInManager; // call signIn manager
@@ -21,11 +21,9 @@ namespace Project1.Controllers
 
       
 
-        public ApplicationUserController(RealestateDbContext realestateDbContext, UserManager<ApplicationUser> userManager,
+        public ApplicationUserController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager, IApplicationUserRepository applicationUserRepository, ILogger<ApplicationUserController> logger)
         {
-            
-            _realestateDbContext = realestateDbContext;
             _userManager = userManager;
             _signInManager = signInManager;
             _applicationUserRepository = applicationUserRepository;
@@ -34,59 +32,58 @@ namespace Project1.Controllers
 
       
 
-        public async Task<IActionResult> ListRealestateByOwner() // List all properties the user register on the system
+        public async Task<IActionResult> ListRealestateByOwner() // List all properties the user register on the system So that the user can get an overview of all the properties it has out for rent
         {
-            var curruser = await _userManager.GetUserAsync(User);
+            var curruser = await _userManager.GetUserAsync(User); //first we get the user
 
-            if (curruser == null)
+            if (curruser == null) // if the user not found we log
             {
                 _logger.LogError("[ApplicationUserController] User not found while executing _userManager.GetUserAsync");
                 return NotFound("User not found");
             }
 
+            var realestates = await _applicationUserRepository.GetRealestateByOwner(curruser); //else we try to get the realestates by owner
 
-            var realestates = await _applicationUserRepository.GetRealestateByOwner(curruser);
-
-            if (realestates == null)
+            if (realestates == null) //if the list is null we log
             {
                 _logger.LogError("[ApplicationUserController] Realestate by owner not found while executing ");
                 return NotFound("Realestate by owner not found _applicationUserRepository.GetRealestateByOwner(curruser)");
             }
 
-            var listmodel = new RealestateListViewModel(realestates, "Your registered real estate");
-            return View(listmodel);
+            var listmodel = new RealestateListViewModel(realestates, "Your registered real estate"); 
+            return View(listmodel); //Lists all of the users realestates in view
         }
 
         
-        public async Task<IActionResult> ListRentHistory() // List all properties the user register on the system
+        public async Task<IActionResult> ListRentHistory() // List rent hsitory for user
         {
 
-            var curruser = await _userManager.GetUserAsync(User);
+            var curruser = await _userManager.GetUserAsync(User); //try to get user
 
-            if (curruser == null)
+            if (curruser == null) //if user is null we log
             {
                 _logger.LogError("[ApplicationUserController] User not found while executing _userManager.GetUserAsync");
                 return NotFound("User not found");
             }
 
-            var renthistory = await _applicationUserRepository.ListRentHistory(curruser);
+            var renthistory = await _applicationUserRepository.ListRentHistory(curruser); //else we try to get list of all erlier rents
 
-            if (renthistory == null)
+            if (renthistory == null) //if rent lists is null we log
             {
                 _logger.LogError("[ApplicationUserController] Rent history list not found while excecuting _applicationUserRepository.ListRentHistory()");
                 return NotFound("Rent history not found");
             }
 
-            return View(renthistory);
+            return View(renthistory); // else we want to show the hsitory in view
         }
 
         
-        [HttpGet]
+        [HttpGet] //GET-display form for updating the real estate
         public async Task<IActionResult> UpdateRealEstate(int id)
         {
-            var curruser = await _userManager.GetUserAsync(User);
+            var curruser = await _userManager.GetUserAsync(User); //try to get user
 
-            if (curruser.Realestate != null) {
+            if (curruser.Realestate != null) { 
 
                 foreach (var rs in curruser.Realestate)
                 {
@@ -110,11 +107,11 @@ namespace Project1.Controllers
 
         
         [HttpPost]
-        public async Task<IActionResult> UpdateRealEstate(Realestate realestate)
+        public async Task<IActionResult> UpdateRealEstate(Realestate realestate) 
         {
-            var curruser = await _userManager.GetUserAsync(User);
+            var curruser = await _userManager.GetUserAsync(User); //try to get user
 
-            if (curruser == null)
+            if (curruser == null) //if user is null we log
             {
                 _logger.LogError("[ApplicationUserController] User not found while executing _userManager.GetUserAsync");
                 return NotFound("User not found");
@@ -140,11 +137,11 @@ namespace Project1.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id) //Users have the ability to remove their listed rental properties
         {
             
-            bool returnOk= await _applicationUserRepository.Delete(id);
-            if (!returnOk)
+            bool returnOk= await _applicationUserRepository.Delete(id); //try to delete user
+            if (!returnOk) //if not OK we log
             {
                 _logger.LogError("[ApplicationUserController] Realestate deletion failed for the RealestateId {RealestateId:0000}", id);
                 return BadRequest("Realestate deletion failed");
