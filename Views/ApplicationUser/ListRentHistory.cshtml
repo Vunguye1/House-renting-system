@@ -1,39 +1,50 @@
 ﻿@model IEnumerable<Rent>
 
 <div class="container divcontent">
-    <table class='table table-striped'>
-        <tr> <!--Display all existing users in db-->
+    <h2 class="generalheader mb-2">Your bookings:</h2>
+    <table class='table table-hover'>
+        <tr>
+            <!--Display all existing users in db-->
             <th>RentID</th>
             <th>From</th>
             <th>To</th>
             <th>Username</th>
-            <th>Real estate (ID, Name)</th>
+            <th>Real estate</th>
             <th>Total price</th>
-            
+
         </tr>
-        @foreach (var rent in Model)
-        {
-            <tr>
-                <td>@rent.RentID</td>
+        <tbody class="table-group-divider">
+            @foreach (var rent in Model)
+            {
+                <tr>
+                    <td>@rent.RentID</td>
 
-                <td>@rent.RentDateFrom</td>
+                    <td>@rent.RentDateFrom</td>
 
-                <td>@rent.RentDateTo</td>
+                    <td>@rent.RentDateTo</td>
 
-                @if (rent.User != null)
-                {
-                    <td>@rent.User.UserName</td>
+                    @if (rent.User != null)
+                    {
+                        <td>@rent.User.UserName</td>
 
-                }
+                    }
 
-                @if (rent.Realestate != null)
-                {
-                    <td>ID: @rent.Realestate.RealestateId, Name: @rent.Realestate.Name </td>
-                }
-                <td> @rent.TotalPrice kr </td>
+                    @if (rent.Realestate != null)
+                    {
+                        <td><a asp-controller="Realestate"
+   asp-action="Details"
+   asp-route-id="@rent.Realestate.RealestateId" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">@rent.Realestate.Name </a></td>
+                    }
+                <td> @rent.TotalPrice.ToString("N0").Replace(",", " ") kr </td>
+                   
 
-            </tr>
-        }
+                </tr>
+            }
     </table>
+    <div class="mt-5 pb-0 mb-0"><h3> Do you want to make a new booking?</h3> <p>Click here to check out all the possibilites!</p></div>
+    
+    <div>
+        <a class="show btn" asp-controller="Realestate" asp-action="GeneralTable">All Real-estates</a>
+    </div>
 </div>
 <partial name="_footerdiv" />
