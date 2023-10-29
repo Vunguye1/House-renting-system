@@ -16,7 +16,7 @@
 
             <div class="row flex-grow-1">
 
-                <div>
+                <div> <!-- List person and location with icons-->
                     <h3 class="detail-h ">
                         @Model.Name
                     </h3>
@@ -38,6 +38,7 @@
                     <img class="ms-4" src="/img/icons/geo-alt-fill.svg" alt="Grid" width="18" height="18"><span>@Model.Location</span>
                 </div>
 
+                <!--CAROUSEL-->
                 <div id="carouselDetail" class="carousel slide m-2 justify-content-center" data-bs-ride="carousel">
 
                     <div class="carousel-inner rounded">
@@ -47,12 +48,10 @@
                             if (Directory.Exists("wwwroot/" + Model.imagefile)) //If the directory exicts
                             {
                                 //Try to count how many files in the Directory if it exists
-                                string[] files = Directory.GetFiles("wwwroot/" + Model.imagefile);
+                                string[] files = Directory.GetFiles("wwwroot/" + Model.imagefile); //Adds wwwroot/ to be able to use the directory method
                                 fileCount = files.Length;
 
-                                //we need to att wwwroot/ on the string from the database which will be eg. wwwroot/img/villa
-                                // We need img/villa for when i acually try to get the picture, but to find the file the only thing that worked was wwwroot/img/villa
-
+                                
 
                                 //Define i to help me start on img1
                                 int i = 1;
@@ -76,17 +75,18 @@
                                             <img src="@img" class=" detail-c-img" alt="@img">
                                         </div>
                                     }
-                                    imglist[i - 1] = img;
+                                    imglist[i - 1] = img; // i-1 since i started at 1 and we need posistion 0 in a list
                                     i++;
                                 }
-                                i--;
-
+                               
+                                //Making the indicators to pictures
                                 <div class="carousel-indicators m-1">
 
+                                    <!--First picture need to be active to start the carousel-->
                                     <img class="img-indicator m-0.2 active" type="button" data-bs-target="#carouselDetail" data-bs-slide-to="0" aria-current="true" aria-label="'Slide'+1" src="@imglist[0]" alt="Slide 1" style=" width: 60px; height: 40px; ">
 
-
-                                    @for (int j = 1; j < i; j++)
+                                    <!--Loops through the imgList to add the picture indicators-->
+                                    @for (int j = 1; j < i-1; j++)
                                     {
 
                                         <img class="img-indicator m-0.2" type="button" data-bs-target="#carouselDetail" data-bs-slide-to="@j" aria-label="'Slide'+1" src="@imglist[j]" alt="'Slide'+@j" style=" width: 60px; height: 50px;">
@@ -101,7 +101,7 @@
 
 
 
-
+                        <!--Previous and next buttons in carousel-->
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselDetail" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
@@ -116,16 +116,23 @@
                     <h6>Some information:</h6>
                     <p>@Model.Description</p>
 
-                    <!--------------->
+                    
                 </div>
             </div>
         </div>
+
+        <!--RENTBOX-->
         <div class="card rentbox box">
+            <!--Lists Name, Guests, Bathrooms and Price-->
             <h3>Rent @Model.Name</h3>
             <p class="border-bottom pb-2">@Model.Persons Guests</p>
             <p class="border-bottom pb-2">@Model.Bathrooms Bathrooms</p>
             <h3 class="d-flex pb-2">@Model.Price.ToString("N0").Replace(",", " ") NOK/day</h3>
 
+
+            <!--Decide wether Rent og Update/Delete should be the option on the rentbox
+                Rent if not logged in or if the user is not the owner
+                Update if the user is the owner of if Admin is logged in-->
             @{
                 var currentLoggedinUser = await UserManager.GetUserAsync(User); // get currently logged in user
             }
@@ -172,7 +179,7 @@
             }
         </div>
 
-        <!-- Modal -->
+        <!-- Delete Modal -->
         <div class="modal fade" id="DeleteModal-@Model.RealestateId" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
