@@ -195,7 +195,7 @@ namespace Project1.Controllers
 
         [Authorize(Roles = "Default")] // Authorized only to default user
         [HttpPost]
-        public async Task<IActionResult> Rent(RentViewModel rentmodel)
+        public async Task<IActionResult> Rent(RentViewModel rentmodel) // when a user rent a real estate, we will remove this real estate from our booking system so that other users can not see it
         {
 
             var user = await _userManager.GetUserAsync(User); // get current user
@@ -220,7 +220,7 @@ namespace Project1.Controllers
             var days = (rentmodel.Rent.RentDateTo - rentmodel.Rent.RentDateFrom).Days; // Find out the number of days customers want to stay
             newRent.TotalPrice = days * realestate.Price; // Find out price
 
-            realestate.IsDeleted = true; // Mark the Real estate as deleted
+            realestate.IsDeleted = true; // Mark the Real estate as deleted, so that it is not visible to other users
 
             bool returnOK = await _realestateRepository.Rent(newRent);
 
