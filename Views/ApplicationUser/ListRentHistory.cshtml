@@ -14,6 +14,7 @@
 
         </tr>
         <tbody class="table-group-divider">
+            <!-- Display rent history-->
             @foreach (var rent in Model)
             {
                 <tr>
@@ -23,26 +24,28 @@
 
                     <td>@rent.RentDateTo</td>
 
-                    @if (rent.User != null)
+                    @if (rent.User != null) // if user is existed
                     {
                         <td>@rent.User.UserName</td>
 
                     }
 
-                    @if (rent.Realestate != null)
+                    @if (rent.Realestate != null) // if real estate is existed
                     {
-                        <td><a asp-controller="Realestate"
-   asp-action="Details"
-   asp-route-id="@rent.Realestate.RealestateId" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">@rent.Realestate.Name </a></td>
+                        <td>
+                            <a asp-controller="Realestate"
+                               asp-action="Details"
+                               asp-route-id="@rent.Realestate.RealestateId" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">@rent.Realestate.Name </a>
+                        </td>
                     }
-                <td> @rent.TotalPrice.ToString("N0").Replace(",", " ") kr </td>
-                   
+                    <td> @rent.TotalPrice.ToString("N0").Replace(",", " ") kr </td>
+
 
                 </tr>
             }
     </table>
     <div class="mt-5 pb-0 mb-0"><h3> Do you want to make a new booking?</h3> <p>Click here to check out all the possibilites!</p></div>
-    
+
     <div>
         <a class="show btn" asp-controller="Realestate" asp-action="GeneralTable">All Real-estates</a>
     </div>

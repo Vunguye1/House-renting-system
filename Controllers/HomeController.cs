@@ -4,7 +4,7 @@ namespace Project1.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index() // return main site
         {
             return View();
         }

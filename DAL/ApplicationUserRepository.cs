@@ -8,21 +8,17 @@ namespace Project1.DAL;
 public class ApplicationUserRepository : IApplicationUserRepository
 {
 	private readonly RealestateDbContext _db;
-	private readonly UserManager<ApplicationUser> _userManager; // call usermanager
-	private readonly SignInManager<ApplicationUser> _signInManager; // call signIn manager
+
 	private readonly ILogger<ApplicationUserRepository> _logger; //adding private readonly logger
 
-	public ApplicationUserRepository(RealestateDbContext db, UserManager<ApplicationUser> userManager,
-			SignInManager<ApplicationUser> signInManager, ILogger<ApplicationUserRepository> logger)
+	public ApplicationUserRepository(RealestateDbContext db, ILogger<ApplicationUserRepository> logger)
 	{
 		_db = db;
-		_userManager = userManager;
-		_signInManager = signInManager;
 		_logger = logger;
 	}
 
 
-	public IQueryable<Realestate>? GetActiveRealestates()
+	public IQueryable<Realestate>? GetActiveRealestates() // Query method. Get only real estate that are not marked as "deeted"
 	{
 		try
 		{
@@ -36,11 +32,11 @@ public class ApplicationUserRepository : IApplicationUserRepository
 		
 	}
 
-	public async Task<Realestate?> GetRealestateById(int id)
+	public async Task<Realestate?> GetRealestateById(int id) // get real estate based on id
 	{
         try
         {
-            return await _db.Realestates.FindAsync(id);
+            return await _db.Realestates.FindAsync(id); // find it based on real estate id
         }
         catch (Exception e)
         {
@@ -50,7 +46,7 @@ public class ApplicationUserRepository : IApplicationUserRepository
         
 	}
 
-	public async Task<IEnumerable<Realestate>?> GetRealestateByOwner(ApplicationUser user)
+	public async Task<IEnumerable<Realestate>?> GetRealestateByOwner(ApplicationUser user) // Retrieve real estate that user owns
 	{
         try
         {
@@ -58,7 +54,7 @@ public class ApplicationUserRepository : IApplicationUserRepository
 
             if (activeRealestates != null)
             {
-                return await activeRealestates.Where(p => p.UserId == user.Id).ToListAsync();
+                return await activeRealestates.Where(p => p.UserId == user.Id).ToListAsync(); // find these real estate by comparing there userid
             }
             else
             {
@@ -75,10 +71,10 @@ public class ApplicationUserRepository : IApplicationUserRepository
         
 	}
 
-	public async Task<IEnumerable<Rent>?> ListRentHistory(ApplicationUser user) {
+	public async Task<IEnumerable<Rent>?> ListRentHistory(ApplicationUser user) { // list all transaction/rent history
 		try
 		{
-            return await _db.Rent.Where(p => p.UserId == user.Id).ToListAsync();
+            return await _db.Rent.Where(p => p.UserId == user.Id).ToListAsync(); // getting these data by comparing their userId
         }
 		catch(Exception e)
 		{
@@ -90,16 +86,16 @@ public class ApplicationUserRepository : IApplicationUserRepository
     }
 
 
-    public async Task<bool> Delete(int id)
+    public async Task<bool> Delete(int id) // remove real estate based on its id
 	{
 		try
 		{
-            var realestate = await _db.Realestates.FindAsync(id);
-            if (realestate == null)
+            var realestate = await _db.Realestates.FindAsync(id); // find the real estate
+            if (realestate == null) // if not exist, return false
             {
                 return false;
             }
-            _db.Realestates.Remove(realestate);
+            _db.Realestates.Remove(realestate); // else, remove real estate and return true
             await _db.SaveChangesAsync();
             return true;
         }
@@ -111,7 +107,7 @@ public class ApplicationUserRepository : IApplicationUserRepository
 		
 	}
 
-	public async Task<bool> Update(Realestate realestate)
+	public async Task<bool> Update(Realestate realestate) // update the real estate
 	{
 		try
 		{

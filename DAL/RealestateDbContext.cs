@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Project1.Models
 {
-    public class RealestateDbContext: IdentityDbContext<ApplicationUser>
+    public class RealestateDbContext : IdentityDbContext<ApplicationUser>
     {
-        public RealestateDbContext(DbContextOptions<RealestateDbContext> options) : base(options) { 
+        public RealestateDbContext(DbContextOptions<RealestateDbContext> options) : base(options)
+        {
             //Database.EnsureCreated();
         }
 
@@ -15,19 +16,19 @@ namespace Project1.Models
         public DbSet<Rent> Rent { get; set; }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) // lazy loading handling
         {
             optionsBuilder.UseLazyLoadingProxies();
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder builder) // Handling delete behavior when we delete user or real estate
         {
 
             builder.Entity<Realestate>().HasOne(r => r.User).WithMany(u => u.Realestate
-            ).HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.SetNull);
+            ).HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.SetNull); // they will automatically set the value as null
 
             builder.Entity<Rent>().HasOne(r => r.User).WithMany(u => u.Rents
-            ).HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.SetNull);
+            ).HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.SetNull); // they will automatically set the value as null
             base.OnModelCreating(builder);
         }
     }

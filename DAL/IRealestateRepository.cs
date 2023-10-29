@@ -20,7 +20,7 @@ public interface IRealestateRepository
 
     Task<bool> Create(Realestate property);
 
-    
+
     Task<bool> Rent(Rent nyrent);
 
 }

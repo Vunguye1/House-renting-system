@@ -1,8 +1,13 @@
 ﻿@model RealestateListViewModel
+<!--Our renting page for both types-->
 
 <div class="container">
     <h2 class="generalheader">Check out all of our options!</h2>
-    <p class="mb-2">We have multiple options here, both houses and apartments</p">
+    <p class="mb-2">We have multiple options here, both houses and apartments</p>
+
+
+    <!--filtering button-->
+
     <div class="d-flex mb-2">
         <div class="pb-2 pl-0">
 
@@ -13,8 +18,6 @@
                 <a class="show btn btn-md" asp-controller="Realestate" asp-action="ApartmentTable">Apartments</a>
 
                 <a class="show btn btn-md" asp-controller="Realestate" asp-action="HouseTable">Houses</a>
-
-
 
             </div>
 
@@ -31,6 +34,7 @@
         </div>
     </div>
 
+    <!--Display button in table layout-->
 
     <partial name="_TableLayout" model="Model.realestates" />
 

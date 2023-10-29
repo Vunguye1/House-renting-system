@@ -55,10 +55,10 @@ namespace Project1.Controllers
         }
 
         
-        public async Task<IActionResult> ListRentHistory() // List rent hsitory for user
+        public async Task<IActionResult> ListRentHistory() // List rent history for user
         {
 
-            var curruser = await _userManager.GetUserAsync(User); //try to get user
+            var curruser = await _userManager.GetUserAsync(User); //try to get current user
 
             if (curruser == null) //if user is null we log
             {
@@ -74,24 +74,24 @@ namespace Project1.Controllers
                 return NotFound("Rent history not found");
             }
 
-            return View(renthistory); // else we want to show the hsitory in view
+            return View(renthistory); // else we want to show the history in view
         }
 
         
         [HttpGet] //GET-display form for updating the real estate
         public async Task<IActionResult> UpdateRealEstate(int id)
         {
-            var curruser = await _userManager.GetUserAsync(User); //try to get user
+            var curruser = await _userManager.GetUserAsync(User); //try to get current user
 
-            if (curruser.Realestate != null) { 
+            if (curruser.Realestate != null) { // check if this user has any real estate, if yes
 
                 foreach (var rs in curruser.Realestate)
                 {
-                    if (rs.RealestateId == id)
+                    if (rs.RealestateId == id) // we find the related real estate user wants to update
                     {
-                        var realestate = await _applicationUserRepository.GetRealestateById(id);
+                        var realestate = await _applicationUserRepository.GetRealestateById(id); // get this real esate
 
-                        if (realestate == null)
+                        if (realestate == null) // if this real estate id is not existed, we log error
                         {
                             _logger.LogError("[ApplicationUserController] Realestate not found when updating th realestateId {RealestateId:0000}", id);
                             return BadRequest("realestate not found for realestateId ");
@@ -100,7 +100,7 @@ namespace Project1.Controllers
                     }
                 }
             }
-            return NotFound("404! This real estate is not yours");
+            return NotFound("404! This real estate is not yours"); // if some one try to get access to others' real estate by copying URL, return a 404 message
             
             
         }
@@ -109,7 +109,7 @@ namespace Project1.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateRealEstate(Realestate realestate) 
         {
-            var curruser = await _userManager.GetUserAsync(User); //try to get user
+            var curruser = await _userManager.GetUserAsync(User); //try to get current user
 
             if (curruser == null) //if user is null we log
             {
@@ -117,12 +117,12 @@ namespace Project1.Controllers
                 return NotFound("User not found");
             }
 
-            realestate.UserId = curruser.Id;
+            realestate.UserId = curruser.Id; // bind userid of real estate of our currently logged in user
 
             if (ModelState.IsValid)
             {
                 
-                bool returnOk = await _applicationUserRepository.Update(realestate);
+                bool returnOk = await _applicationUserRepository.Update(realestate); // update this real estate
 
                 if (returnOk)
                 {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Project1.Migrations
 {
     /// <inheritdoc />
-    public partial class plswork : Migration
+    public partial class plssssssssssssss : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -174,8 +174,8 @@ namespace Project1.Migrations
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     imageurl = table.Column<string>(type: "TEXT", nullable: true),
                     imagefile = table.Column<string>(type: "TEXT", nullable: true),
-                    Persons = table.Column<int>(type: "INTEGER", nullable: true),
-                    Bathrooms = table.Column<int>(type: "INTEGER", nullable: true),
+                    Persons = table.Column<int>(type: "INTEGER", nullable: false),
+                    Bathrooms = table.Column<int>(type: "INTEGER", nullable: false),
                     UserId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>

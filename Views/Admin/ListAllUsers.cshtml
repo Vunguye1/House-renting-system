@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<ApplicationUser>
 
-<div class="container"> 
+<div class="container">
     <table class='table table-striped'>
-        <tr> <!--Display all existing users in db-->
+        <tr>
+            <!--Display all existing users in db-->
             <th>UserID</th>
             <th>Firstname</th>
             <th>LastName</th>
             <th>Username</th>
             <th>Manage</th>
-            
+
         </tr>
         @foreach (var user in Model)
         {
@@ -27,7 +28,7 @@
                     <!-- Create delete user button -->
                     <!-- Button trigger modal with a unique user id. This modal is used from Bootstrap library -->
                     <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@user.Id">
-                                                Delete
+                        Delete
                     </a>
 
                     <!-- Modal -->

@@ -33,7 +33,7 @@ namespace Project1.DAL;
         
     }
 
-    public async Task<IEnumerable<Realestate>?> GetAll()
+    public async Task<IEnumerable<Realestate>?> GetAll() // get all existing real estate
     {
         try
         {
@@ -58,7 +58,7 @@ namespace Project1.DAL;
         }
     }
 
-    public async Task<IEnumerable<Realestate>?> GetOnlyApartment()
+    public async Task<IEnumerable<Realestate>?> GetOnlyApartment() // get existing apartments in our system
     {
         
         try
@@ -67,7 +67,7 @@ namespace Project1.DAL;
 
             if (activeRealestates != null)
             {
-                return await activeRealestates.Where(p => p.Type == "Apartment").ToListAsync();
+                return await activeRealestates.Where(p => p.Type == "Apartment").ToListAsync(); // filtering by comparing the "key" type-word
             }
             else
             {
@@ -83,7 +83,7 @@ namespace Project1.DAL;
         }
     }
 
-    public async Task<IEnumerable<Realestate>?> GetOnlyHouse()
+    public async Task<IEnumerable<Realestate>?> GetOnlyHouse() // get existing houses in our system
     {
         try
         {
@@ -91,7 +91,7 @@ namespace Project1.DAL;
 
             if (activeRealestates != null)
             {
-                return await activeRealestates.Where(p => p.Type == "House").ToListAsync();
+                return await activeRealestates.Where(p => p.Type == "House").ToListAsync(); // filtering by comparing the "key" type-word
             }
             else
             {
@@ -108,11 +108,11 @@ namespace Project1.DAL;
 
     }
 
-    public async Task<Realestate?> GetRealestateById(int id)
+    public async Task<Realestate?> GetRealestateById(int id) // get existing real esate by id
     {
         try
         {
-            return await _db.Realestates.FirstOrDefaultAsync(i => i.RealestateId == id);
+            return await _db.Realestates.FirstOrDefaultAsync(i => i.RealestateId == id); // compare id to get the correct one
         }
         catch(Exception e)
         {
@@ -122,7 +122,7 @@ namespace Project1.DAL;
        
     }
 
-    public async Task<bool> Create(Realestate property)
+    public async Task<bool> Create(Realestate property) // add the new real estate to our database
     {
         try
         {
@@ -138,7 +138,7 @@ namespace Project1.DAL;
         }
     }
 
-    public async Task<bool> Rent(Rent nyrent)
+    public async Task<bool> Rent(Rent nyrent) // add new rent history to data base
     {
         try
         {

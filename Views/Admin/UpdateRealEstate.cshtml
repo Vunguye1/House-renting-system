@@ -2,7 +2,7 @@
 
 <div class="container">
     <h2>Update realestate</h2>
-
+    <!-- Create a form to update details to real estate-->
     <form asp-action="UpdateRealEstate">
         <input type="hidden" asp-for="RealestateId" />
         <input type="hidden" asp-for="UserId" />
@@ -29,13 +29,13 @@
 
         <div class="form-group">
             <label asp-for="Price"></label>
-            <input asp-for="Price" class="form-control"/>
+            <input asp-for="Price" class="form-control" />
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="Persons"></label>
-            <input asp-for="Persons" class="form-control"/>
+            <input asp-for="Persons" class="form-control" />
             <span asp-validation-for="Persons" class="text-danger"></span>
         </div>
 
@@ -51,17 +51,9 @@
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
 
-        <div class="form-group">
-            <label asp-for="imageurl"></label>
-            <input asp-for="imageurl" class="form-control" />
-            <span asp-validation-for="imageurl" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="imagefile"></label>
-            <input asp-for="imagefile" class="form-control" />
-            <span asp-validation-for="imagefile" class="text-danger"></span>
-        </div>
+        <!-- We hide this part because it belongs to the "back-end" work -->
+        <input type="hidden" asp-for="imageurl" />
+        <input type="hidden" asp-for="imagefile" />
 
         <button type="submit" class="btn btn-primary">Save Changes</button>
         <a asp-action="Table" class="btn btn-secondary">Cancel</a>

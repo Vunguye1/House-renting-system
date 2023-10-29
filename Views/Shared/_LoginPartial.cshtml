@@ -27,16 +27,16 @@
                     <a id="manage" class="dropdown-item navbar-brand text-black" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Account Information</a>
                 </li>
 
-                <!--if this user is admin user-->
+                
                 @if (await UserManager.IsInRoleAsync(user, "Admin"))  // Check if this user is an admin or just a default user
 
-                {                           // we will add a button here for admin management
+                {                           // if this user is admin user, we will add a button here for admin management
                     <li>
                         <a class="dropdown-item navbar-brand text-black" asp-area="" asp-controller="Admin" asp-action="Index">Admin management</a>
                     </li>
                 }
                 else // if this user is a default user
-                {                           // we will add a button here to display all real estates this user has
+                {                           // we will add two related buttons here for them
                     <li>
                         <a asp-controller="ApplicationUser" asp-action="ListRealestateByOwner" class="dropdown-item navbar-brand text-black">Your real estates</a>
                     </li>
@@ -45,6 +45,7 @@
                         <a asp-controller="ApplicationUser" asp-action="ListRentHistory" class="dropdown-item navbar-brand text-black">Your rent history</a>
                     </li>
                 }
+                <!--admin and default users will always have logout button-->
                 <li>
                     <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                         <button id="logout" type="submit" class="dropdown-item navbar-brand text-black text-dark">Logout</button>
@@ -54,11 +55,13 @@
 
         }
 
+        // log in button if user is not signed in 
         else
         {
             <a class=" navbar-brand text-black" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
         }
     }
+    // log in button if user is not logged in
     else
     {
         <a class=" navbar-brand text-black" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>

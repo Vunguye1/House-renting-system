@@ -20,7 +20,7 @@
 
                 <div class="form-floating m-4">
                     <!--add first name field -->
-                    <input asp-for="FirstName" class="form-control"/>
+                    <input asp-for="FirstName" class="form-control" />
                     <label asp-for="FirstName" class="form-label"></label>
                 </div>
 
@@ -32,12 +32,13 @@
                 </div>
 
                 <div class="form-floating m-4">
+                    <!--add phone number-->
                     <input asp-for="PhoneNumber" class="form-control" />
                     <label asp-for="PhoneNumber" class="form-label"></label>
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
 
-
+                <!--confirm button-->
                 <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
             </form>
         </div>

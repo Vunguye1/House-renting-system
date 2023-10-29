@@ -137,7 +137,7 @@ namespace Project1.Controllers
             var user = await _userManager.GetUserAsync(User); // get currently logged in user
             property.UserId = user.Id; // bind newly registered house to the currently logged user
 
-            String[] imagePath = await FileUpload();
+            String[] imagePath = await FileUpload(); // handling the uploaded image. Our approach is limited to only 1 picture file at this time. We will try to improve this in project 2
             property.imageurl = imagePath[0];
             property.imagefile = imagePath[1];
 
@@ -148,7 +148,7 @@ namespace Project1.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            else
+            else // if user is found, we create real estate for this user
             {
                 if (ModelState.IsValid)
                 {
@@ -220,11 +220,11 @@ namespace Project1.Controllers
             var days = (rentmodel.Rent.RentDateTo - rentmodel.Rent.RentDateFrom).Days; // Find out the number of days customers want to stay
             newRent.TotalPrice = days * realestate.Price; // Find out price
 
-            realestate.IsDeleted = true; // Mark the Realestate as deleted
+            realestate.IsDeleted = true; // Mark the Real estate as deleted
 
             bool returnOK = await _realestateRepository.Rent(newRent);
 
-            if (returnOK)
+            if (returnOK) // if everything is fine, return to general grid
             {
                 return RedirectToAction(nameof(GeneralGrid));
             }

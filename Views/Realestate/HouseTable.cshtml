@@ -1,8 +1,11 @@
 ﻿@model RealestateListViewModel
 
+<!--Table layout for house only-->
 <div class="container">
     <h2 class="generalheader">Check out our Houses!</h2>
     <p class="mb-2">We have multiple options here, both houses with pool, in the city and outside.</p>
+
+    <!--filtering button-->
     <div class="d-flex mb-2">
         <div class="pb-2 pl-0">
 
@@ -13,8 +16,6 @@
                 <a class="show btn btn-md" asp-controller="Realestate" asp-action="ApartmentTable">Apartments</a>
 
                 <a class="show btn btn-md active" asp-controller="Realestate" asp-action="HouseTable">Houses</a>
-
-
 
             </div>
 

@@ -26,57 +26,14 @@ builder.Services.AddDbContext<RealestateDbContext>(options =>
 });
 
 
-
 // Add Identity Services
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<RealestateDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 
-
-
-
-
-
-
-
-
-
-
-
-//builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-//{
-//    // Password settings
-//    options.Password.RequireDigit = true;
-//    options.Password.RequiredLength = 8;
-//    options.Password.RequireNonAlphanumeric = true;
-//    options.Password.RequireUppercase = true;
-//    options.Password.RequireLowercase = true;
-//    options.Password.RequiredUniqueChars = 6;
-
-//    // Lockout settings
-//    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60);
-//    options.Lockout.MaxFailedAccessAttempts = 5;
-//    options.Lockout.AllowedForNewUsers = true;
-
-//    // User settings
-//    options.User.RequireUniqueEmail = true;
-//})
-//.AddEntityFrameworkStores<ItemDbContext>()
-//.AddDefaultTokenProviders();
-
-
 builder.Services.AddRazorPages();
 builder.Services.AddSession();
-
-//builder.Services.AddDistributedMemoryCache();
-
-//builder.Services.AddSession(options =>
-//{
-//    options.Cookie.Name = ".AdventureWorks.Session";
-//    options.IdleTimeout = TimeSpan.FromSeconds(1800); // 30 minutes
-//    options.Cookie.IsEssential = true;
-//});
 
 // add serilog
 var loggerConfiguration = new LoggerConfiguration()

@@ -11,8 +11,8 @@ using Project1.Models;
 namespace Project1.Migrations
 {
     [DbContext(typeof(RealestateDbContext))]
-    [Migration("20231027140404_plswork")]
-    partial class plswork
+    [Migration("20231029154801_plssssssssssssss")]
+    partial class plssssssssssssss
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -237,7 +237,7 @@ namespace Project1.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("Bathrooms")
+                    b.Property<int>("Bathrooms")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
@@ -255,7 +255,7 @@ namespace Project1.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("Persons")
+                    b.Property<int>("Persons")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Price")

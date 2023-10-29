@@ -29,10 +29,10 @@ namespace Project1.Models
         public string? imagefile { get; set; }
 
         [Range(1, 10, ErrorMessage = "Persons must be between 1 and 10.")]
-        public int? Persons { get; set; }
+        public int Persons { get; set; }
 
         [Range(0, 10, ErrorMessage = "Bathrooms must be between 0 and 10.")]
-        public int? Bathrooms { get; set; }
+        public int Bathrooms { get; set; }
 
         public string? UserId { get; set; }
 

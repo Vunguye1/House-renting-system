@@ -10,7 +10,6 @@ namespace Project1.Models
         {
             using var serviceScope = app.ApplicationServices.CreateScope();
             RealestateDbContext context = serviceScope.ServiceProvider.GetRequiredService<RealestateDbContext>();
-            //context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
 
@@ -49,7 +48,7 @@ namespace Project1.Models
 
 
 
-                // Mock some real estates
+                // Mock some real estates and bind them with the two users. This is for demonstrating reason
                 var items = new List<Realestate>
 
             {

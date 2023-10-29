@@ -3,6 +3,8 @@
 <div class="container">
     <h2>Register your new property here :) !</h2>
 
+    <p class="text-danger">All fields must be filled in order to register your place</p>
+
     <form asp-action="Create" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label asp-for="Name"></label><span class="text-danger">*</span>
@@ -32,28 +34,26 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="Persons"></label>
+            <label asp-for="Persons"></label><span class="text-danger">*</span>
             <input asp-for="Persons" class="form-control" />
             <span asp-validation-for="Persons" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Bathrooms"></label>
+            <label asp-for="Bathrooms"></label><span class="text-danger">*</span>
             <input asp-for="Bathrooms" class="form-control" />
             <span asp-validation-for="Bathrooms" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Description"></label>
+            <label asp-for="Description"></label><span class="text-danger">*</span>
             <input asp-for="Description" class="form-control" />
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
 
-        <input type="hidden" asp-for="imageurl" />
-
         <div class="form-group m-4">
         <label asp-for="imageurl" class="form-label" style="width: 100%;">Upload image</label>
-        <input type="file" asp-for="imageurl" name="file" id="file" accept=".jpg, .jpeg, .png" required />
+        <input type="file" asp-for="imageurl" name="file" id="file" accept=".jpg, .jpeg, .png"/>
         <span asp-validation-for="imageurl" class="text-danger"></span>
         </div>
 

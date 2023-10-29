@@ -7,15 +7,14 @@
 
 <div class="container-fluid">
 
-
+    <!--Display contents in table layout-->
     @foreach (var realestate in Model)
     {
         <div class="d-flex mb-5 listbox box rounded">
             <div class="p-4 ">
-                <img src="@realestate.imageurl" alt="@realestate.Description" class="img rounded" style="width:250px; height: 250px; overflow:hidden"> 
-                
-
+                <img src="@realestate.imageurl" alt="@realestate.Description" class="img rounded" style="width:250px; height: 250px; overflow:hidden">
             </div>
+
             <div class="d-flex flex-grow-1 flex-column p-4 divlist">
                 <div>
                     <h5 class="card-title">
@@ -25,22 +24,23 @@
                            class="text-decoration-none">@realestate.Name</a>
                     </h5>
 
-                 
 
-                        @if (realestate.User != null)
-                        {
-                                <div class="mb-2">
-                                    <img src="/img/icons/person-fill.svg" alt="Grid" width="20" height="20">
 
-                                    <span>@realestate.User.FirstName @realestate.User.LastName</span>
-                                </div>
-                        }
+                    <!--if user exists, we display its related information-->
+                    @if (realestate.User != null)
+                    {
+                        <div class="mb-2">
+                            <img src="/img/icons/person-fill.svg" alt="Grid" width="20" height="20">
+
+                            <span>@realestate.User.FirstName @realestate.User.LastName</span>
+                        </div>
+                    }
 
                     <div class="mb-2">
                         <img src="/img/icons/geo-alt-fill.svg" alt="Grid" width="18" height="18">
                         <span>@realestate.Location</span>
                     </div>
-                    
+
                     <p class="text-container" style="max-width: 700px">
                         @realestate.Description
                     </p>
@@ -54,63 +54,58 @@
             </div>
 
 
-                <div class="d-flex flex-column mt-auto p-4 mb-5 pricelist ">
-                    <h5>
-                        @realestate.Price.ToString("N0").Replace(",", " ") NOK/day
+            <div class="d-flex flex-column mt-auto p-4 mb-5 pricelist ">
+                <h5>
+                    @realestate.Price.ToString("N0").Replace(",", " ") NOK/day
 
-                    </h5>
+                </h5>
 
 
-                    @{
-                        var currentLoggedinUser = await UserManager.GetUserAsync(User); // get currently logged in user
+                @{
+                    var currentLoggedinUser = await UserManager.GetUserAsync(User); // get currently logged in user
+                }
+
+                @if (SignInManager.IsSignedIn(User)) // If user is logged in
+                {
+
+                    @if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Admin")) // if this is admin, display the two buttons
+                    {
+                        <div>
+                            <a asp-controller="Admin" asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-outline-primary">Update</a>
+
+                            <!-- Create delete real estate button -->
+                            <!-- Button trigger modal with a unique real estate id. This modal is used from Bootstrap library -->
+                            <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@realestate.RealestateId">
+                                Delete
+                            </a>
+                        </div>
                     }
 
-                    @if (SignInManager.IsSignedIn(User)) // If user is logged in
+                    else if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Default") && realestate.UserId == currentLoggedinUser.Id) // if this is user, and they own this property.
                     {
+                        <div>
+                            <a asp-controller="ApplicationUser" asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-outline-primary">Update</a>
 
-                        @if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Admin")) // if this is admin, display the two buttons
-                        {
-                            <div>
-                                <a asp-controller="Admin" asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-outline-primary">Update</a>
-
-                                <!-- Create delete real estate button -->
-                                <!-- Button trigger modal with a unique real estate id. This modal is used from Bootstrap library -->
-                                <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@realestate.RealestateId">
-                                    <!--<img src="/img/icons/trash3.svg" alt="List" width="25" height="25"> -->
-                                    Delete
-                                </a>
-                            </div>
-                        }
-
-                        else if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Default") && realestate.UserId == currentLoggedinUser.Id)
-                        {
-                            // if this is a default user, only display buttons on real estates this user owns
-                            <div>
-                                <a asp-controller="ApplicationUser" asp-action="UpdateRealEstate" asp-route-id="@realestate.RealestateId" class="btn btn-outline-primary">Update</a>
-
-                                <!-- Create delete real estate button -->
-                                <!-- Button trigger modal with a unique real estate id. This modal is used from Bootstrap library -->
-                                <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@realestate.RealestateId">
-                                    Delete
-                                </a>
-                            </div>
-                        }
-                        else if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Default") && realestate.UserId != currentLoggedinUser.Id) // if user is logged in, display only on real estates that this user does not own
-                        {
-                            <a asp-controller="Realestate" asp-action="Rent" asp-route-realestateId="@realestate.RealestateId" class="btn btn-success">Rent</a>
-                        }
-
-
-
+                            <!-- Create delete real estate button -->
+                            <!-- Button trigger modal with a unique real estate id. This modal is used from Bootstrap library -->
+                            <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@realestate.RealestateId">
+                                Delete
+                            </a>
+                        </div>
                     }
-                    else if (!SignInManager.IsSignedIn(User)) // If user is not logged in
+                    else if (await UserManager.IsInRoleAsync(currentLoggedinUser, "Default") && realestate.UserId != currentLoggedinUser.Id) // if user is logged in, display "rent" button on real estates that this user does not own
                     {
-
                         <a asp-controller="Realestate" asp-action="Rent" asp-route-realestateId="@realestate.RealestateId" class="btn btn-success">Rent</a>
-
                     }
-                </div>
-            
+                }
+                else if (!SignInManager.IsSignedIn(User)) // If user is not logged in, we will automatically display "rent" button
+                {
+
+                    <a asp-controller="Realestate" asp-action="Rent" asp-route-realestateId="@realestate.RealestateId" class="btn btn-success">Rent</a>
+
+                }
+            </div>
+
         </div>
 
         <!-- Modal -->
