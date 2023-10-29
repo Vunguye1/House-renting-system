@@ -141,21 +141,6 @@ header {
   overflow: hidden;
 }
 
-#carouselDetail .carousel-indicators li {
-    height: 40px;
-    width: 40px;
-}
-.carousel-indicators .active {
-    border:2px;
-    border-color:white;
-}
-
-.img-indicator{
-    width: 100%;
-    height:100%;
-    overflow:hidden;
-}
-
 
 /*Carousel in Detail DONE*/
 /*Footer*/
@@ -254,10 +239,7 @@ div.fcontent > p:hover {
     10px 10px 15px rgba(50, 50, 50, 0.12);
 }
 
-/*White border around boxes in table view*/
-.listbox {
-  border: 3px solid #ffffff;
-}
+
 /*That turns light grey when hoovering*/
 .listbox:hover {
   transform: scale(1.03);
@@ -270,18 +252,12 @@ a.show {
   border-color: #e8e8e8; /* Samme farge for kant */
 }
 
-a.show:hover {
-  color: black;
-  background-color: #e8e8e8;
-}
-
-a.show.active {
-  background-color: #e8e8e8;
-}
 
 .view.active,
-.view:hover {
-  background-color: #e8e8e8;
+.view:hover,
+a.show.active,
+a.show:hover {
+    background-color: #e8e8e8;
 }
 
 .popup:hover {
@@ -291,7 +267,7 @@ a.show.active {
 
 .text-container {
   line-height: 1.3;
-  max-height: 3.9em; /* Sett ønsket høyde for visningen */
+  max-height: 3.9em;
   overflow: hidden;
   position: relative;
   margin-bottom: 1px;
@@ -307,7 +283,6 @@ a.show.active {
 }
 
 .detail-container {
-    /*width:800px;*/
     display: flex;
     width: 600px;
 }
@@ -329,7 +304,7 @@ a.show.active {
     }
 
 }
-/* narrow screen rent card underneath*/
+/* narrow screen -> rent card underneath*/
 @media  (max-width: 1000px) {
 
     .card.rentbox {
@@ -340,15 +315,12 @@ a.show.active {
     }
 }
 
-.pricelist{
+.pricelist{ /*Price in tablelayout, get enoguh place to be on one line. */
     min-width:210px;
     
 }
 
-.divlist{
-    max-widht:100px;
-}
-
+/*Used on most headers to make space around*/
 .generalheader {
     padding-top: 20px;
     margin-top: 40px;
