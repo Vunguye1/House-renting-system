@@ -133,20 +133,5 @@ namespace Project1.Controllers
             return View(realestate);
             
         }
-
-
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(int id) //Users have the ability to remove their listed rental properties
-        {
-            
-            bool returnOk= await _applicationUserRepository.Delete(id); //try to delete user
-            if (!returnOk) //if not OK we log
-            {
-                _logger.LogError("[ApplicationUserController] Realestate deletion failed for the RealestateId {RealestateId:0000}", id);
-                return BadRequest("Realestate deletion failed");
-            }
-            return RedirectToAction(nameof(ListRealestateByOwner));
-        }
     }
 }

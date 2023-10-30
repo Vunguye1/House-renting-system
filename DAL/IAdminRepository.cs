@@ -13,7 +13,6 @@ public interface IAdminRepository
     Task<IEnumerable<ApplicationUser>?> ListAllUsers();
     Task<IEnumerable<Realestate>?> ListAllRealestates(); 
     Task<bool> UpdateRealestate(Realestate realestate);
-    Task<bool> DeleteRealestate(int id);
     Task<bool> UpdateUser(ApplicationUser user);
     Task<bool> DeleteUser(string userid);
     Task<Realestate?> GetRealestateById(int id);

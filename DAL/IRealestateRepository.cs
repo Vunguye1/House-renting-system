@@ -21,6 +21,8 @@ public interface IRealestateRepository
     Task<bool> Create(Realestate property);
 
 
+    Task<bool> DeleteRealestate(int id);
+
     Task<bool> Rent(Rent nyrent);
 
 }

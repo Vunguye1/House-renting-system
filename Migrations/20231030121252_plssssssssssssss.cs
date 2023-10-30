@@ -170,7 +170,7 @@ namespace Project1.Migrations
                     Type = table.Column<string>(type: "TEXT", nullable: false),
                     Price = table.Column<int>(type: "INTEGER", nullable: false),
                     Location = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", maxLength: 2000, nullable: true),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 2000, nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     imageurl = table.Column<string>(type: "TEXT", nullable: true),
                     imagefile = table.Column<string>(type: "TEXT", nullable: true),
