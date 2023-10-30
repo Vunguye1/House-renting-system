@@ -1,12 +1,11 @@
 ﻿@model RentViewModel
 
-
 <!--Register booking form-->
 
 <div class="container divcontent">
     <h2>Create your booking here</h2>
 
-    <form asp-action="Rent">
+    <form asp-action="Rent" id="rentForm">
         <div class="form-group">
             <label asp-for="@Model.Realestate.Name"></label>
             <textarea id="RealestateName" class="form-control" readonly>@Model.Realestate.Name</textarea>
@@ -14,18 +13,19 @@
 
         <div class="form-group">
             <label asp-for="@Model.Rent.RentDateFrom"></label><span class="text-danger">*</span>
-            <input asp-for="@Model.Rent.RentDateFrom" class="form-control" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            <input asp-for="@Model.Rent.RentDateFrom" class="form-control" id="rentDateFrom" name="rentDateFrom" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
             <span asp-validation-for="@Model.Rent.RentDateFrom" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="@Model.Rent.RentDateTo"></label><span class="text-danger">*</span>
-            <input asp-for="@Model.Rent.RentDateTo" class="form-control" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            <input asp-for="@Model.Rent.RentDateTo" class="form-control" id="rentDateTo" name="rentDateTo" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
             <span asp-validation-for="@Model.Rent.RentDateTo" class="text-danger"></span>
         </div>
 
 
-        <div class="form-group"> <!--Display the targeted real estate-->
+        <div class="form-group">
+            <!--Display the targeted real estate-->
             <input type="hidden" asp-for="@Model.Rent.RealestateId" value="@Model.Realestate.RealestateId" />
         </div>
 
@@ -34,3 +34,36 @@
 </div>
 
 <partial name="_footerdiv" />
+
+<!--To check that rentDateTo is before RentDateFrom-->
+<!-- jQuery-libaray -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+            $('#rentForm').submit(function(event) {
+                event.preventDefault();
+                var rentDateFrom = new Date($('#rentDateFrom').val());
+                var rentDateTo = new Date($('#rentDateTo').val());
+                var currentDate = new Date();
+
+                if (rentDateFrom < currentDate) {
+                    alert('RentDateFrom cannot be in the past');
+                    return;
+                }
+
+                if (rentDateTo < currentDate) {
+                    alert('RentDateTo cannot be in the past');
+                    return;
+                }
+
+                if (rentDateTo < rentDateFrom) {
+                    alert('RentDateTo cannot be before RentDateFrom');
+                    return;
+                }
+
+                // Send formdata til serveren eller gjør andre handlinger hvis validering er ok
+                this.submit();
+            });
+    });
+</script>
