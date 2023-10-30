@@ -97,34 +97,6 @@ public class AdminRepository : IAdminRepository
         }
 
     }
-
-
-    public async Task<bool> DeleteRealestate(int id) // delete real estate based on id
-    {
-
-        try
-        {
-            var property = await _db.Realestates.FindAsync(id); // first, we get access to the right property
-            if (property == null) // if it is not existed, return false
-            {
-                return false;
-            }
-
-            _db.Realestates.Remove(property); // remove this property and return true if everything is alright
-            await _db.SaveChangesAsync();
-            return true;
-
-        }
-        catch (Exception e) // log error
-        {
-            _logger.LogError("[AdminRepository] Failed to delete Realestate with ID {RealestateId}: error message: {e}", id, e.Message);
-            return false;
-        }
-
-    }
-
-
-
     public async Task<bool> UpdateUser(ApplicationUser user) // update information to a specific user
     {
         try
