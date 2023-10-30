@@ -12,8 +12,6 @@ public interface IApplicationUserRepository
     Task<IEnumerable<Realestate>?> GetRealestateByOwner(ApplicationUser user);
 
     Task<IEnumerable<Rent>?> ListRentHistory(ApplicationUser user);
-
-    Task<bool> Delete(int id);
     Task<bool> Update(Realestate realestate);
 
 }

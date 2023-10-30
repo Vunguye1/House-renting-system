@@ -164,6 +164,20 @@ namespace Project1.Controllers
             }
         }
 
+        [Authorize(Roles = "Default, Admin")] // Authorized only to default user
+        [HttpPost] //POST- perform the deletion of the realestate
+        public async Task<IActionResult> DeleteConfirmed(int id) //Admin has the capability to delete real es
+        {
+            bool returnOk = await _realestateRepository.DeleteRealestate(id); //try to delete the realestate
+            if (!returnOk) //if not OK we log the error.
+            {
+                _logger.LogError("[AdminController] Realestate deletion failed for the RealestateID {RealestateId:0000}", id);
+                return BadRequest("Realestate deletion failed");
+            }
+
+            return RedirectToAction(nameof(GeneralTable)); //if OK we return to the view of all realestates.
+        }
+
 
         [Authorize(Roles = "Default")] // Authorized only to default user
         [HttpGet]

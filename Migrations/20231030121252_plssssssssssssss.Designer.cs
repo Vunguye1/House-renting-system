@@ -11,7 +11,7 @@ using Project1.Models;
 namespace Project1.Migrations
 {
     [DbContext(typeof(RealestateDbContext))]
-    [Migration("20231029154801_plssssssssssssss")]
+    [Migration("20231030121252_plssssssssssssss")]
     partial class plssssssssssssss
     {
         /// <inheritdoc />
@@ -241,6 +241,7 @@ namespace Project1.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("TEXT");
 

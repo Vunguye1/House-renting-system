@@ -85,28 +85,6 @@ public class ApplicationUserRepository : IApplicationUserRepository
 		
     }
 
-
-    public async Task<bool> Delete(int id) // remove real estate based on its id
-	{
-		try
-		{
-            var realestate = await _db.Realestates.FindAsync(id); // find the real estate
-            if (realestate == null) // if not exist, return false
-            {
-                return false;
-            }
-            _db.Realestates.Remove(realestate); // else, remove real estate and return true
-            await _db.SaveChangesAsync();
-            return true;
-        }
-		catch(Exception e)
-		{
-			_logger.LogError("[ApplicationUserRepository] Realestate deletion failed for the RealestateId {RealestateId:0000} , error message: {e}", id, e.Message);
-			return false;
-		}
-		
-	}
-
 	public async Task<bool> Update(Realestate realestate) // update the real estate
 	{
 		try

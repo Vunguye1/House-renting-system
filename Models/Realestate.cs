@@ -9,7 +9,7 @@ namespace Project1.Models
         [Key]
         public int RealestateId { get; set; }
 
-        [RegularExpression(@"[0-9a-zA-ZæøåÆØÅ. \-]{2,20}", ErrorMessage="The name must be numbers or letters and between 2 to 20 characters.")]
+        [RegularExpression(@"[0-9a-zA-ZæøåÆØÅ. \-]{2,100}", ErrorMessage="The name must be numbers or letters and between 2 to 100 characters.")]
         public string Name { get; set; } = string.Empty;
 
         public string Type { get; set; } = string.Empty;
@@ -21,8 +21,9 @@ namespace Project1.Models
         [RegularExpression(@"[a-zA-ZæøåÆØÅ., \-]{2,50}", ErrorMessage = "Location must must consist of 2 to 50 letters")]
         public string Location { get; set; } = string.Empty;
 
+        [MinLength(3, ErrorMessage = "Description must consist of at least 3 characters")]
         [StringLength(2000)]
-        public string? Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         public bool IsDeleted { get; set; }
         public string? imageurl { get; set; }
