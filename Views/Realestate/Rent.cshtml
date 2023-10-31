@@ -45,20 +45,10 @@
                 event.preventDefault();
                 var rentDateFrom = $('#rentDateFrom').val();
                 var rentDateTo = $('#rentDateTo').val();
-                var currentDate = new Date();
+               
 
-                if (rentDateFrom < currentDate) {
-                    alert('RentDateFrom cannot be in the past');
-                    return;
-                }
-
-                if (rentDateTo < currentDate) {
-                    alert('RentDateTo cannot be in the past');
-                    return;
-                }
-
-                if (rentDateTo < rentDateFrom) {
-                    alert('RentDateTo cannot be before RentDateFrom');
+                if (rentDateTo <= rentDateFrom) {
+                    alert('RentDateTo is required to be after the RentDateFrom.');
                     return;
                 }
 
