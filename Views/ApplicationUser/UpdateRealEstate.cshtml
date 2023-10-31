@@ -7,7 +7,7 @@
         <input type="hidden" asp-for="RealestateId" />
         <input type="hidden" asp-for="UserId" />
         <div class="form-group">
-            <label asp-for="Name"></label>
+            <label asp-for="Name"></label><span class="text-danger">*</span>
             <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="Type"></label>
+            <label asp-for="Type"></label><span class="text-danger">*</span>
             <select asp-for="Type" class="form-control">
                 <option value="Apartment">Apartment</option>
                 <option value="House">House</option>
@@ -28,25 +28,25 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="Price"></label>
+            <label asp-for="Price"></label><span class="text-danger">*</span>
             <input asp-for="Price" class="form-control"/>
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Persons"></label>
+            <label asp-for="Persons"></label><span class="text-danger">*</span>
             <input asp-for="Persons" class="form-control"/>
             <span asp-validation-for="Persons" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Bathrooms"></label>
+            <label asp-for="Bathrooms"></label><span class="text-danger">*</span>
             <input asp-for="Bathrooms" class="form-control" />
             <span asp-validation-for="Bathrooms" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Description"></label>
+            <label asp-for="Description"></label><span class="text-danger">*</span>
             <input asp-for="Description" class="form-control" />
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
